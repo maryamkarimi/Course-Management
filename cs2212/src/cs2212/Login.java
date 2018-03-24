@@ -1,5 +1,8 @@
 package cs2212;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Login {
@@ -40,7 +43,18 @@ public class Login {
 				}
 				
 				else {
-					
+					try {
+						OfferingFactory factory = new OfferingFactory();
+						System.out.print("Please enter the name of the file: ");
+						String filename = input.next();
+						BufferedReader br = new BufferedReader(new FileReader(filename));
+						//Use the factory to populate as many instances of courses as many files we've got.
+						Course courseOffering = factory.createCourseOffering(br);
+						br.close();
+					}	
+					catch(IOException e) {
+						System.out.println(e.getMessage());
+					}
 				}
 			}
 			
