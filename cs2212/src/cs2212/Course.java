@@ -5,15 +5,17 @@ import java.util.Map;
 
 public class Course {
 	private String courseName;
-	private int courseID;
-	private String semester;
+	private String courseID;
+	private int semester;
 	private ArrayList<Student> studentsAllowedToEnroll;
 	private ArrayList<Student> studentsEnrolled;
 	private ArrayList<Instructor> instructorList;
 	Map<EvaluationTypes, Weights> evaluationStrategies;
 	
-	Course(String fileName){
-		
+	Course(){
+		studentsAllowedToEnroll = new ArrayList<Student>();
+		studentsEnrolled =  new ArrayList<Student>();
+		instructorList =  new ArrayList<Instructor>();
 	}
 
 
@@ -25,19 +27,19 @@ public class Course {
 		this.courseName = courseName;
 	}
 	
-	public int getCourseID() {
+	public String getCourseID() {
 		return courseID;
 	}
 
-	public void setCourseID(int courseID) {
+	public void setCourseID(String courseID) {
 		this.courseID = courseID;
 	}
 
-	public String getSemester() {
+	public int getSemester() {
 		return semester;
 	}
 
-	public void setSemester(String semester) {
+	public void setSemester(int semester) {
 		this.semester = semester;
 	}
 
@@ -101,7 +103,7 @@ public class Course {
 		Student target = null;
 		Double finalGrade;
 		for(Student student : studentsEnrolled)
-			if (student.getStudentID().equals(ID)) 
+			if (student.getID() == ID) 
 				target = student;
 		finalGrade = 0D;
 		Weights weights = evaluationStrategies.get(target.getEvaluationEntities().get(this));

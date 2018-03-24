@@ -3,7 +3,7 @@ package cs2212;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Student {
+public class Student implements SystemUser{
 	private String studentID;
 	private String name;
 	private String surname;
@@ -13,17 +13,16 @@ public class Student {
 	private Map<Course, Marks> perCourseMarks;
 	private NotificationTypes notificationType;
 	
-	public Student(String name,String surname, String ID) {
-		this.name = name;
-		this.surname = surname;
-		studentID = ID;
+	public Student() {
+		coursesAllowed = new ArrayList<Course>();
+		coursesEnrolled = new ArrayList<Course>();
 	}
 
-	public String getStudentID(){
+	public String getID(){
 		return this.studentID;
 	}
 	
-	public void setStudentID(String ID){
+	public void setID(String ID){
 		this.studentID = ID;
 	}
 	
@@ -35,11 +34,11 @@ public class Student {
 		this.name = name;
 	}
 	
-	public String getSurName(){
+	public String getSurname(){
 		return this.surname;
 	}
 	
-	public void setSurName(String surname){
+	public void setSurname(String surname){
 		this.surname = surname;
 	}
 

@@ -1,14 +1,15 @@
 package cs2212;
 
-public class Administrator {
+public class Administrator implements SystemUser {
+	
 	private String password;
-	private int adminID;
+	private String adminID;
 	private String username;
 	private String name;
 	private String surname;
 	private String email;
 	
-	public Administrator(String name,String surname, int ID,String password, String email, String username) {
+	public Administrator(String name,String surname, String ID,String password, String email, String username) {
 	
 		this.name = name;
 		this.surname = surname;
@@ -23,10 +24,10 @@ public class Administrator {
 	public void setPassword(String password){
 		this.password = password;
 	}
-	public int getAdministratorID(){
+	public String getID(){
 		return this.adminID;
 	}
-	public void setAdministratorID(int ID){
+	public void setID(String ID){
 		this.adminID = ID;
 	}
 	public String getAdministratorUserName(){
@@ -41,10 +42,10 @@ public class Administrator {
 	public void setName(String name){
 		this.name = name;
 	}
-	public String getSurName(){
+	public String getSurname(){
 		return this.surname;
 	}
-	public void setSurName(String surname){
+	public void setSurname(String surname){
 		this.surname = surname;
 	}
 	

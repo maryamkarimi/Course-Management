@@ -2,23 +2,21 @@ package cs2212;
 
 import java.util.ArrayList;
 
-public class Instructor {
-	private int instructorID;
+public class Instructor implements SystemUser{
+	
+	private String instructorID;
 	private String name;
 	private String surname;
 	private ArrayList<Course> isTutorOf;
 	
-	public Instructor(String name,String surname, int ID) {
-	
-		this.name = name;
-		this.surname = surname;
-		instructorID = ID;
+	public Instructor() {
+		isTutorOf = new ArrayList<Course>();
 	}
 
-	public int getInstructorID(){
+	public String getID(){
 		return this.instructorID;
 	}
-	public void setInstructorID(int ID){
+	public void setID(String ID){
 		this.instructorID = ID;
 	}
 
@@ -28,10 +26,10 @@ public class Instructor {
 	public void setName(String name){
 		this.name = name;
 	}
-	public String getSurName(){
+	public String getSurname(){
 		return this.surname;
 	}
-	public void setSurName(String surname){
+	public void setSurname(String surname){
 		this.surname = surname;
 	}
 
