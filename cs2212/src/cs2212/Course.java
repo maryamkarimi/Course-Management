@@ -1,42 +1,30 @@
 package cs2212;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class Course {
-	private String startDate;
-	private String endDate;
+	private String courseName;
 	private int courseID;
 	private String semester;
-	private String department;
-	private Array studentList[];
-	private Array instructorList[];
+	private ArrayList<Student> studentsAllowedToEnroll;
+	private ArrayList<Student> studentsEnrolled;
+	private ArrayList<Instructor> instructorList;
+	Map<EvaluationTypes, Weights> evaluationStrategies;
 	
-	Course(String startDate, String endDate, int courseID, String semester,String department, Array studentList[], Array instructorList[]){
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.courseID = courseID;
-		this.semester = semester;
-		this.department = department;
-		this.studentList = studentList;
-		this.instructorList = instructorList;
+	Course(String fileName){
+		
 	}
 
-	public String getStartDate() {
-		return startDate;
-	}
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public String getCourseName() {
+		return courseName;
 	}
-
-	public String getEndDate() {
-		return endDate;
+	
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-
+	
 	public int getCourseID() {
 		return courseID;
 	}
@@ -53,27 +41,77 @@ public class Course {
 		this.semester = semester;
 	}
 
-	public String getDepartment() {
-		return department;
+	public ArrayList<Student> getStudentsAllowedList() {
+		return studentsAllowedToEnroll;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setStudentsAllowedList(ArrayList<Student> studentList) {
+		this.studentsAllowedToEnroll = studentList;
 	}
 
-	public Array[] getStudentList() {
-		return studentList;
+	public ArrayList<Student> getStudentsEnrolledList() {
+		return studentsEnrolled;
 	}
 
-	public void setStudentList(Array[] studentList) {
-		this.studentList = studentList;
+	public void setStudentsEnrolledList(ArrayList<Student> studentList) {
+		this.studentsEnrolled = studentList;
 	}
-
-	public Array[] getInstructorList() {
+	
+	public ArrayList<Instructor> getInstructorList() {
 		return instructorList;
 	}
+	
+	public void addInstructor(Instructor instructor){
+		this.instructorList.add(instructor);
+	}
+	
+	public void removeInstructor(Instructor instructor){
+		this.instructorList.remove(instructor);
+	}
 
-	public void setInstructorList(Array[] instructorList) {
+	public void setInstructorList(ArrayList<Instructor> instructorList) {
 		this.instructorList = instructorList;
 	}
+	
+	public Map<EvaluationTypes, Weights> getEvaluationStrategies() {
+		return evaluationStrategies;
+	}
+	
+	public void setEvaluationStrategies(Map<EvaluationTypes, Weights> evaluationStrategies) {
+		this.evaluationStrategies = evaluationStrategies;
+	}
+	
+	public void calculateFinalGrades(){
+		Double finalGrade; 
+		for(Student student : studentsEnrolled){
+			finalGrade = 0D;
+			Weights weights = evaluationStrategies.get(student.getEvaluationEntities().get(this));
+			Marks marks  = student.getPerCourseMarks().get(this);
+			weights.initializeIterator();
+			while(weights.hasNext()){
+				weights.next();
+				finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
+			}
+		}
+	}
+	
+//	Calculates the Final Grades using the Weights and Marks utility classes see the comments in 
+//	these classes if unsure of how this works
+	public void calculateFinalGrade(String ID){
+		Student target = null;
+		Double finalGrade;
+		for(Student student : studentsEnrolled)
+			if (student.getStudentID().equals(ID)) 
+				target = student;
+		finalGrade = 0D;
+		Weights weights = evaluationStrategies.get(target.getEvaluationEntities().get(this));
+		Marks marks  = target.getPerCourseMarks().get(this);
+		weights.initializeIterator();
+		while(weights.hasNext()){
+			weights.next();
+			finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
+		}
+	}
+	
 }
+
