@@ -10,6 +10,7 @@ public class Login {
 	LoginServer server;
 	Scanner input;
 	SystemStatus status;
+	Course courseOffering;
 	
 	public Login() {
 		status = new SystemStatus();
@@ -49,7 +50,7 @@ public class Login {
 						String filename = input.next();
 						BufferedReader br = new BufferedReader(new FileReader(filename));
 						//Use the factory to populate as many instances of courses as many files we've got.
-						Course courseOffering = factory.createCourseOffering(br);
+						courseOffering = factory.createCourseOffering(br);
 						br.close();
 					}	
 					catch(IOException e) {
