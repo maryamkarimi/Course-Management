@@ -8,16 +8,17 @@ public class Course {
 	private int courseID;
 	private String semester;
 	private String department;
-	private Array studentList[];
+	private Array studentAllowedToEnroll[];
+
 	private Array instructorList[];
 	
-	Course(String startDate, String endDate, int courseID, String semester,String department, Array studentList[], Array instructorList[]){
-		this.startDate = startDate;
-		this.endDate = endDate;
+	
+	Course (int courseID, String semester,String department, Array studentList[], Array instructorList[]){
+		
 		this.courseID = courseID;
 		this.semester = semester;
 		this.department = department;
-		this.studentList = studentList;
+		this.studentAllowedToEnroll = studentList;
 		this.instructorList = instructorList;
 	}
 
@@ -62,11 +63,11 @@ public class Course {
 	}
 
 	public Array[] getStudentList() {
-		return studentList;
+		return studentAllowedToEnroll;
 	}
 
 	public void setStudentList(Array[] studentList) {
-		this.studentList = studentList;
+		this.studentAllowedToEnroll = studentList;
 	}
 
 	public Array[] getInstructorList() {
