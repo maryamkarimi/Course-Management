@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Course {
+
 	private String courseName;
 	private String courseID;
 	private int semester;
@@ -12,6 +13,7 @@ public class Course {
 	private ArrayList<Student> studentsEnrolled;
 	private ArrayList<Instructor> instructorList;
 	Map<EvaluationTypes, Weights> evaluationStrategies;
+
 	
 	Course(){
 		studentsAllowedToEnroll = new ArrayList<Student>();
@@ -54,12 +56,14 @@ public class Course {
 		this.studentsAllowedToEnroll = studentList;
 	}
 
+
 	public ArrayList<Student> getStudentsEnrolledList() {
 		return studentsEnrolled;
-	}
 
+	}
 	public void setStudentsEnrolledList(ArrayList<Student> studentList) {
 		this.studentsEnrolled = studentList;
+
 	}
 	
 	public ArrayList<Instructor> getInstructorList() {
