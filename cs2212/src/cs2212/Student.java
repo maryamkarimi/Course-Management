@@ -1,6 +1,7 @@
 package cs2212;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Student implements SystemUser{
@@ -16,6 +17,8 @@ public class Student implements SystemUser{
 	public Student() {
 		coursesAllowed = new ArrayList<Course>();
 		coursesEnrolled = new ArrayList<Course>();
+		evaluationEntities = new HashMap<Course, EvaluationTypes>();
+		perCourseMarks = new  HashMap<Course, Marks>();
 	}
 
 	public String getID(){

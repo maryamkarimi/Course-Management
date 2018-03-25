@@ -1,6 +1,7 @@
 package cs2212;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Course {
@@ -16,7 +17,9 @@ public class Course {
 		studentsAllowedToEnroll = new ArrayList<Student>();
 		studentsEnrolled =  new ArrayList<Student>();
 		instructorList =  new ArrayList<Instructor>();
+		evaluationStrategies = new HashMap<EvaluationTypes, Weights>();
 	}
+	
 
 
 	public String getCourseName() {

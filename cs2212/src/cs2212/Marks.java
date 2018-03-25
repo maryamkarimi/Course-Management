@@ -12,10 +12,13 @@ public class Marks {
 //	mark that the student received for that particular evaluation.
 //	for example <"Final", "98.5"> 
 //	this can be used to calculate the final grade of each student (check CourseOffering.calculateFinalGrades() for further details)
-	Map<String, Double> evalStrategy;
-	Iterator<Entry<String, Double>> entrySet;
-	Entry<String, Double> currentEntry;
-
+	private Map<String, Double> evalStrategy;
+	private Iterator<Entry<String, Double>> entrySet;
+	private Entry<String, Double> currentEntry;
+	
+	public Marks(){
+		evalStrategy = new HashMap<String, Double>();
+	}
 	public void addToEvalStrategy(String examOrAssignement, Double mark){
 		if(evalStrategy == null)
 			evalStrategy = new HashMap<String, Double>();
@@ -54,6 +57,10 @@ public class Marks {
 	
 	public Double getCurrentValue(){
 		return currentEntry.getValue();
+	}
+	
+	public Iterator<Entry<String, Double>> getIterator(){
+		return entrySet;
 	}
 	
 }

@@ -8,11 +8,13 @@ public class LoginServer {
 
 	private Hashtable<String,String> userPassHashtable; // username - password
 	private Hashtable<String,String> userTypeHashtable; // username - type (i-s-m)
+	private Hashtable<String,String> userIDHashtable; // username - Unique ID
 	
 	public LoginServer(String fileName){
 		
 		userPassHashtable = new Hashtable<String,String>();
 		userTypeHashtable = new Hashtable<String,String>();
+		userIDHashtable = new Hashtable<String,String>();
 		
 		try {
 			Scanner scanner = new Scanner (new FileReader(fileName));
@@ -22,6 +24,7 @@ public class LoginServer {
 				String token[] = line.split(",");
 				userTypeHashtable.put(token[1],token[0]);
 				userPassHashtable.put(token[1], token[2]);
+				userIDHashtable.put(token[1], token[3]);
 			}
 		
 			scanner.close();
@@ -45,7 +48,9 @@ public class LoginServer {
 		else {
 			return userTypeHashtable.get(username);
 		}
-		
-		
+	}
+	
+	public String getID (String username) {
+		return userIDHashtable.get(username);
 	}
 }

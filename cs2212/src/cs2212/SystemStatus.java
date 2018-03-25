@@ -4,8 +4,16 @@ public class SystemStatus {
 	
 	private boolean status;
 	
-	public SystemStatus() {
+	private static SystemStatus instance;
+	
+	private SystemStatus(){
 		status = false;
+	}
+	
+	public static SystemStatus getInstance(){
+		if(instance == null)
+			instance = new SystemStatus();
+		return instance;
 	}
 	
 	public void start() {
