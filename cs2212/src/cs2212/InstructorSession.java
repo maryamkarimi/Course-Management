@@ -1,8 +1,11 @@
 package cs2212;
 
+import java.util.Scanner;
+
 public class InstructorSession {
 	Administrator instructor;
 	String username;
+	Scanner input;
 	
 	public InstructorSession(String username){
 		this.username = username;
@@ -18,9 +21,9 @@ public class InstructorSession {
 		
 	}
 	
-	public void chooseOperation(int n) {
-		if (n==3) {
-			
-		}
+	public int chooseOperation(Scanner input) {
+		this.input = input;
+		int a = input.nextInt();
+		return a;
 	}
 }
