@@ -1,64 +1,85 @@
 package cs2212;
 
-public class Student {
-	private int studentID;
-	private String username;
+import java.util.ArrayList;
+import java.util.Map;
+
+public class Student implements SystemUser{
+	private String studentID;
 	private String name;
 	private String surname;
-	private int phoneNumber;
-	private String email;
-	private String password;
+	private ArrayList<Course> coursesAllowed;
+	private ArrayList<Course> coursesEnrolled;
+	private Map<Course, EvaluationTypes> evaluationEntities;
+	private Map<Course, Marks> perCourseMarks;
+	private NotificationTypes notificationType;
 	
-	public Student(String name,String surname, int ID,String password, String email,int phoneNumber, String username) {
-		this.name = name;
-		this.surname = surname;
-		studentID = ID;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.username = username;
-		this.password = password;
+	public Student() {
+		coursesAllowed = new ArrayList<Course>();
+		coursesEnrolled = new ArrayList<Course>();
 	}
-	public String getPassword(){
-		return this.password;
-	}
-	public void setPassword(String password){
-		this.password = password;
-	}
-	public int getStudentID(){
+
+	public String getID(){
 		return this.studentID;
 	}
-	public void setStudentID(int ID){
+	
+	public void setID(String ID){
 		this.studentID = ID;
 	}
-	public String getStudentUserName(){
-		return this.username;
-	}
-	public void setStudentUserName(String username){
-		this.username = username;
-	}
+	
 	public String getName(){
 		return this.name;
 	}
+	
 	public void setName(String name){
 		this.name = name;
 	}
-	public String getSurName(){
+	
+	public String getSurname(){
 		return this.surname;
 	}
-	public void setSurName(String surname){
+	
+	public void setSurname(String surname){
 		this.surname = surname;
 	}
-	public int getPhoneNum(){
-		return this.phoneNumber;
+
+	public ArrayList<Course> getCoursesAllowed() {
+		return coursesAllowed;
 	}
-	public void setPhoneNumber(int phonenumber){
-		this.phoneNumber = phonenumber;
+
+	public void setCoursesAllowed(ArrayList<Course> coursesAllowed) {
+		this.coursesAllowed = coursesAllowed;
 	}
-	public String getEmail(){
-		return this.email;
+
+	public ArrayList<Course> getCoursesEnrolled() {
+		return coursesEnrolled;
 	}
-	public void setEmail(String email){
-		this.email = email;
+
+	public void setCoursesEnrolled(ArrayList<Course> coursesEnrolled) {
+		this.coursesEnrolled = coursesEnrolled;
+	}
+
+	public Map<Course, EvaluationTypes> getEvaluationEntities() {
+		return evaluationEntities;
+	}
+
+	public void setEvaluationEntities(Map<Course, EvaluationTypes> evaluationEntities) {
+		this.evaluationEntities = evaluationEntities;
+	}
+
+	public Map<Course, Marks> getPerCourseMarks() {
+		return perCourseMarks;
+	}
+
+	public void setPerCourseMarks(Map<Course, Marks> perCourseMarks) {
+		this.perCourseMarks = perCourseMarks;
+	}
+
+	public NotificationTypes getNotificationType() {
+		return notificationType;
+	}
+
+	public void setNotificationType(NotificationTypes notificationType) {
+		this.notificationType = notificationType;
 	}
 	
 }

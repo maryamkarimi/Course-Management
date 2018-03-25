@@ -1,80 +1,124 @@
 package cs2212;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class Course {
-	private String startDate;
-	private String endDate;
-	private int courseID;
-	private String semester;
-	private String department;
-	private Array studentAllowedToEnroll[];
 
-	private Array instructorList[];
+	private String courseName;
+	private String courseID;
+	private int semester;
+	private ArrayList<Student> studentsAllowedToEnroll;
+	private ArrayList<Student> studentsEnrolled;
+	private ArrayList<Instructor> instructorList;
+	Map<EvaluationTypes, Weights> evaluationStrategies;
+
 	
+	Course(){
+		studentsAllowedToEnroll = new ArrayList<Student>();
+		studentsEnrolled =  new ArrayList<Student>();
+		instructorList =  new ArrayList<Instructor>();
+
+	}
+
+
+	public String getCourseName() {
+		return courseName;
+	}
 	
-	Course (int courseID, String semester,String department, Array studentList[], Array instructorList[]){
-		
-		this.courseID = courseID;
-		this.semester = semester;
-		this.department = department;
-		this.studentAllowedToEnroll = studentList;
-		this.instructorList = instructorList;
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
-
-	public String getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-	public String getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-
-	public int getCourseID() {
+	
+	public String getCourseID() {
 		return courseID;
 	}
 
-	public void setCourseID(int courseID) {
+	public void setCourseID(String courseID) {
 		this.courseID = courseID;
 	}
 
-	public String getSemester() {
+	public int getSemester() {
 		return semester;
 	}
 
-	public void setSemester(String semester) {
+	public void setSemester(int semester) {
 		this.semester = semester;
 	}
 
-	public String getDepartment() {
-		return department;
+	public ArrayList<Student> getStudentsAllowedList() {
+		return studentsAllowedToEnroll;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setStudentsAllowedList(ArrayList<Student> studentList) {
+		this.studentsAllowedToEnroll = studentList;
 	}
 
-	public Array[] getStudentList() {
-		return studentAllowedToEnroll;
-	}
 
-	public void setStudentList(Array[] studentList) {
-		this.studentAllowedToEnroll = studentList;
-	}
+	public ArrayList<Student> getStudentsEnrolledList() {
+		return studentsEnrolled;
 
-	public Array[] getInstructorList() {
+	}
+	public void setStudentsEnrolledList(ArrayList<Student> studentList) {
+		this.studentsEnrolled = studentList;
+
+	}
+	
+	public ArrayList<Instructor> getInstructorList() {
 		return instructorList;
 	}
+	
+	public void addInstructor(Instructor instructor){
+		this.instructorList.add(instructor);
+	}
+	
+	public void removeInstructor(Instructor instructor){
+		this.instructorList.remove(instructor);
+	}
 
-	public void setInstructorList(Array[] instructorList) {
+	public void setInstructorList(ArrayList<Instructor> instructorList) {
 		this.instructorList = instructorList;
 	}
+	
+	public Map<EvaluationTypes, Weights> getEvaluationStrategies() {
+		return evaluationStrategies;
+	}
+	
+	public void setEvaluationStrategies(Map<EvaluationTypes, Weights> evaluationStrategies) {
+		this.evaluationStrategies = evaluationStrategies;
+	}
+	
+	public void calculateFinalGrades(){
+		Double finalGrade; 
+		for(Student student : studentsEnrolled){
+			finalGrade = 0D;
+			Weights weights = evaluationStrategies.get(student.getEvaluationEntities().get(this));
+			Marks marks  = student.getPerCourseMarks().get(this);
+			weights.initializeIterator();
+			while(weights.hasNext()){
+				weights.next();
+				finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
+			}
+		}
+	}
+	
+//	Calculates the Final Grades using the Weights and Marks utility classes see the comments in 
+//	these classes if unsure of how this works
+	public void calculateFinalGrade(String ID){
+		Student target = null;
+		Double finalGrade;
+		for(Student student : studentsEnrolled)
+			if (student.getID() == ID) 
+				target = student;
+		finalGrade = 0D;
+		Weights weights = evaluationStrategies.get(target.getEvaluationEntities().get(this));
+		Marks marks  = target.getPerCourseMarks().get(this);
+		weights.initializeIterator();
+		while(weights.hasNext()){
+			weights.next();
+			finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
+		}
+	}
+	
 }
+
