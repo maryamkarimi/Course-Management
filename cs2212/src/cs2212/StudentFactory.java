@@ -9,7 +9,7 @@ import java.util.Map;
 public class StudentFactory implements SystemUserFactory {
 
 	public Student createSystemUserModel(BufferedReader br, Course course) {
-		// TODO Auto-generated method stub
+
 		Student newStudent;
 		try{
 		String line = br.readLine();

@@ -29,17 +29,28 @@ public class Login {
 			
 			// if the user is an administrator
 			if (result.equals("a")) {
-				AdministratorSession session = new AdministratorSession(username);
-				session.chooseOperation(input);
-				input = session.getInput();
+				try {
+					AdministratorSession session = new AdministratorSession(username);
+					session.chooseOperation(input);
+					input = session.getInput();
+				}
+				catch(NullPointerException e) {
+					System.out.println("You are not registered in the system. Call administrator for more info.");
+				}
 			}
 			
 			// if the user is a student
 			else if (result.equals("s")) {
 				if (SystemStatus.getInstance().isStarted()) {
-					StudentSession session = new StudentSession((Student)Register.getInstance().getRegisteredUser(server.getID(username)));
-					session.chooseOperation(input);
-					input = session.getInput();
+					try{
+						StudentSession session = new StudentSession((Student)Register.getInstance().getRegisteredUser(server.getID(username)));
+						session.chooseOperation(input);
+						input = session.getInput();
+					}
+					catch(NullPointerException e) {
+						System.out.println("You are not registered in the system. Call administrator for more info.");
+					}
+					
 				}
 				else {
 					System.out.println("You are not allowed to use the system at the moment, for  more info call the administrator.");
@@ -49,9 +60,14 @@ public class Login {
 			// if the user is an instructor
 			else if(result.equals("i")) {
 				if (SystemStatus.getInstance().isStarted()) {
-					InstructorSession session = new InstructorSession((Instructor)Register.getInstance().getRegisteredUser(server.getID(username)));
-					session.chooseOperation(input);
-					input = session.getInput();
+					try {
+						InstructorSession session = new InstructorSession((Instructor)Register.getInstance().getRegisteredUser(server.getID(username)));
+						session.chooseOperation(input);
+						input = session.getInput();
+					}
+					catch(NullPointerException e) {
+						System.out.println("You are not registered in the system. Call administrator for more info.");
+					}
 				}
 				else {
 					System.out.println("You are not allowed to use the system at the moment, for more info call the administrator.");

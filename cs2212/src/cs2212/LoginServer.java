@@ -22,9 +22,9 @@ public class LoginServer {
 			while (scanner.hasNext()) {
 				String line = scanner.next();
 				String token[] = line.split(",");
-				userTypeHashtable.put(token[1],token[0]);
-				userPassHashtable.put(token[1], token[2]);
-				userIDHashtable.put(token[1], token[3]);
+				userTypeHashtable.put(token[1].toLowerCase(),token[0]);
+				userPassHashtable.put(token[1].toLowerCase(), token[2].toLowerCase());
+				userIDHashtable.put(token[1].toLowerCase(), token[3]);
 			}
 		
 			scanner.close();
@@ -35,22 +35,22 @@ public class LoginServer {
 	}
 	
 	public String isValid(String username, String password) {
-		if (!userPassHashtable.keySet().contains(username)) {
+		if (!userPassHashtable.keySet().contains(username.toLowerCase())) {
 			System.out.println("This username is not recongnized, try again!");
 			return "n";
 		}
 		
-		else if (!userPassHashtable.get(username).equals(password)) {
+		else if (!userPassHashtable.get(username.toLowerCase()).equals(password)) {
 			System.out.println("Username and Password do not match.");
 			return "n";
 		}
 		
 		else {
-			return userTypeHashtable.get(username);
+			return userTypeHashtable.get(username.toLowerCase());
 		}
 	}
 	
 	public String getID (String username) {
-		return userIDHashtable.get(username);
+		return userIDHashtable.get(username.toLowerCase());
 	}
 }

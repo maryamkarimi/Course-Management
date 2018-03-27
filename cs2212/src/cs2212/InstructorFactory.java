@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class InstructorFactory implements SystemUserFactory {
 
 	public Instructor createSystemUserModel(BufferedReader br, Course course) {
-		// TODO Auto-generated method stub
+
 		Instructor newInstructorModel = new Instructor();
 		try{
 		String line = br.readLine();

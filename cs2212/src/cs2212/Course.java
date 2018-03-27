@@ -90,6 +90,14 @@ public class Course {
 		this.evaluationStrategies = evaluationStrategies;
 	}
 	
+	public boolean isStudentEnrolled(String studentID) {
+		for (Student student:studentsEnrolled) {
+			if (student.getID() == studentID) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public void calculateFinalGrades(){
 		Double finalGrade; 
 		for(Student student : studentsEnrolled){

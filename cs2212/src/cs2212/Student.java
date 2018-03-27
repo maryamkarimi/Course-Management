@@ -60,6 +60,15 @@ public class Student implements SystemUser{
 	public void setCoursesEnrolled(ArrayList<Course> coursesEnrolled) {
 		this.coursesEnrolled = coursesEnrolled;
 	}
+	
+	public boolean isEnrolledIn(String ID) {
+		for (Course course: coursesEnrolled) {
+			if (course.getCourseID().equals(ID)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public Map<Course, EvaluationTypes> getEvaluationEntities() {
 		return evaluationEntities;

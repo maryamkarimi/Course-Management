@@ -24,29 +24,24 @@ public class AdministratorSession{
 	
 	public void chooseOperation(Scanner input) {
 		this.input = input;
-		int option = 4;
+		String option = "4";
 		
 		do {
 			System.out.print("Choose one of the above: ");
-			if (input.hasNextInt()) {
-				option = this.input.nextInt();
-			}
-			else {
-				this.input.next();
-			}
+			option = this.input.next();
 		}
-		while(option!=1 && option!=2 && option!=3 && option!=4);
+		while(!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"));
 	
 		
-		if (option == 1)	{
+		if (option.equals("1"))	{
 			startSystem();
 			wantToLogOut();
 		}
-		else if (option == 2) {
+		else if (option.equals("2")) {
 			stopSystem();
 			wantToLogOut();
 		}
-		else if (option == 3) {
+		else if (option.equals("3")) {
 			readFile();
 			wantToLogOut();
 		}
@@ -66,15 +61,18 @@ public class AdministratorSession{
 	private void readFile() {
 		try {
 			OfferingFactory factory = new OfferingFactory();
-			System.out.print("Please enter the name of the file: ");
+			System.out.print("enter the name of the file: ");
 			String filename = this.input.next();
+			if (filename.equals("4")) {
+				return;
+			}
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			Course courseOffering = factory.createCourseOffering(br);
 			br.close();
 			System.out.println(courseOffering.getCourseName() +" has been added successfully.");
 		}	
 		catch(IOException e) {
-			System.out.print("No such file. Try again - ");
+			System.out.print("No such file. Enter 4 to Log out or ");
 			readFile();
 		}
 	}

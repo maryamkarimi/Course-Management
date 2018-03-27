@@ -11,10 +11,13 @@ public class Weights {
 //	For each assignment or quiz or exam or whatever means a faculty member can come up with to evaluate the students, we have the respective weight towards calculating the final mark.
 //	for example <"Final", "100"> 
 //	this can be used to calculate the final grade of each student (check CourseOffering.calculateFinalGrades() for further details)
-	Map<String, Double> evalStrategy;
-	Iterator<Entry<String, Double>> entrySet;
-	Entry<String, Double> currentEntry;
+	private Map<String, Double> evalStrategy;
+	private Iterator<Entry<String, Double>> entrySet;
+	private Entry<String, Double> currentEntry;
 	
+	public Weights() {
+		evalStrategy = new HashMap<String, Double> ();
+	}
 	public void addToEvalStrategy(String examOrAssignement, Double weight){
 		if(evalStrategy == null)
 			evalStrategy = new HashMap<String, Double>();

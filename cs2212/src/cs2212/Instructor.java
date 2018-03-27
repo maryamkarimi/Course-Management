@@ -36,6 +36,15 @@ public class Instructor implements SystemUser{
 	public ArrayList<Course> getIsTutorOf() {
 		return isTutorOf;
 	}
+	
+	public boolean isTutorOf(String ID) {
+		for (Course course: getIsTutorOf()) {
+			if (course.getCourseID().equals(ID)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void setIsTutorOf(ArrayList<Course> isTutorOf) {
 		this.isTutorOf = isTutorOf;

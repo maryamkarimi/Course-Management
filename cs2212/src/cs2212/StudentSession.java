@@ -23,28 +23,24 @@ public class StudentSession{
 	
 	public void chooseOperation(Scanner input) {
 		this.input = input;
-		int option = 4;
+		String option = "4";
 		
 		do {
 			System.out.print("Choose one of the above: ");
-			if (input.hasNextInt()) {
-				option = this.input.nextInt();
-			}
-			else {
-				this.input.next();
-			}
+			option = this.input.next();
 		}
-		while(option!=1 && option!=2 && option!=3 && option!=4);
+		while(!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"));
+	
 		
-		if (option == 1)	{
+		if (option.equals("1"))	{
 			enrollIncourse();
 			wantToLogOut();
 		}
-		else if (option == 2) {
+		else if (option.equals("2")) {
 			selectNotificationStatus();
 			wantToLogOut();
 		}
-		else if (option == 3) {
+		else if (option.equals("3")) {
 			printCourseEnrolled();
 			wantToLogOut();
 		}
@@ -53,9 +49,12 @@ public class StudentSession{
 	private void enrollIncourse() {
 		String ID = "";
 		do {
-			System.out.print("Please enter the course ID: ");
+			System.out.print("Please enter the course ID or enter 4 to Log out: ");
 			if (input.hasNext()) {
-			ID = this.input.next();
+				ID = this.input.next().toUpperCase();
+				if (ID.equals("4")) {
+					return;
+				}
 			}
 		}
 		while(!Register.getInstance().checkIfCourseHasAlreadyBeenCreated(ID));
@@ -75,7 +74,7 @@ public class StudentSession{
 			}
 			
 			else {
-				if (student.getCoursesEnrolled().contains(targetCourse)){
+				if (student.isEnrolledIn(targetCourse.getCourseID())){
 					System.out.println("You are already enrolled in: "+targetCourse.getCourseName());
 				}
 					
@@ -98,36 +97,48 @@ public class StudentSession{
 		boolean isValidCourse = false;
 		String ID = "";
 		do {
-			System.out.print("Please enter the course ID: ");
+			System.out.print("Please enter the course ID or enter 4 to Log out: ");
 			if (input.hasNext()) {
-			ID = this.input.next();
+				ID = this.input.next().toUpperCase();
+				if (ID.equals("4")) {
+					return;
+				}
 			}
 		}
 		while(Register.getInstance().getRegisteredCourse(ID)==null);
 		
 		Course targetCourse = Register.getInstance().getRegisteredCourse(ID);
 		for (Course course : student.getCoursesEnrolled()) {
-			System.out.println("enrolled in"+course.getCourseName());
 			if (course.getCourseName().equals(targetCourse.getCourseName())) {
 					isValidCourse = true;
 					break;
 			}
 		}
 		if ( isValidCourse == true) {
-			System.out.println("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
-				"\tSemester: "+targetCourse.getSemester()+"\nEvaluation Entity: "+student.getEvaluationEntities().get(targetCourse));
-				
-			Marks marks = student.getPerCourseMarks().get(targetCourse);
-			marks.initializeIterator();
-			Iterator<Entry<String, Double>> iterator = marks.getIterator();
-			while (iterator.hasNext()) {
-				Entry<String, Double> current = iterator.next();
-				System.out.println(current.getKey()+": "+current.getValue());
+			System.out.print("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
+				"\tSemester: "+targetCourse.getSemester()+"\nEvaluation Entity: "+student.getEvaluationEntities().get(targetCourse)+"\nInstructor(s): ");
+			int counter = 1;
+			for (Instructor instructor: targetCourse.getInstructorList()) {
+				System.out.print(counter + "-" +instructor.getName() + " " + instructor.getSurname()+"  ");
+				counter++;
+			}
+			try {
+				System.out.print("\nGrades: ");
+				Marks marks = student.getPerCourseMarks().get(targetCourse);
+				marks.initializeIterator();
+				Iterator<Entry<String, Double>> iterator = marks.getIterator();
+				while (iterator.hasNext()) {
+					Entry<String, Double> current = iterator.next();
+					System.out.println(current.getKey()+": "+current.getValue());
+				}
+			}
+			catch(NullPointerException e) {
+				System.out.println("No grades have been added to your record yet.");
 			}
 		}
 				
 		else {
-			System.out.println("Not able to print : You are now enrolled in "+targetCourse.getCourseName());
+			System.out.println("Not able to print : You are NOT enrolled in "+targetCourse.getCourseName());
 		}
 	}
 	

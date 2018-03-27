@@ -1,7 +1,9 @@
 package cs2212;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 public class InstructorSession {
 	Instructor instructor;
@@ -20,33 +22,30 @@ public class InstructorSession {
 	}
 	
 	public void chooseOperation(Scanner input) {
+		
 		this.input = input;
-		int option = 4;
+		String option = "4";
 		
 		do {
 			System.out.print("Choose one of the above: ");
-			if (input.hasNextInt()) {
-				option = this.input.nextInt();
-			}
-			else {
-				this.input.next();
-			}
+			option = this.input.next();
 		}
-		while(option!=1 && option!=2 && option!=3 && option!=4 && option!=5);
+		while(!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4") && !option.equals("5"));
+	
 		
-		if (option == 1)	{
+		if (option.equals("1"))	{
 			addMarkForStudent();
 			wantToLogOut();
 		}
-		else if (option == 2) {
+		else if (option.equals("2")) {
 			addMarkForStudent();
 			wantToLogOut();
 		}
-		else if (option == 3) {
+		else if (option.equals("3")) {
 			calculateFinalGradeForStudent();
 			wantToLogOut();
 		}
-		else if(option == 4) {
+		else if (option.equals("4")) {
 			printClassRecord();
 			wantToLogOut();
 		}
@@ -58,55 +57,54 @@ public class InstructorSession {
 	}
 	
 	private void addMarkForStudent() {
-		boolean isAlreadyEnrolled = false;
 		String CourseID = "";
 		String StudentID = "";
 		do {
 			System.out.print("Please enter the course ID: ");
-			if (input.hasNext()) {
-			CourseID = this.input.next();
-			}
+			CourseID = this.input.next().toUpperCase();
 		}
-		while(Register.getInstance().getRegisteredCourse(CourseID)==null);
+		while(Register.getInstance().getRegisteredCourse(CourseID)==null || !instructor.isTutorOf(CourseID));
 		
 		Course targetCourse = Register.getInstance().getRegisteredCourse(CourseID);
 		do {
 			System.out.print("Please enter the student ID: ");
-			if (input.hasNext()) {
-				StudentID = this.input.next();
-			}
+			StudentID = this.input.next();
 		}
-		while ((Student) Register.getInstance().getRegisteredUser(StudentID) == null);
+		while (Register.getInstance().getRegisteredUser(StudentID) == null);
 		
 		Student targetStudent =(Student) Register.getInstance().getRegisteredUser(StudentID);
 		
-		for (Course course: targetStudent.getCoursesEnrolled()) {
-			if (course.getCourseID() == CourseID) {
-				System.out.println("This student is not enrolled in this course.");
-				isAlreadyEnrolled = true;
-				break;
+		if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
+			System.out.println("This student is not enrolled in this course.");
 			}
-		}
 		
-		if (isAlreadyEnrolled == false) {
-			System.out.print("Please enter the Evaluation Entity name (e.g. Final, Assignment, etc.): ");
-			String eval = "";
-			if (input.hasNext()) {
-				eval = this.input.next();
-			}
-			
-			double mark = 0;
-			do {
-				System.out.print("Please enter the mark: ");
-				if (input.hasNextInt()) {
+		else {
+			try {
+				if (targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse))==null)
+					System.out.println("null");;
+
+				System.out.print("Choose one of the above:");
+				
+				String eval = "";
+				if (input.hasNext()) {
+					eval = this.input.next();
+				}
+				
+				double mark = 0;
+				do {
+					System.out.print("Please enter the mark: ");
 					mark = this.input.nextInt();
 				}
+				while(mark<0 || mark>100);
+				
+				Map<Course,Marks> map = targetStudent.getPerCourseMarks();
+				Marks marks = new Marks();
+				marks.addToEvalStrategy(eval, mark);
+				map.put(targetCourse, marks);
 			}
-			while(mark<0 || mark>100);
-			Map<Course,Marks> map = targetStudent.getPerCourseMarks();
-			Marks marks = new Marks();
-			marks.addToEvalStrategy(eval, mark);
-			map.put(targetCourse, marks);
+			catch(NullPointerException e) {
+				System.out.println("Instructor session exception");
+			}
 		}
 	}
 	
@@ -115,11 +113,16 @@ public class InstructorSession {
 		String StudentID = "";
 		do {
 			System.out.print("Please enter the course ID: ");
-			if (input.hasNext()) {
-			CourseID = this.input.next();
+			CourseID = this.input.next().toUpperCase();
+			if (!instructor.isTutorOf(CourseID)){
+				System.out.println("You are not listed as an instructor for this course");
+			}
+			if (Register.getInstance().getRegisteredCourse(CourseID)==null) {
+				System.out.println("Invalid course ID");
 			}
 		}
-		while(Register.getInstance().getRegisteredCourse(CourseID)==null);
+		while(Register.getInstance().getRegisteredCourse(CourseID)==null || !instructor.isTutorOf(CourseID));
+		
 		Course targetCourse = Register.getInstance().getRegisteredCourse(CourseID);
 		do {
 			System.out.print("Please enter the student ID: ");
@@ -137,17 +140,23 @@ public class InstructorSession {
 		do {
 			System.out.print("Please enter the course ID: ");
 			if (input.hasNext()) {
-			ID = this.input.next();
+				ID = this.input.next().toUpperCase();
+			}
+			if (!instructor.isTutorOf(ID)){
+				System.out.println("You are not listed as an instructor for this course");
+			}
+			if (Register.getInstance().getRegisteredCourse(ID)==null) {
+				System.out.println("Invalid course ID");
 			}
 		}
-		while(Register.getInstance().getRegisteredCourse(ID)==null);
+		while(Register.getInstance().getRegisteredCourse(ID)==null || !instructor.isTutorOf(ID));
 		
 		Course targetCourse = Register.getInstance().getRegisteredCourse(ID);
 		if (instructor.getIsTutorOf().contains(targetCourse)) {
 			System.out.println("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
 					"\tSemester: "+targetCourse.getSemester());
-			System.out.println("Students allowed to enroll\n");
-			for(Student student : targetCourse.getStudentsAllowedList()){
+			System.out.println("Students enrolled:\n");
+			for(Student student : targetCourse.getStudentsEnrolledList()){
 				System.out.println("Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() + 
 						"\nStudent ID : " + student.getID() + "\nStudent EvaluationType : " + 
 						student.getEvaluationEntities().get(targetCourse) + "\n\n");
