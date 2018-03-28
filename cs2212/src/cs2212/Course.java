@@ -12,7 +12,7 @@ public class Course {
 	private ArrayList<Student> studentsAllowedToEnroll;
 	private ArrayList<Student> studentsEnrolled;
 	private ArrayList<Instructor> instructorList;
-	Map<EvaluationTypes, Weights> evaluationStrategies;
+	private Map<EvaluationTypes, Weights> evaluationStrategies;
 
 	
 	Course(){

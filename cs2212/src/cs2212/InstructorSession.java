@@ -1,5 +1,6 @@
 package cs2212;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
@@ -79,16 +80,25 @@ public class InstructorSession {
 			}
 		
 		else {
-			try {
-				if (targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse))==null)
-					System.out.println("null");;
-
-				System.out.print("Choose one of the above:");
-				
-				String eval = "";
-				if (input.hasNext()) {
-					eval = this.input.next();
+				Weights weights = targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse));
+				weights.initializeIterator();
+				ArrayList<String> entities = new ArrayList<String>();
+				System.out.print("Entities for "+targetStudent.getEvaluationEntities().get(targetCourse)+" in " +targetCourse.getCourseName()+" are: ");
+				while(weights.hasNext()){
+					weights.next();
+					System.out.print(weights.getCurrentKey()+" / ");
+					entities.add(weights.getCurrentKey().toUpperCase());
 				}
+				System.out.println(")");
+				String eval = "";
+				do{
+					System.out.println("Choose one of the above or type exit.");
+					eval = this.input.next().toUpperCase();
+					if (eval.equals("EXIT")) {
+						return;
+					}
+				}
+				while (!entities.contains(eval));
 				
 				double mark = 0;
 				do {
@@ -96,10 +106,10 @@ public class InstructorSession {
 					mark = this.input.nextInt();
 				}
 				while(mark<0 || mark>100);
-				
-				Map<Course,Marks> map = targetStudent.getPerCourseMarks();
-				Marks marks = new Marks();
+			try {
+				Marks marks  = targetStudent.getPerCourseMarks().get(targetCourse);
 				marks.addToEvalStrategy(eval, mark);
+				Map<Course,Marks> map = targetStudent.getPerCourseMarks();
 				map.put(targetCourse, marks);
 			}
 			catch(NullPointerException e) {
