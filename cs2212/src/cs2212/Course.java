@@ -126,5 +126,16 @@ public class Course {
 		return finalGrade;
 	}
 	
+	public void printCourseRecord() {
+		System.out.println("Course ID: "+this.getCourseID()+"\tCourse name: "+this.getCourseName()+
+				"\tSemester: "+this.getSemester());
+		System.out.println("Students enrolled: ( Total :"+this.getStudentsEnrolledList().size()+" )\n");
+		for(Student student : this.getStudentsEnrolledList()){
+			System.out.println("Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() + 
+					"\nStudent ID : " + student.getID() + "\nStudent EvaluationType : " + 
+					student.getEvaluationEntities().get(this) + "\n");
+		}
+	}
+	
 }
 

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
-public class StudentSession{
+public class StudentSession implements Session{
 
 	Student student;
 	Scanner input;
@@ -42,7 +42,7 @@ public class StudentSession{
 			wantToLogOut();
 		}
 		else if (option.equals("3")) {
-			printCourseEnrolled();
+			printCourseRecord();
 			wantToLogOut();
 		}
 	}
@@ -51,12 +51,10 @@ public class StudentSession{
 		String ID = "";
 		do {
 			System.out.print("Please enter the course ID or enter 4 to Log out: ");
-			if (input.hasNext()) {
-				ID = this.input.next().toUpperCase();
+			ID = this.input.next().toUpperCase();
 				if (ID.equals("4")) {
 					return;
 				}
-			}
 		}
 		while(!Register.getInstance().checkIfCourseHasAlreadyBeenCreated(ID));
 		
@@ -86,9 +84,6 @@ public class StudentSession{
 				}
 			}
 		}
-		
-		
-		
 	}
 	
 	private void selectNotificationStatus() {
@@ -128,50 +123,23 @@ public class StudentSession{
 		
 	}
 	
-	private void printCourseEnrolled() {
-		boolean isValidCourse = false;
-		String ID = "";
-		do {
-			System.out.print("Please enter the course ID or enter 4 to Log out: ");
-			ID = this.input.next().toUpperCase();
-			if (ID.equals("4")) {
-				return;
-			}
-		}
-		while(Register.getInstance().getRegisteredCourse(ID)==null);
-		
-		Course targetCourse = Register.getInstance().getRegisteredCourse(ID);
-		for (Course course : student.getCoursesEnrolled()) {
-			if (course.getCourseName().equals(targetCourse.getCourseName())) {
-					isValidCourse = true;
-					break;
-			}
-		}
-		if ( isValidCourse == true) {
+	private void printCourseRecord() {
+		String ID = getCourseID();
+		if (!ID.equals("")) {
+			Course targetCourse = Register.getInstance().getRegisteredCourse(ID);
 			System.out.print("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
-				"\tSemester: "+targetCourse.getSemester()+"\nEvaluation Entity: "+student.getEvaluationEntities().get(targetCourse)+"\nInstructor(s): ");
-			int counter = 1;
-			for (Instructor instructor: targetCourse.getInstructorList()) {
-				System.out.print(counter + "-" +instructor.getName() + " " + instructor.getSurname()+"  ");
-				counter++;
-			}
-			try {
-				System.out.print("\nGrades:\n");
-				Marks marks = student.getPerCourseMarks().get(targetCourse);
-				marks.initializeIterator();
-				Iterator<Entry<String, Double>> iterator = marks.getIterator();
-				while (iterator.hasNext()) {
-					Entry<String, Double> current = iterator.next();
-					System.out.println(current.getKey()+": "+current.getValue());
+					"\tSemester: "+targetCourse.getSemester()+"\nEvaluation Entity: "+student.getEvaluationEntities().get(targetCourse)+"\nInstructor(s): ");
+				int counter = 1;
+				for (Instructor instructor: targetCourse.getInstructorList()) {
+					System.out.print(counter + "-" +instructor.getName() + " " + instructor.getSurname()+"  ");
+					counter++;
 				}
-			}
-			catch(NullPointerException e) {
-				System.out.println("No grades have been added to your record yet.");
-			}
-		}
-				
-		else {
-			System.out.println("Not able to print : You are NOT enrolled in "+targetCourse.getCourseName());
+				try {
+					student.printCourseMarks(targetCourse);
+				}
+				catch(NullPointerException e) {
+					System.out.println("No grades have been added to your record yet.");
+				}
 		}
 	}
 	
@@ -182,6 +150,30 @@ public class StudentSession{
 	
 	public Scanner getInput() {
 		return this.input;
+	}
+	
+	private String getCourseID() {
+		String courseID = "";
+		do {
+			System.out.print("Please enter the course ID or 4 to exit: ");
+			courseID = this.input.next().toUpperCase();
+			
+			if (courseID.equals("4")) {
+				courseID = "";
+				break;
+			}
+			
+			if (Register.getInstance().getRegisteredCourse(courseID)==null) {
+				System.out.print("Invalid Course ID - ");
+			}
+			
+			else if (!student.isEnrolledIn(courseID)) {
+				System.out.print("You are not enrolled in this course - ");
+			}
+		}
+		while(Register.getInstance().getRegisteredCourse(courseID)==null || !student.isEnrolledIn(courseID));
+		
+		return courseID;
 	}
 	
 	

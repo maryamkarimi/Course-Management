@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
-public class InstructorSession {
+public class InstructorSession implements Session{
 	Instructor instructor;
 	Scanner input;
 	
@@ -83,14 +83,7 @@ public class InstructorSession {
 					mark = this.input.nextInt();
 				}
 				while(mark<0 || mark>100);
-				
-				Marks marks  = targetStudent.getPerCourseMarks().get(targetCourse);
-				if (marks == null) {
-					marks = new Marks();
-				}
-				marks.addToEvalStrategy(eval, mark);
-				Map<Course,Marks> map = targetStudent.getPerCourseMarks();
-				map.put(targetCourse, marks);
+				targetStudent.addMark(targetCourse,eval,mark);
 				System.out.println("Successful: "+eval+" = " + mark);
 		}
 	}
@@ -98,6 +91,7 @@ public class InstructorSession {
 	private void modifyMarkForStudent() {
 		Course targetCourse = Register.getInstance().getRegisteredCourse(getCourseID());
 		Student targetStudent =(Student) Register.getInstance().getRegisteredUser(getStudentID());
+		
 		if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
 			System.out.println("This student is not enrolled in this course.");
 		}
@@ -116,42 +110,22 @@ public class InstructorSession {
 					}
 					entities.add(weights.getCurrentKey().toUpperCase());
 				}
-				String eval = "";
-				do{
-					System.out.println("Enter the name of the entity you want to modify or type in exit.");
-					eval = this.input.next().toUpperCase();
-					if (eval.equals("EXIT")) {
-						return;
-					}
+				String eval = getValidEval(entities);
+				if (!eval.equals("")) {
+					double mark = getValidMark();
+					targetStudent.addMark(targetCourse,eval,mark);
+					System.out.println("Successful: "+ eval+" has been changed to "+mark);
 				}
-				while (!entities.contains(eval));
-				
-				double mark = 0;
-				do {
-					System.out.print("Please enter the new grade: ");
-					mark = this.input.nextInt();
-				}
-				while(mark<0 || mark>100);
-				
-				Marks marks  = targetStudent.getPerCourseMarks().get(targetCourse);
-				if (marks == null) {
-					marks = new Marks();
-				}
-				marks.addToEvalStrategy(eval, mark);
-				Map<Course,Marks> map = targetStudent.getPerCourseMarks();
-				map.put(targetCourse, marks);
-				System.out.println("Successful: "+ eval+" has been changed to "+mark);
 		}
 	}
 	
 	private void calculateFinalGradeForStudent() {
 		Course targetCourse = Register.getInstance().getRegisteredCourse(getCourseID());
 		Student targetStudent =(Student) Register.getInstance().getRegisteredUser(getStudentID());
+		
 		try{
 			double grade = targetCourse.calculateFinalGrade(targetStudent);
-			Marks marks = targetStudent.getPerCourseMarks().get(targetCourse);
-			marks.addToEvalStrategy("Final Grade", grade);
-			targetStudent.getPerCourseMarks().put(targetCourse, marks);
+			targetStudent.addMark(targetCourse, "Final Grade", grade);
 			System.out.println("Successful : Final Grade for " +targetStudent.getName()+" "+targetStudent.getSurname()+" = "+grade);
 		}
 		catch(NullPointerException e) {
@@ -161,16 +135,7 @@ public class InstructorSession {
 	
 	private void printClassRecord() {
 		Course targetCourse = Register.getInstance().getRegisteredCourse(getCourseID());
-		if (instructor.getIsTutorOf().contains(targetCourse)) {
-			System.out.println("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
-					"\tSemester: "+targetCourse.getSemester());
-			System.out.println("Students enrolled:\n");
-			for(Student student : targetCourse.getStudentsEnrolledList()){
-				System.out.println("Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() + 
-						"\nStudent ID : " + student.getID() + "\nStudent EvaluationType : " + 
-						student.getEvaluationEntities().get(targetCourse) + "\n\n");
-			}
-		}
+		targetCourse.printCourseRecord();
 	}
 	
 	public Scanner getInput() {
@@ -197,8 +162,40 @@ public class InstructorSession {
 		do {
 			System.out.print("Please enter the course ID: ");
 			courseID = this.input.next().toUpperCase();
+			
+			if (Register.getInstance().getRegisteredCourse(courseID) == null) {
+				System.out.println("Invalid Course ID");
+			}
+			
+			else if (!instructor.isTutorOf(courseID)) {
+				System.out.println("You are not listed as an instructor for this course");
+			}
 		}
 		while(Register.getInstance().getRegisteredCourse(courseID)==null || !instructor.isTutorOf(courseID));
 		return courseID;
+	}
+	
+	private double getValidMark() {
+		double mark = 0;
+		do {
+			System.out.print("Please enter the new grade: ");
+			mark = this.input.nextInt();
+		}
+		while(mark<0 || mark>100);
+		return mark;
+	}
+	
+	private String getValidEval(ArrayList<String> entities) {
+		String eval = "";
+		do{
+			System.out.println("Enter the name of the entity you want to modify or type in exit.");
+			eval = this.input.next().toUpperCase();
+			if (eval.equals("EXIT")) {
+				return "";
+			}
+		}
+		while (!entities.contains(eval));
+		return eval;
+		
 	}
 }

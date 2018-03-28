@@ -2,7 +2,9 @@ package cs2212;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Student implements SystemUser{
 	private String studentID;
@@ -112,4 +114,24 @@ public class Student implements SystemUser{
 		this.notificationType = notificationType;
 	}
 	
+	public void printCourseMarks(Course targetCourse) {
+		System.out.print("\nGrades:\n");
+		Marks marks = this.getPerCourseMarks().get(targetCourse);
+		marks.initializeIterator();
+		Iterator<Entry<String, Double>> iterator = marks.getIterator();
+		while (iterator.hasNext()) {
+			Entry<String, Double> current = iterator.next();
+			System.out.println(current.getKey()+": "+current.getValue());
+		}
+	}
+
+	public void addMark(Course targetCourse, String eval, double mark) {
+		Marks marks  = this.getPerCourseMarks().get(targetCourse);
+		if (marks == null) {
+			marks = new Marks();
+		}
+		marks.addToEvalStrategy(eval, mark);
+		Map<Course,Marks> map = this.getPerCourseMarks();
+		map.put(targetCourse, marks);
+	}
 }
