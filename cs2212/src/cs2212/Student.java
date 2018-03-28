@@ -8,6 +8,8 @@ public class Student implements SystemUser{
 	private String studentID;
 	private String name;
 	private String surname;
+	private String email;
+	private String phoneNumber;
 	private ArrayList<Course> coursesAllowed;
 	private ArrayList<Course> coursesEnrolled;
 	private Map<Course, EvaluationTypes> evaluationEntities;
@@ -45,6 +47,22 @@ public class Student implements SystemUser{
 		this.surname = surname;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
 	public ArrayList<Course> getCoursesAllowed() {
 		return coursesAllowed;
 	}

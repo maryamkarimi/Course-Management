@@ -4,10 +4,8 @@ import java.util.Scanner;
 
 public class Login {
 
-	LoginServer server;
-	
 	public Login() {
-		server = new LoginServer("userpass.txt");
+		LoginServer server = new LoginServer("userpass.txt");
 		Scanner input = new Scanner(System.in);
 		
 		while(true) {

@@ -36,7 +36,7 @@ public class InstructorSession {
 			wantToLogOut();
 		}
 		else if (option.equals("2")) {
-			addMarkForStudent();
+			modifyMarkForStudent();
 			wantToLogOut();
 		}
 		else if (option.equals("3")) {
@@ -50,7 +50,6 @@ public class InstructorSession {
 	}
 	
 	private void addMarkForStudent() {
-		
 		Course targetCourse = Register.getInstance().getRegisteredCourse(getCourseID());
 		Student targetStudent =(Student) Register.getInstance().getRegisteredUser(getStudentID());
 		if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
@@ -92,24 +91,71 @@ public class InstructorSession {
 				marks.addToEvalStrategy(eval, mark);
 				Map<Course,Marks> map = targetStudent.getPerCourseMarks();
 				map.put(targetCourse, marks);
-
+				System.out.println("Successful: "+eval+" = " + mark);
+		}
+	}
+	
+	private void modifyMarkForStudent() {
+		Course targetCourse = Register.getInstance().getRegisteredCourse(getCourseID());
+		Student targetStudent =(Student) Register.getInstance().getRegisteredUser(getStudentID());
+		if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
+			System.out.println("This student is not enrolled in this course.");
+		}
+		
+		else {
+				Weights weights = targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse));
+				weights.initializeIterator();
+				ArrayList<String> entities = new ArrayList<String>();
+				while(weights.hasNext()){
+					weights.next();
+					if ( targetStudent.getPerCourseMarks().get(targetCourse).getValueWithKey(weights.getCurrentKey()) == null) {
+						System.out.print(weights.getCurrentKey()+" : " + "not available\n");
+					}
+					else {
+						System.out.print(weights.getCurrentKey()+" : " + targetStudent.getPerCourseMarks().get(targetCourse).getValueWithKey(weights.getCurrentKey())+"\n");
+					}
+					entities.add(weights.getCurrentKey().toUpperCase());
+				}
+				String eval = "";
+				do{
+					System.out.println("Enter the name of the entity you want to modify or type in exit.");
+					eval = this.input.next().toUpperCase();
+					if (eval.equals("EXIT")) {
+						return;
+					}
+				}
+				while (!entities.contains(eval));
+				
+				double mark = 0;
+				do {
+					System.out.print("Please enter the new grade: ");
+					mark = this.input.nextInt();
+				}
+				while(mark<0 || mark>100);
+				
+				Marks marks  = targetStudent.getPerCourseMarks().get(targetCourse);
+				if (marks == null) {
+					marks = new Marks();
+				}
+				marks.addToEvalStrategy(eval, mark);
+				Map<Course,Marks> map = targetStudent.getPerCourseMarks();
+				map.put(targetCourse, marks);
+				System.out.println("Successful: "+ eval+" has been changed to "+mark);
 		}
 	}
 	
 	private void calculateFinalGradeForStudent() {
 		Course targetCourse = Register.getInstance().getRegisteredCourse(getCourseID());
 		Student targetStudent =(Student) Register.getInstance().getRegisteredUser(getStudentID());
-		Marks marks = targetStudent.getPerCourseMarks().get(targetCourse);
-		if (marks == null) {
-			marks = new Marks();
+		try{
+			double grade = targetCourse.calculateFinalGrade(targetStudent);
+			Marks marks = targetStudent.getPerCourseMarks().get(targetCourse);
+			marks.addToEvalStrategy("Final Grade", grade);
+			targetStudent.getPerCourseMarks().put(targetCourse, marks);
+			System.out.println("Successful : Final Grade for " +targetStudent.getName()+" "+targetStudent.getSurname()+" = "+grade);
 		}
-		try {
-			marks.addToEvalStrategy("Final Course Grade",  targetCourse.calculateFinalGrade(targetStudent));
-			Map<Course,Marks> map = targetStudent.getPerCourseMarks();
-			map.put(targetCourse, marks);
-		}
-		catch(Exception e) {
-			System.out.println("hi234");
+		catch(NullPointerException e) {
+			System.out.println("Some grades are not available yet to calculate the final course grade.");
 		}
 	}
 	

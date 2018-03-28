@@ -1,5 +1,6 @@
 package cs2212;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Map.Entry;
@@ -91,6 +92,40 @@ public class StudentSession{
 	}
 	
 	private void selectNotificationStatus() {
+		String notifType = "";
+		int counter = 1;
+		System.out.println("Notification Types:");
+		for ( NotificationTypes notificationTypes:NotificationTypes.values()) {
+			System.out.println(counter + "-"+notificationTypes);
+			counter++;
+		}
+		
+		do {
+			System.out.print("Choose 1, 2, 3, or 4 to exit: ");
+			notifType = this.input.next().toUpperCase();
+			if (notifType.equals("4")) {
+				return;
+			}
+		}
+		while(!notifType.equals("1") && !notifType.equals("2") && !notifType.equals("3"));
+		
+		switch (notifType) {
+			case "1": 
+				System.out.println("Enter your email address: ");
+				student.setEmail(input.next());
+				student.setNotificationType(NotificationTypes.EMAIL);
+				break;
+			case "2":
+				System.out.println("Enter your phone number: ");
+				student.setPhoneNumber(input.next());
+				student.setNotificationType(NotificationTypes.CELLPHONE);
+				break;
+			case "3":
+				student.setNotificationType(NotificationTypes.PIGEON_POST);
+				break;
+		}
+		System.out.println("Your notification preference is set to "+student.getNotificationType());
+		
 	}
 	
 	private void printCourseEnrolled() {
@@ -98,11 +133,9 @@ public class StudentSession{
 		String ID = "";
 		do {
 			System.out.print("Please enter the course ID or enter 4 to Log out: ");
-			if (input.hasNext()) {
-				ID = this.input.next().toUpperCase();
-				if (ID.equals("4")) {
-					return;
-				}
+			ID = this.input.next().toUpperCase();
+			if (ID.equals("4")) {
+				return;
 			}
 		}
 		while(Register.getInstance().getRegisteredCourse(ID)==null);

@@ -107,26 +107,21 @@ public class Course {
 			weights.initializeIterator();
 			while(weights.hasNext()){
 				weights.next();
-				finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
+				finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey())/100;
 			}
 		}
 	}
 	
 //	Calculates the Final Grades using the Weights and Marks utility classes see the comments in 
 //	these classes if unsure of how this works
-	public double calculateFinalGrade(Student targetStudent) throws Exception{
-		if (targetStudent == null || targetStudent.getPerCourseMarks().get(this) == null) {
-			throw new Exception("");
-		}
+	public double calculateFinalGrade(Student targetStudent){
 		double finalGrade = 0D;
 		Weights weights = evaluationStrategies.get(targetStudent.getEvaluationEntities().get(this));
 		Marks marks  = targetStudent.getPerCourseMarks().get(this);
 		weights.initializeIterator();
 		while(weights.hasNext()){
 			weights.next();
-			System.out.println(weights.getCurrentValue() + marks.getValueWithKey(weights.getCurrentKey()));
-			//finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
-			// this is the problem
+			finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey())/100;
 		}
 		return finalGrade;
 	}
