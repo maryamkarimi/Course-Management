@@ -1,10 +1,8 @@
 package cs2212;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Map.Entry;
 
 public class InstructorSession {
 	Instructor instructor;
@@ -23,7 +21,6 @@ public class InstructorSession {
 	}
 	
 	public void chooseOperation(Scanner input) {
-		
 		this.input = input;
 		String option = "4";
 		
@@ -52,32 +49,13 @@ public class InstructorSession {
 		}
 	}
 	
-	private void wantToLogOut() {
-		showOperations();
-		chooseOperation(this.input);
-	}
-	
 	private void addMarkForStudent() {
-		String CourseID = "";
-		String StudentID = "";
-		do {
-			System.out.print("Please enter the course ID: ");
-			CourseID = this.input.next().toUpperCase();
-		}
-		while(Register.getInstance().getRegisteredCourse(CourseID)==null || !instructor.isTutorOf(CourseID));
 		
-		Course targetCourse = Register.getInstance().getRegisteredCourse(CourseID);
-		do {
-			System.out.print("Please enter the student ID: ");
-			StudentID = this.input.next();
-		}
-		while (Register.getInstance().getRegisteredUser(StudentID) == null);
-		
-		Student targetStudent =(Student) Register.getInstance().getRegisteredUser(StudentID);
-		
+		Course targetCourse = Register.getInstance().getRegisteredCourse(getCourseID());
+		Student targetStudent =(Student) Register.getInstance().getRegisteredUser(getStudentID());
 		if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
 			System.out.println("This student is not enrolled in this course.");
-			}
+		}
 		
 		else {
 				Weights weights = targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse));
@@ -119,55 +97,24 @@ public class InstructorSession {
 	}
 	
 	private void calculateFinalGradeForStudent() {
-		String CourseID = "";
-		String StudentID = "";
-		do {
-			System.out.print("Please enter the course ID: ");
-			CourseID = this.input.next().toUpperCase();
-
-			if (Register.getInstance().getRegisteredCourse(CourseID)==null) {
-				System.out.println("Invalid course ID");
-			}
-			else	 if (!instructor.isTutorOf(CourseID)){
-				System.out.println("You are not listed as an instructor for this course");
-			}
-		}
-		while(Register.getInstance().getRegisteredCourse(CourseID)==null || !instructor.isTutorOf(CourseID));
-		
-		Course targetCourse = Register.getInstance().getRegisteredCourse(CourseID);
-		do {
-			System.out.print("Please enter the student ID: ");
-			StudentID = this.input.next();
-		}
-		while ((Student) Register.getInstance().getRegisteredUser(StudentID) == null);
-		
-		Student targetStudent = (Student) Register.getInstance().getRegisteredUser(StudentID);
+		Course targetCourse = Register.getInstance().getRegisteredCourse(getCourseID());
+		Student targetStudent =(Student) Register.getInstance().getRegisteredUser(getStudentID());
 		Marks marks = targetStudent.getPerCourseMarks().get(targetCourse);
 		if (marks == null) {
 			marks = new Marks();
 		}
-		marks.addToEvalStrategy("Final Course Grade",  targetCourse.calculateFinalGrade(targetStudent));
-		Map<Course,Marks> map = targetStudent.getPerCourseMarks();
-		map.put(targetCourse, marks);
+		try {
+			marks.addToEvalStrategy("Final Course Grade",  targetCourse.calculateFinalGrade(targetStudent));
+			Map<Course,Marks> map = targetStudent.getPerCourseMarks();
+			map.put(targetCourse, marks);
+		}
+		catch(Exception e) {
+			System.out.println("hi234");
+		}
 	}
 	
 	private void printClassRecord() {
-		String ID = "";
-		do {
-			System.out.print("Please enter the course ID: ");
-			if (input.hasNext()) {
-				ID = this.input.next().toUpperCase();
-			}
-			if (!instructor.isTutorOf(ID)){
-				System.out.println("You are not listed as an instructor for this course");
-			}
-			if (Register.getInstance().getRegisteredCourse(ID)==null) {
-				System.out.println("Invalid course ID");
-			}
-		}
-		while(Register.getInstance().getRegisteredCourse(ID)==null || !instructor.isTutorOf(ID));
-		
-		Course targetCourse = Register.getInstance().getRegisteredCourse(ID);
+		Course targetCourse = Register.getInstance().getRegisteredCourse(getCourseID());
 		if (instructor.getIsTutorOf().contains(targetCourse)) {
 			System.out.println("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
 					"\tSemester: "+targetCourse.getSemester());
@@ -184,4 +131,28 @@ public class InstructorSession {
 		return this.input;
 	}
 	
+	private void wantToLogOut() {
+		showOperations();
+		chooseOperation(this.input);
+	}
+	
+	private String getStudentID() {
+		String studentID = "";
+		do {
+			System.out.print("Please enter the student ID: ");
+			studentID = this.input.next();
+		}
+		while (Register.getInstance().getRegisteredUser(studentID) == null);
+		return studentID;
+	}
+	
+	private String getCourseID() {
+		String courseID = "";
+		do {
+			System.out.print("Please enter the course ID: ");
+			courseID = this.input.next().toUpperCase();
+		}
+		while(Register.getInstance().getRegisteredCourse(courseID)==null || !instructor.isTutorOf(courseID));
+		return courseID;
+	}
 }
