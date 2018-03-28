@@ -50,6 +50,15 @@ public class Instructor implements SystemUser{
 		this.isTutorOf = isTutorOf;
 	}
 
-	
+	public void printCourseRecord(Course targetCourse) {
+		System.out.println("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
+				"\tSemester: "+targetCourse.getSemester());
+		System.out.println("Students enrolled: ( Total :"+targetCourse.getStudentsEnrolledList().size()+" )\n");
+		for(Student student : targetCourse.getStudentsEnrolledList()){
+			System.out.println("Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() + 
+					"\nStudent ID : " + student.getID() + "\nStudent EvaluationType : " + 
+					student.getEvaluationEntities().get(targetCourse) + "\n");
+		}
+	}
 
 }

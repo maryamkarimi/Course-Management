@@ -134,4 +134,20 @@ public class Student implements SystemUser{
 		Map<Course,Marks> map = this.getPerCourseMarks();
 		map.put(targetCourse, marks);
 	}
+	
+	public void printCourseInfo(Course targetCourse) {
+		System.out.print("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
+				"\tSemester: "+targetCourse.getSemester()+"\nEvaluation Entity: "+this.getEvaluationEntities().get(targetCourse)+"\nInstructor(s): ");
+			int counter = 1;
+			for (Instructor instructor: targetCourse.getInstructorList()) {
+				System.out.print(counter + "-" +instructor.getName() + " " + instructor.getSurname()+"  ");
+				counter++;
+			}
+			try {
+				this.printCourseMarks(targetCourse);
+			}
+			catch(NullPointerException e) {
+				System.out.println("No grades have been added to your record yet.");
+			}
+	}
 }

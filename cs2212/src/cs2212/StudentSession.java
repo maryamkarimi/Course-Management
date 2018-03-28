@@ -127,19 +127,7 @@ public class StudentSession implements Session{
 		String ID = getCourseID();
 		if (!ID.equals("")) {
 			Course targetCourse = Register.getInstance().getRegisteredCourse(ID);
-			System.out.print("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
-					"\tSemester: "+targetCourse.getSemester()+"\nEvaluation Entity: "+student.getEvaluationEntities().get(targetCourse)+"\nInstructor(s): ");
-				int counter = 1;
-				for (Instructor instructor: targetCourse.getInstructorList()) {
-					System.out.print(counter + "-" +instructor.getName() + " " + instructor.getSurname()+"  ");
-					counter++;
-				}
-				try {
-					student.printCourseMarks(targetCourse);
-				}
-				catch(NullPointerException e) {
-					System.out.println("No grades have been added to your record yet.");
-				}
+			student.printCourseInfo(targetCourse);
 		}
 	}
 	

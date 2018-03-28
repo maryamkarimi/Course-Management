@@ -135,7 +135,7 @@ public class InstructorSession implements Session{
 	
 	private void printClassRecord() {
 		Course targetCourse = Register.getInstance().getRegisteredCourse(getCourseID());
-		targetCourse.printCourseRecord();
+		instructor.printCourseRecord(targetCourse);
 	}
 	
 	public Scanner getInput() {
