@@ -114,20 +114,20 @@ public class Course {
 	
 //	Calculates the Final Grades using the Weights and Marks utility classes see the comments in 
 //	these classes if unsure of how this works
-	public void calculateFinalGrade(String ID){
-		Student target = null;
-		Double finalGrade;
-		for(Student student : studentsEnrolled)
-			if (student.getID() == ID) 
-				target = student;
-		finalGrade = 0D;
-		Weights weights = evaluationStrategies.get(target.getEvaluationEntities().get(this));
-		Marks marks  = target.getPerCourseMarks().get(this);
+	public double calculateFinalGrade(Student targetStudent){
+		double finalGrade = 0D;
+		Weights weights = evaluationStrategies.get(targetStudent.getEvaluationEntities().get(this));
+		Marks marks  = targetStudent.getPerCourseMarks().get(this);
+		if (marks == null) {
+			marks = new Marks();
+		}
 		weights.initializeIterator();
 		while(weights.hasNext()){
 			weights.next();
 			finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey());
+			System.out.println(weights.getCurrentValue()+"-"+marks.getValueWithKey(weights.getCurrentKey()));
 		}
+		return finalGrade;
 	}
 	
 }

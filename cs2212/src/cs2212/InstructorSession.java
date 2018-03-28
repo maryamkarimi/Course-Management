@@ -106,15 +106,15 @@ public class InstructorSession {
 					mark = this.input.nextInt();
 				}
 				while(mark<0 || mark>100);
-			try {
+				
 				Marks marks  = targetStudent.getPerCourseMarks().get(targetCourse);
+				if (marks == null) {
+					marks = new Marks();
+				}
 				marks.addToEvalStrategy(eval, mark);
 				Map<Course,Marks> map = targetStudent.getPerCourseMarks();
 				map.put(targetCourse, marks);
-			}
-			catch(NullPointerException e) {
-				System.out.println("Instructor session exception");
-			}
+
 		}
 	}
 	
@@ -124,11 +124,12 @@ public class InstructorSession {
 		do {
 			System.out.print("Please enter the course ID: ");
 			CourseID = this.input.next().toUpperCase();
-			if (!instructor.isTutorOf(CourseID)){
-				System.out.println("You are not listed as an instructor for this course");
-			}
+
 			if (Register.getInstance().getRegisteredCourse(CourseID)==null) {
 				System.out.println("Invalid course ID");
+			}
+			else	 if (!instructor.isTutorOf(CourseID)){
+				System.out.println("You are not listed as an instructor for this course");
 			}
 		}
 		while(Register.getInstance().getRegisteredCourse(CourseID)==null || !instructor.isTutorOf(CourseID));
@@ -136,13 +137,18 @@ public class InstructorSession {
 		Course targetCourse = Register.getInstance().getRegisteredCourse(CourseID);
 		do {
 			System.out.print("Please enter the student ID: ");
-			if (input.hasNext()) {
-				StudentID = this.input.next();
-			}
+			StudentID = this.input.next();
 		}
 		while ((Student) Register.getInstance().getRegisteredUser(StudentID) == null);
-
-		targetCourse.calculateFinalGrade(StudentID);
+		
+		Student targetStudent = (Student) Register.getInstance().getRegisteredUser(StudentID);
+		Marks marks = targetStudent.getPerCourseMarks().get(targetCourse);
+		if (marks == null) {
+			marks = new Marks();
+		}
+		marks.addToEvalStrategy("Final Course Grade",  targetCourse.calculateFinalGrade(targetStudent));
+		Map<Course,Marks> map = targetStudent.getPerCourseMarks();
+		map.put(targetCourse, marks);
 	}
 	
 	private void printClassRecord() {

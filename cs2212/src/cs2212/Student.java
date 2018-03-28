@@ -18,7 +18,7 @@ public class Student implements SystemUser{
 		coursesAllowed = new ArrayList<Course>();
 		coursesEnrolled = new ArrayList<Course>();
 		evaluationEntities = new HashMap<Course, EvaluationTypes>();
-		perCourseMarks = new  HashMap<Course, Marks>();
+		perCourseMarks = new HashMap<Course, Marks>();
 	}
 
 	public String getID(){

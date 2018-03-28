@@ -123,7 +123,7 @@ public class StudentSession{
 				counter++;
 			}
 			try {
-				System.out.print("\nGrades: ");
+				System.out.print("\nGrades:\n");
 				Marks marks = student.getPerCourseMarks().get(targetCourse);
 				marks.initializeIterator();
 				Iterator<Entry<String, Double>> iterator = marks.getIterator();
