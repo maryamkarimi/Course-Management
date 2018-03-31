@@ -1,10 +1,9 @@
 package cs2212;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 
-public class InstructorSession implements Session{
+public class InstructorSession{
 	Instructor instructor;
 	Scanner input;
 	

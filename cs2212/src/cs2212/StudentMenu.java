@@ -8,7 +8,9 @@ import javax.swing.JRootPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 public class StudentMenu {
 
@@ -50,53 +52,60 @@ public class StudentMenu {
 		frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 		frame.setVisible(true);
 		
+		JLabel lblHeader = new JLabel("");
+		lblHeader.setOpaque(true);
+		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblHeader.setForeground(SystemColor.activeCaptionText);
+		lblHeader.setBackground(SystemColor.textHighlight);
+		lblHeader.setBounds(6, 6, 488, 43);
+		frame.getContentPane().add(lblHeader);
+		frame.setVisible(true);
+		lblHeader.setText("                                     Student Menu");
+		
 		JButton btnNewButton = new JButton("Enroll in a course");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				EnrollCourse enrollCourse = new EnrollCourse();
-				enrollCourse.setStudent(student);
+				new EnrollCourse(student);
 			}
 		});
-		btnNewButton.setBounds(151, 41, 179, 37);
+		btnNewButton.setBounds(161, 72, 179, 37);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnSelectNotificationStatus = new JButton("Select notification status");
 		btnSelectNotificationStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				notifStatus notifStat = new notifStatus();
-				notifStat.setStudent(student);
+				new notifStatus(student);
 				
 			}
 		});
-		btnSelectNotificationStatus.setBounds(151, 92, 179, 37);
+		btnSelectNotificationStatus.setBounds(161, 123, 179, 37);
 		frame.getContentPane().add(btnSelectNotificationStatus);
 		
 		JButton btnPrintCourseRecord = new JButton("Print course record");
 		btnPrintCourseRecord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				PrintCourseRecord printCourseRecord = new PrintCourseRecord();
-				printCourseRecord.setStudent(student);
+				new PrintCourseRecord(student);
 			}
 		});
-		btnPrintCourseRecord.setBounds(151, 144, 179, 37);
+		btnPrintCourseRecord.setBounds(161, 175, 179, 37);
 		frame.getContentPane().add(btnPrintCourseRecord);
 		
 		JButton btnLogOut = new JButton("Log Out");
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame frmLoginSystem = new JFrame("Exit");
-				if (JOptionPane.showConfirmDialog(frmLoginSystem, "Confirm if you want to exit","Aministrator Menu",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+				if (JOptionPane.showConfirmDialog(frmLoginSystem, "Confirm if you want to exit","Do you want to log out",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
 					frame.setVisible(false);
 					frame.dispose();
 					LoginSystem.main(null);
 				}
 			}
 		});
-		btnLogOut.setBounds(151, 193, 179, 37);
+		btnLogOut.setBounds(161, 224, 179, 37);
 		frame.getContentPane().add(btnLogOut);
-		frame.setVisible(true);
+		
 	}
 }

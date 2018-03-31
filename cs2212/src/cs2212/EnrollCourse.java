@@ -1,7 +1,5 @@
 package cs2212;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,37 +9,21 @@ import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 public class EnrollCourse {
 
 	private JFrame frame;
 	private JTextField textField;
 	private Student student;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EnrollCourse window = new EnrollCourse();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public EnrollCourse() {
-		initialize();
-	}
-	
-	public void setStudent(Student student) {
+	public EnrollCourse(Student student) {
 		this.student = student;
+		initialize();
 	}
 
 	/**
@@ -56,10 +38,11 @@ public class EnrollCourse {
 		frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 		
 		JLabel lblEnterTheCourse = new JLabel("Enter the course ID:");
-		lblEnterTheCourse.setBounds(70, 80, 192, 25);
+		lblEnterTheCourse.setBounds(109, 82, 192, 25);
 		frame.getContentPane().add(lblEnterTheCourse);
 		
 		JButton btnEnroll = new JButton("Enroll");
+		frame.getRootPane().setDefaultButton(btnEnroll);
 		btnEnroll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -86,16 +69,16 @@ public class EnrollCourse {
 				
 			}
 		});
-		btnEnroll.setBounds(145, 139, 117, 29);
+		btnEnroll.setBounds(184, 141, 117, 29);
 		frame.getContentPane().add(btnEnroll);
 		
 		textField = new JTextField();
-		textField.setBounds(209, 79, 130, 29);
+		textField.setBounds(248, 81, 130, 29);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(69, 120, 270, 12);
+		separator.setBounds(108, 122, 270, 12);
 		frame.getContentPane().add(separator);
 		
 		JButton btnBack = new JButton("Back");
@@ -107,9 +90,15 @@ public class EnrollCourse {
 				menu.setStudent(student);
 			}
 		});
-		btnBack.setBounds(145, 170, 117, 29);
+		btnBack.setBounds(184, 172, 117, 29);
 		frame.getContentPane().add(btnBack);
+		
+		JLabel lblNewLabel = new JLabel("                                Enroll in a Course");
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblNewLabel.setBackground(SystemColor.textHighlight);
+		lblNewLabel.setOpaque(true);
+		lblNewLabel.setBounds(6, 6, 488, 43);
+		frame.getContentPane().add(lblNewLabel);
 		frame.setVisible(true);
 	}
-
 }

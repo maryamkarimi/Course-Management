@@ -14,7 +14,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 public class ReadCourseFile {
 
@@ -58,36 +59,37 @@ public class ReadCourseFile {
 		
 		
 		JLabel lblEnterTheNames = new JLabel("Enter the names of the file(s) and press add.");
-		lblEnterTheNames.setBounds(68, 17, 335, 22);
+		lblEnterTheNames.setBounds(104, 65, 335, 22);
 		frame.getContentPane().add(lblEnterTheNames);
 		
 		textField = new JTextField();
-		textField.setBounds(174, 51, 156, 33);
+		textField.setBounds(210, 99, 156, 33);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(174, 96, 156, 33);
+		textField_1.setBounds(210, 144, 156, 33);
 		frame.getContentPane().add(textField_1);
 		
 		JLabel lblNewLabel = new JLabel("File Name");
-		lblNewLabel.setBounds(91, 55, 87, 25);
+		lblNewLabel.setBounds(127, 103, 87, 25);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel label = new JLabel("File Name");
-		label.setBounds(91, 96, 87, 25);
+		label.setBounds(127, 144, 87, 25);
 		frame.getContentPane().add(label);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(316, 147, -179, 12);
+		separator.setBounds(352, 195, -179, 12);
 		frame.getContentPane().add(separator);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(91, 147, 239, 12);
+		separator_1.setBounds(127, 195, 239, 12);
 		frame.getContentPane().add(separator_1);
 		
 		JButton btnNewButton = new JButton("Read Course File(s)");
+		frame.getRootPane().setDefaultButton(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String fileName = "";
@@ -131,7 +133,7 @@ public class ReadCourseFile {
 
 			}
 		});
-		btnNewButton.setBounds(134, 171, 143, 33);
+		btnNewButton.setBounds(177, 210, 143, 33);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton button = new JButton("Back");
@@ -151,8 +153,15 @@ public class ReadCourseFile {
 				frame.dispose();
 			}
 		});
-		btnBack.setBounds(134, 213, 143, 33);
+		btnBack.setBounds(177, 245, 143, 33);
 		frame.getContentPane().add(btnBack);
+		
+		JLabel lblNewLabel_1 = new JLabel("                                 Read Course Files");
+		lblNewLabel_1.setOpaque(true);
+		lblNewLabel_1.setBackground(SystemColor.textHighlight);
+		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(6, 6, 488, 45);
+		frame.getContentPane().add(lblNewLabel_1);
 		
 	}
 

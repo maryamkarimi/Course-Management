@@ -1,42 +1,28 @@
 package cs2212;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 public class PrintCourseRecord {
 
 	private JFrame frame;
 	private JTextField textField;
 	private Student student;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PrintCourseRecord window = new PrintCourseRecord();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public PrintCourseRecord() {
+	public PrintCourseRecord(Student student) {
+		this.student = student;
 		initialize();
 	}
 	
@@ -49,24 +35,54 @@ public class PrintCourseRecord {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(200, 200, 500, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setUndecorated(true);
 		frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 		
 		textField = new JTextField();
-		textField.setBounds(197, 20, 130, 21);
+		textField.setBounds(232, 61, 130, 21);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblCourseId = new JLabel("Course ID:");
-		lblCourseId.setBounds(118, 23, 93, 16);
+		lblCourseId.setBounds(153, 64, 93, 16);
 		frame.getContentPane().add(lblCourseId);
 		
-		JLabel lblCourseInfo = new JLabel("\n\n\n\n\n\n\n\n\n\n\n");
-		lblCourseInfo.setBounds(56, 83, 350, 197);
-		frame.getContentPane().add(lblCourseInfo);
+		JLabel lblCourseName = new JLabel("Course Name:");
+		lblCourseName.setVisible(false);
+		lblCourseName.setBounds(56, 135, 388, 21);
+		frame.getContentPane().add(lblCourseName);
+		
+		JLabel lblSemester = new JLabel("Semester:");
+		lblSemester.setVisible(false);
+		lblSemester.setBounds(56, 159, 388, 21);
+		frame.getContentPane().add(lblSemester);
+		
+		JLabel lblInstructors = new JLabel("Instructors:");
+		lblInstructors.setHorizontalAlignment(SwingConstants.LEFT);
+		lblInstructors.setVisible(false);
+		lblInstructors.setBounds(56, 183, 388, 21);
+		frame.getContentPane().add(lblInstructors);
+		frame.setVisible(true);
+		
+		
+		JLabel lblEvalEntity = new JLabel("Evaluation Entity: ");
+		lblEvalEntity.setBounds(56, 207, 375, 16);
+		frame.getContentPane().add(lblEvalEntity);
+		lblEvalEntity.setVisible(false);
+		
+		JLabel lblNewLabel = new JLabel("Grades:");
+		lblNewLabel.setBounds(56, 228, 61, 16);
+		frame.getContentPane().add(lblNewLabel);
+		lblNewLabel.setVisible(false);
+		
+		JLabel gradeslbl = new JLabel("");
+		gradeslbl.setVerticalAlignment(SwingConstants.TOP);
+		gradeslbl.setBounds(56, 249, 364, 89);
+		frame.getContentPane().add(gradeslbl);
+		gradeslbl.setVisible(false);
 		
 		JButton btnNewButton = new JButton("Print Record");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -82,11 +98,32 @@ public class PrintCourseRecord {
 				
 				else {
 					Course targetCourse = Register.getInstance().getRegisteredCourse(courseID);
-					lblCourseInfo.setText("Course ID: " +targetCourse.getCourseID()+ "\nCourse Name: "+targetCourse.getCourseName());
+					lblCourseName.setText(lblCourseName.getText()+" "+targetCourse.getCourseName());
+					lblSemester.setText(lblSemester.getText()+" "+targetCourse.getSemester());
+					String instructors ="";
+					for (Instructor instructor: targetCourse.getInstructorList()) {
+						instructors+=instructor.getName()+" "+instructor.getSurname()+" - ";
+					}
+					lblInstructors.setText(lblInstructors.getText()+" "+instructors);
+					lblEvalEntity.setText(lblEvalEntity.getText()+student.getEvaluationEntities().get(targetCourse));
+					String grades;
+					try {
+					grades = "<html>" +student.printCourseMarks(targetCourse)+"</html>";
+					}
+					catch(NullPointerException exception) {
+						grades = "No Grades have been added to your record yet.";
+					}
+					gradeslbl.setText(grades);
+					lblCourseName.setVisible(true);
+					lblSemester.setVisible(true);
+					lblInstructors.setVisible(true);
+					lblEvalEntity.setVisible(true);
+					gradeslbl.setVisible(true);
+					lblNewLabel.setVisible(true);
 				}
 			}
 		});
-		btnNewButton.setBounds(104, 53, 117, 29);
+		btnNewButton.setBounds(139, 94, 117, 29);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnGoBack = new JButton("Go Back");
@@ -98,8 +135,15 @@ public class PrintCourseRecord {
 				menu.setStudent(student);
 			}
 		});
-		btnGoBack.setBounds(226, 53, 117, 29);
+		btnGoBack.setBounds(261, 94, 117, 29);
 		frame.getContentPane().add(btnGoBack);
-		frame.setVisible(true);
+		
+		JLabel lblNewLabel_1 = new JLabel("                                Print Course Record");
+		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblNewLabel_1.setBackground(SystemColor.textHighlight);
+		lblNewLabel_1.setOpaque(true);
+		lblNewLabel_1.setBounds(6, 6, 488, 40);
+		frame.getContentPane().add(lblNewLabel_1);
+
 	}
 }

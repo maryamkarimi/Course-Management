@@ -8,6 +8,9 @@ import javax.swing.JRootPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 public class AdministratorMenu {
 
@@ -54,7 +57,7 @@ public class AdministratorMenu {
 				JOptionPane.showMessageDialog(null,"System is started now.","Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
-		btnNewButton.setBounds(134, 57, 171, 35);
+		btnNewButton.setBounds(159, 79, 171, 35);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnStopTheSystem = new JButton("Stop the System");
@@ -64,7 +67,7 @@ public class AdministratorMenu {
 
 			}
 		});
-		btnStopTheSystem.setBounds(134, 104, 171, 35);
+		btnStopTheSystem.setBounds(159, 126, 171, 35);
 		frame.getContentPane().add(btnStopTheSystem);
 		
 		JButton btnReadCourseFile = new JButton("Read Course File");
@@ -75,22 +78,29 @@ public class AdministratorMenu {
 				frame.setVisible(true);
 			}
 		});
-		btnReadCourseFile.setBounds(134, 151, 171, 35);
+		btnReadCourseFile.setBounds(159, 173, 171, 35);
 		frame.getContentPane().add(btnReadCourseFile);
 		
 		JButton btnLogOut = new JButton("Log Out");
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame frmLoginSystem = new JFrame("Exit");
-				if (JOptionPane.showConfirmDialog(frmLoginSystem, "Confirm if you want to exit","Aministrator Menu",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+				if (JOptionPane.showConfirmDialog(frmLoginSystem, "Confirm if you want to exit","Do you want to log out",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
 					frame.setVisible(false);
 					frame.dispose();
 					LoginSystem.main(null);
 				}
 			}
 		});
-		btnLogOut.setBounds(134, 198, 171, 35);
+		btnLogOut.setBounds(159, 220, 171, 35);
 		frame.getContentPane().add(btnLogOut);
+		
+		JLabel lblNewLabel = new JLabel("                                Administrator Menu");
+		lblNewLabel.setBackground(SystemColor.textHighlight);
+		lblNewLabel.setOpaque(true);
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+		lblNewLabel.setBounds(6, 6, 488, 49);
+		frame.getContentPane().add(lblNewLabel);
 	}
 
 }

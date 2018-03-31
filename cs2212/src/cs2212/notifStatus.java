@@ -1,7 +1,5 @@
 package cs2212;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -9,36 +7,19 @@ import javax.swing.JRootPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Choice;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 public class notifStatus {
 
 	private JFrame frame;
 	private Student student;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					notifStatus window = new notifStatus();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
 	
 	/**
 	 * Create the application.
 	 */
-	public notifStatus() {
+	public notifStatus(Student student) {
+		this.student = student;
 		initialize();
 	}
 
@@ -55,7 +36,7 @@ public class notifStatus {
 		
 		
 		JLabel lblChoose = new JLabel("Choose your Notification Preference:");
-		lblChoose.setBounds(83, 24, 243, 16);
+		lblChoose.setBounds(133, 64, 243, 16);
 		frame.getContentPane().add(lblChoose);
 		
 		JButton btn1 = new JButton("");
@@ -66,7 +47,7 @@ public class notifStatus {
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
-		btn1.setBounds(93, 59, 220, 36);
+		btn1.setBounds(143, 99, 220, 36);
 		frame.getContentPane().add(btn1);
 
 		JButton btn2 = new JButton("");
@@ -76,7 +57,7 @@ public class notifStatus {
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
-		btn2.setBounds(93, 107, 220, 36);
+		btn2.setBounds(143, 147, 220, 36);
 		frame.getContentPane().add(btn2);
 		btn2.setText(NotificationTypes.CELLPHONE.toString());
 		
@@ -87,7 +68,7 @@ public class notifStatus {
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
-		btn3.setBounds(93, 155, 220, 36);
+		btn3.setBounds(143, 195, 220, 36);
 		frame.getContentPane().add(btn3);
 		btn3.setText(NotificationTypes.PIGEON_POST.toString());
 		
@@ -100,8 +81,15 @@ public class notifStatus {
 				menu.setStudent(student);
 			}
 		});
-		btnGoBack.setBounds(93, 203, 220, 36);
+		btnGoBack.setBounds(143, 243, 220, 36);
 		frame.getContentPane().add(btnGoBack);
+		
+		JLabel lblNewLabel = new JLabel("                                 Notification Status");
+		lblNewLabel.setBackground(SystemColor.textHighlight);
+		lblNewLabel.setOpaque(true);
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblNewLabel.setBounds(6, 6, 488, 41);
+		frame.getContentPane().add(lblNewLabel);
 		frame.setVisible(true);
 	}
 }

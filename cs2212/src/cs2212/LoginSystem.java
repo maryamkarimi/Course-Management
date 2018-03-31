@@ -4,18 +4,16 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
-import javax.swing.JTextPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
+import java.awt.SystemColor;
 
 public class LoginSystem {
 
@@ -59,28 +57,30 @@ public class LoginSystem {
 		
 		
 		JLabel lblCourseManagementSystem = new JLabel("Course Management System");
-		lblCourseManagementSystem.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		lblCourseManagementSystem.setBounds(114, 18, 244, 37);
+		lblCourseManagementSystem.setForeground(SystemColor.activeCaptionText);
+		lblCourseManagementSystem.setFont(new Font("Lucida Grande", Font.BOLD, 17));
+		lblCourseManagementSystem.setBounds(123, 18, 267, 37);
 		frame.getContentPane().add(lblCourseManagementSystem);
 		
 		txtPassword = new JPasswordField();
-		txtPassword.setBounds(202, 119, 130, 31);
+		txtPassword.setBounds(216, 120, 130, 31);
 		frame.getContentPane().add(txtPassword);
 		
 		txtUserName = new JTextField();
-		txtUserName.setBounds(202, 84, 130, 31);
+		txtUserName.setBounds(216, 85, 130, 31);
 		frame.getContentPane().add(txtUserName);
 		txtUserName.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(129, 87, 71, 24);
+		lblUsername.setBounds(143, 88, 71, 24);
 		frame.getContentPane().add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(129, 126, 71, 16);
+		lblPassword.setBounds(143, 127, 71, 16);
 		frame.getContentPane().add(lblPassword);
 		
-		JButton btnLogin = new JButton("Login");
+		JButton btnLogin = new JButton("Sign In");
+		frame.getRootPane().setDefaultButton(btnLogin);
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = txtUserName.getText();
@@ -124,7 +124,7 @@ public class LoginSystem {
 				}
 			}
 		});
-		btnLogin.setBounds(243, 183, 117, 29);
+		btnLogin.setBounds(252, 184, 117, 29);
 		frame.getContentPane().add(btnLogin);
 		
 		JButton btnReset = new JButton("Reset");
@@ -134,11 +134,17 @@ public class LoginSystem {
 				txtPassword.setText(null);
 			}
 		});
-		btnReset.setBounds(114, 183, 117, 29);
+		btnReset.setBounds(123, 184, 117, 29);
 		frame.getContentPane().add(btnReset);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(114, 172, 244, 12);
+		separator.setBounds(123, 163, 244, 12);
 		frame.getContentPane().add(separator);
+		
+		JLabel lblStudentsAndInstructors = new JLabel("Note: Students and Instructors might not be able to use the system at the moment.");
+		lblStudentsAndInstructors.setForeground(SystemColor.infoText);
+		lblStudentsAndInstructors.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		lblStudentsAndInstructors.setBounds(46, 253, 425, 16);
+		frame.getContentPane().add(lblStudentsAndInstructors);
 	}
 }

@@ -114,15 +114,16 @@ public class Student implements SystemUser{
 		this.notificationType = notificationType;
 	}
 	
-	public void printCourseMarks(Course targetCourse) {
-		System.out.print("\nGrades:\n");
+	public String printCourseMarks(Course targetCourse) {
+		String results = "";
 		Marks marks = this.getPerCourseMarks().get(targetCourse);
 		marks.initializeIterator();
 		Iterator<Entry<String, Double>> iterator = marks.getIterator();
 		while (iterator.hasNext()) {
 			Entry<String, Double> current = iterator.next();
-			System.out.println(current.getKey()+": "+current.getValue());
+			results+=current.getKey()+": "+current.getValue()+"<br/>";
 		}
+		return results;
 	}
 
 	public void addMark(Course targetCourse, String eval, double mark) {
