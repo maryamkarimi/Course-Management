@@ -36,13 +36,11 @@ public class LoginServer {
 	
 	public String isValid(String username, String password) {
 		if (!userPassHashtable.keySet().contains(username.toLowerCase())) {
-			System.out.println("This username is not recongnized, try again!");
-			return "n";
+			return "n1";
 		}
 		
 		else if (!userPassHashtable.get(username.toLowerCase()).equals(password)) {
-			System.out.println("Username and Password do not match.");
-			return "n";
+			return "n2";
 		}
 		
 		else {

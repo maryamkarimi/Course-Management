@@ -150,4 +150,13 @@ public class Student implements SystemUser{
 				System.out.println("No grades have been added to your record yet.");
 			}
 	}
+	
+	public boolean isAllowedToEnrollIn(Course course) {
+		for (Course curcourse: this.getCoursesAllowed()) {
+			if (curcourse.getCourseID().equals(course.getCourseID())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
