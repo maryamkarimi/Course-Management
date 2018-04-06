@@ -134,15 +134,6 @@ public class Student implements SystemUser{
 		this.birthday = birthday;
 	}
 	
-	public void addMark(Course targetCourse, String eval, double mark) {
-		Marks marks  = this.getPerCourseMarks().get(targetCourse);
-		if (marks == null) {
-			marks = new Marks();
-		}
-		marks.addToEvalStrategy(eval, mark);
-		Map<Course,Marks> map = this.getPerCourseMarks();
-		map.put(targetCourse, marks);
-	}
 	
 	public void printCourseInfo(Course targetCourse) {
 		System.out.print("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class AdministratorOperation {
 
-	Administrator admin;
+	private Administrator admin;
 	
 	public AdministratorOperation(Administrator admin) {
 		this.admin = admin;

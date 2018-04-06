@@ -808,7 +808,8 @@ public class UI {
 	}
 	
 	private void addGrade (Instructor instructor) {
-
+		InstructorOperation operations = new InstructorOperation(instructor);
+		
 		JLabel lblNewLabel = new JLabel("                                                 Add Grade");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		lblNewLabel.setOpaque(true);
@@ -895,20 +896,11 @@ public class UI {
 						JOptionPane.showMessageDialog(null,"Grades have to between between 0 and 100.","Grade not valid.",JOptionPane.ERROR_MESSAGE);
 					}
 					else {
-						
-						ArrayList<String> entities = new ArrayList<String>();
-						Weights weights = targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse));
-						weights.initializeIterator();
-						while(weights.hasNext()) {
-							weights.next();
-							entities.add(weights.getCurrentKey().toLowerCase());
-						}
-						
-						if (!entities.contains(txtEntity.getText().toLowerCase())) {
+						Boolean result = operations.addGrade(targetCourse,targetStudent, txtEntity.getText().toUpperCase(), Double.parseDouble(txtGrade.getText()));
+						if (result == false) {
 							JOptionPane.showMessageDialog(null,"Entity is not valid.","Enter valid Entity name.",JOptionPane.ERROR_MESSAGE);
 						}
 						else {
-							targetStudent.addMark(targetCourse, txtEntity.getText().toUpperCase(), Double.parseDouble(txtGrade.getText()));
 							JOptionPane.showMessageDialog(null,"Grade has been added successfully.","Successful",JOptionPane.PLAIN_MESSAGE);
 						}
 						
@@ -931,6 +923,9 @@ public class UI {
 	}
 	
 	private void calculateStudentFinalGrade(Instructor instructor) {
+		
+		InstructorOperation operations = new InstructorOperation(instructor);
+		
 		JLabel lblEnterTheNames = new JLabel("Enter the course ID and student ID.");
 		lblEnterTheNames.setBounds(147, 85, 335, 22);
 		frame.getContentPane().add(lblEnterTheNames);
@@ -984,8 +979,7 @@ public class UI {
 						}
 						else {
 							try{
-								double grade = targetCourse.calculateFinalGrade(targetStudent);
-								targetStudent.addMark(targetCourse, "Final Grade", grade);
+								Double grade = operations.calculateFinalGrade(targetCourse, targetStudent);
 								JOptionPane.showMessageDialog(null,"Successful : Final Grade for " +targetStudent.getName()+" "+targetStudent.getSurname()+" = "+grade,"Final Grade calculated",JOptionPane.PLAIN_MESSAGE);
 							}
 							catch(NullPointerException ex) {
