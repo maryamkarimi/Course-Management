@@ -114,7 +114,7 @@ public class UI {
 					else {
 						frame.setVisible(false);
 						frame.getContentPane().removeAll();
-						adminMenu(ID);
+						adminMenu(new Administrator(ID));
 					}
 				}
 				catch(NoSuchAlgorithmException exception) {
@@ -148,29 +148,30 @@ public class UI {
 		frame.setVisible(true);
 	}
 	
-	private void adminMenu(String ID) {
+	private void adminMenu(Administrator admin) {
 		
+		AdministratorOperation operations = new AdministratorOperation(admin);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Start the System");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SystemStatus.getInstance().start();
+				operations.startSystem();
 				JOptionPane.showMessageDialog(null,"System is started now.","Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
-		btnNewButton.setBounds(193, 94, 187, 44);
+		btnNewButton.setBounds(195, 76, 187, 44);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnStopTheSystem = new JButton("Stop the System");
 		btnStopTheSystem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SystemStatus.getInstance().stop();
+				operations.stopSystem();
 				JOptionPane.showMessageDialog(null,"System is stopped now.","Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
-		btnStopTheSystem.setBounds(193, 141, 187, 44);
+		btnStopTheSystem.setBounds(195, 123, 187, 44);
 		frame.getContentPane().add(btnStopTheSystem);
 		
 		JButton btnReadCourseFile = new JButton("Read Course File");
@@ -178,10 +179,10 @@ public class UI {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
-				readCourseFile(ID);
+				readCourseFile(admin);
 			}
 		});
-		btnReadCourseFile.setBounds(193, 188, 187, 44);
+		btnReadCourseFile.setBounds(195, 170, 187, 44);
 		frame.getContentPane().add(btnReadCourseFile);
 		
 		JButton btnLogOut = new JButton("Log Out");
@@ -195,7 +196,7 @@ public class UI {
 				}
 			}
 		});
-		btnLogOut.setBounds(193, 281, 187, 44);
+		btnLogOut.setBounds(195, 310, 187, 44);
 		frame.getContentPane().add(btnLogOut);
 		
 		JLabel lblNewLabel = new JLabel("                                         Administrator Menu");
@@ -212,15 +213,103 @@ public class UI {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
-				changeMyPassword(ID,"a");	
+				changeMyPassword(admin.getID(),"a");	
 			}
 		});
-		btnChangeMyPassword.setBounds(193, 235, 187, 44);
+		btnChangeMyPassword.setBounds(195, 217, 187, 44);
 		frame.getContentPane().add(btnChangeMyPassword);
-	}
 		
-	private void readCourseFile(String ID) {
+		JButton btnChangePersonalInfo = new JButton("Change personal info\n");
+		btnChangePersonalInfo.setBounds(195, 264, 187, 44);
+		btnChangePersonalInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				frame.getContentPane().removeAll();
+				changePersonalInfo(admin);
+			}
+		});
+		frame.getContentPane().add(btnChangePersonalInfo);
+	}
+	
+	private void changePersonalInfo(Administrator admin) {
+		AdministratorOperation operations = new AdministratorOperation(admin);
+		
+		JLabel lblNewLabel = new JLabel("                                          Change Personal Info");
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblNewLabel.setOpaque(true);
+		lblNewLabel.setBackground(SystemColor.textHighlight);
+		lblNewLabel.setBounds(6, 6, 588, 44);
+		frame.getContentPane().add(lblNewLabel);
+		
 
+		JLabel name = new JLabel("Name:");
+		name.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		name.setBounds(150, 169, 93, 16);
+		frame.getContentPane().add(name);
+		
+		JLabel surname = new JLabel("Surname:");
+		surname.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		surname.setBounds(150, 97, 93, 16);
+		frame.getContentPane().add(surname);
+		
+		JTextField txtSurname = new JTextField();
+		txtSurname.setColumns(10);
+		txtSurname.setBounds(350, 88, 147, 36);
+		frame.getContentPane().add(txtSurname);
+
+		
+		JTextField txtName = new JTextField();
+		txtName.setBounds(350, 160, 147, 36);
+		frame.getContentPane().add(txtName);
+		txtName.setColumns(10);
+		
+		JLabel lblDBirth = new JLabel("Date of birth (YYYYMMDD):");
+		lblDBirth.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		lblDBirth.setBounds(150, 134, 216, 16);
+		frame.getContentPane().add(lblDBirth);
+
+		JTextField txtDBirth = new JTextField();
+		txtDBirth.setColumns(10);
+		txtDBirth.setBounds(350, 124, 147, 36);
+		frame.getContentPane().add(txtDBirth);
+
+
+		JButton btnGoBack = new JButton("Back");
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					frame.setVisible(false);
+					frame.getContentPane().removeAll();
+					adminMenu(admin);
+			}
+		});
+		
+		btnGoBack.setBounds(240, 250, 128, 36);
+		frame.getContentPane().add(btnGoBack);
+
+		JButton btnsubmit = new JButton("Submit");
+		frame.getRootPane().setDefaultButton(btnsubmit);
+		btnsubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					String nameStr = txtName.getText();
+					String surNameStr = txtSurname.getText();
+					String DBirthStr = txtDBirth.getText();
+					operations.changePersonalInfo(nameStr, surNameStr, DBirthStr);
+					JOptionPane.showMessageDialog(null,"Personal info updated.","Successful",JOptionPane.PLAIN_MESSAGE);
+			}	
+		});
+		btnsubmit.setBounds(240, 210, 128, 36);
+		frame.getContentPane().add(btnsubmit);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(150, 195, 350, 12);
+		frame.getContentPane().add(separator);
+		frame.setVisible(true);
+		
+	}
+	
+	private void readCourseFile(Administrator admin) {
+		AdministratorOperation operations = new AdministratorOperation(admin);
+		
 		JLabel lblEnterTheNames = new JLabel("Enter the names of the file(s) and press add.");
 		lblEnterTheNames.setBounds(147, 85, 335, 22);
 		frame.getContentPane().add(lblEnterTheNames);
@@ -274,19 +363,13 @@ public class UI {
 					}
 					
 					try {
-						OfferingFactory factory = new OfferingFactory();
-						BufferedReader br = new BufferedReader(new FileReader(fileName));
-						Course courseOffering1 = factory.createCourseOffering(br);
-						br.close();
+						operations.readCourseFile(fileName);
 						if (!fileName2.equals("")) {
-							OfferingFactory factory2 = new OfferingFactory();
-							BufferedReader br2 = new BufferedReader(new FileReader(fileName2));
-							Course courseOffering2 = factory2.createCourseOffering(br2);
-							br2.close();
-							JOptionPane.showMessageDialog(null,courseOffering1.getCourseName()+" and "+courseOffering2.getCourseName()+ " has been added successfully","Successful",JOptionPane.PLAIN_MESSAGE);
+							operations.readCourseFile(fileName2);
+							JOptionPane.showMessageDialog(null,"Courses has been added successfully","Successful",JOptionPane.PLAIN_MESSAGE);
 						}
 						else {
-							JOptionPane.showMessageDialog(null,courseOffering1.getCourseName()+ " has been added successfully","Successful",JOptionPane.PLAIN_MESSAGE);
+							JOptionPane.showMessageDialog(null,"Course has been added successfully","Successful",JOptionPane.PLAIN_MESSAGE);
 						}
 					}	
 					catch(IOException exception) {
@@ -304,7 +387,7 @@ public class UI {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
-				adminMenu(ID);
+				adminMenu(admin);
 			}
 		});
 		btnBack.setBounds(220, 273, 143, 38);
@@ -725,7 +808,8 @@ public class UI {
 	}
 	
 	private void addGrade (Instructor instructor) {
-
+		InstructorOperation operations = new InstructorOperation(instructor);
+		
 		JLabel lblNewLabel = new JLabel("                                                 Add Grade");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		lblNewLabel.setOpaque(true);
@@ -812,20 +896,11 @@ public class UI {
 						JOptionPane.showMessageDialog(null,"Grades have to between between 0 and 100.","Grade not valid.",JOptionPane.ERROR_MESSAGE);
 					}
 					else {
-						
-						ArrayList<String> entities = new ArrayList<String>();
-						Weights weights = targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse));
-						weights.initializeIterator();
-						while(weights.hasNext()) {
-							weights.next();
-							entities.add(weights.getCurrentKey().toLowerCase());
-						}
-						
-						if (!entities.contains(txtEntity.getText().toLowerCase())) {
+						Boolean result = operations.addGrade(targetCourse,targetStudent, txtEntity.getText().toUpperCase(), Double.parseDouble(txtGrade.getText()));
+						if (result == false) {
 							JOptionPane.showMessageDialog(null,"Entity is not valid.","Enter valid Entity name.",JOptionPane.ERROR_MESSAGE);
 						}
 						else {
-							targetStudent.addMark(targetCourse, txtEntity.getText().toUpperCase(), Double.parseDouble(txtGrade.getText()));
 							JOptionPane.showMessageDialog(null,"Grade has been added successfully.","Successful",JOptionPane.PLAIN_MESSAGE);
 						}
 						
@@ -848,6 +923,9 @@ public class UI {
 	}
 	
 	private void calculateStudentFinalGrade(Instructor instructor) {
+		
+		InstructorOperation operations = new InstructorOperation(instructor);
+		
 		JLabel lblEnterTheNames = new JLabel("Enter the course ID and student ID.");
 		lblEnterTheNames.setBounds(147, 85, 335, 22);
 		frame.getContentPane().add(lblEnterTheNames);
@@ -890,7 +968,6 @@ public class UI {
 						Course targetCourse = Register.getInstance().getRegisteredCourse(textField.getText().toUpperCase());
 						Student targetStudent =(Student) Register.getInstance().getRegisteredUser(textField_1.getText().toUpperCase());
 
-					
 						if (targetCourse == null) {
 							JOptionPane.showMessageDialog(null,"Course ID is not valid","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
 						}
@@ -902,8 +979,7 @@ public class UI {
 						}
 						else {
 							try{
-								double grade = targetCourse.calculateFinalGrade(targetStudent);
-								targetStudent.addMark(targetCourse, "Final Grade", grade);
+								Double grade = operations.calculateFinalGrade(targetCourse, targetStudent);
 								JOptionPane.showMessageDialog(null,"Successful : Final Grade for " +targetStudent.getName()+" "+targetStudent.getSurname()+" = "+grade,"Final Grade calculated",JOptionPane.PLAIN_MESSAGE);
 							}
 							catch(NullPointerException ex) {
@@ -990,7 +1066,7 @@ public class UI {
 					instructorMenu((Instructor)Register.getInstance().getRegisteredUser(ID));
 				}
 				else if (userType.equals("a")) {
-					adminMenu(ID);
+					adminMenu(new Administrator(ID));
 				}
 				else {
 					studentMenu((Student)Register.getInstance().getRegisteredUser(ID));
