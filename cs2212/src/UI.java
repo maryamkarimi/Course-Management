@@ -212,7 +212,7 @@ public class UI {
 	}
 	
 	
-	/* Shows the administrator menu */
+	/* Provides an interface for administrator menu - showing available operations */
 	/* ================================================================= */
 	private void adminMenu(Administrator admin) {
 	/* ================================================================= */
@@ -319,7 +319,7 @@ public class UI {
 		frame.setVisible(true);
 	}
 	
-	/* Administrator can change her info here */
+	/* Provides an interface for administrator to change her/his info  */
 	/* ================================================================= */
 	private void changePersonalInfo(Administrator admin) {
 	/* ================================================================= */
@@ -407,83 +407,93 @@ public class UI {
 		frame.setVisible(true);
 	}
 	
+	/* Provides an interface for administrator to read course files */
 	/* ================================================================= */
 	private void readCourseFile(Administrator admin) {
 	/* ================================================================= */
 		AdministratorOperation operations = new AdministratorOperation(admin);
 		
 		JLabel lblEnterTheNames = new JLabel("Enter the names of the file(s) and press add.");
-		lblEnterTheNames.setBounds(147, 85, 335, 22);
+		lblEnterTheNames.setBounds(151, 85, 335, 22);
 		frame.getContentPane().add(lblEnterTheNames);
 		
-		JTextField textField = new JTextField();
-		textField.setBounds(253, 119, 156, 33);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		// textField for fileName
+		JTextField txtFile1Name = new JTextField();
+		txtFile1Name.setBounds(253, 119, 156, 33);
+		frame.getContentPane().add(txtFile1Name);
+		txtFile1Name.setColumns(10);
 		
-		JTextField textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(253, 164, 156, 33);
-		frame.getContentPane().add(textField_1);
+		// textField for fileName
+		JTextField txtFile2Name = new JTextField();
+		txtFile2Name.setColumns(10);
+		txtFile2Name.setBounds(253, 164, 156, 33);
+		frame.getContentPane().add(txtFile2Name);
 		
-		JLabel lblNewLabel = new JLabel("File Name");
-		lblNewLabel.setBounds(170, 123, 87, 25);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblFile1Name = new JLabel("File Name");
+		lblFile1Name.setBounds(170, 123, 87, 25);
+		frame.getContentPane().add(lblFile1Name);
 		
-		JLabel label = new JLabel("File Name");
-		label.setBounds(170, 164, 87, 25);
-		frame.getContentPane().add(label);
-		
+		JLabel lblFile2Name = new JLabel("File Name");
+		lblFile2Name.setBounds(170, 164, 87, 25);
+		frame.getContentPane().add(lblFile2Name);
+
+		// separates buttons from textFields/ labels
 		JSeparator separator = new JSeparator();
-		separator.setBounds(395, 215, -179, 12);
+		separator.setBounds(170, 215, 239, 12);
 		frame.getContentPane().add(separator);
 		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(170, 215, 239, 12);
-		frame.getContentPane().add(separator_1);
-		
-		JButton btnNewButton = new JButton("Read Course File(s)");
-		frame.getRootPane().setDefaultButton(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnReadCourseFile = new JButton("Read Course File(s)");
+		frame.getRootPane().setDefaultButton(btnReadCourseFile);
+		btnReadCourseFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String fileName = "";
 				String fileName2 = "";
-				if (textField_1.getText().equals("") && textField.getText().equals("")) {
+				
+				// if both of textFields are empty
+				if (txtFile2Name.getText().equals("") && txtFile1Name.getText().equals("")) {
 					JOptionPane.showMessageDialog(null,"Please fill out the textfield(s)","Read File Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-
-					if (textField_1.getText().equals("") && !textField.getText().equals("")) {
-						fileName = textField.getText();
+					// if the first textField is empty and the second one is not.
+					if (!txtFile2Name.getText().equals("") && txtFile1Name.getText().equals("")) {
+						fileName = txtFile2Name.getText();
 					}
-					else if (!textField_1.getText().equals("") && textField.getText().equals("")) {
-						fileName = textField_1.getText();
+					// if the second textField is empty and the first one is not.
+					else if (txtFile2Name.getText().equals("") && !txtFile1Name.getText().equals("")) {
+						fileName = txtFile1Name.getText();
 					}
+					// if none of the textFields is empty.
 					else {
-						fileName = textField.getText();
-						fileName2 = textField_1.getText();
+						fileName = txtFile1Name.getText();
+						fileName2 = txtFile2Name.getText();
 					}
 					
 					try {
+						// adds the first course by calling readCourseFile
 						operations.readCourseFile(fileName);
+						
+						// if the second file exists, adds the course
 						if (!fileName2.equals("")) {
 							operations.readCourseFile(fileName2);
+							// message showing that both of courses has been added.
 							JOptionPane.showMessageDialog(null,"Courses has been added successfully","Successful",JOptionPane.PLAIN_MESSAGE);
 						}
 						else {
+							// message showing that one course has been added.
 							JOptionPane.showMessageDialog(null,"Course has been added successfully","Successful",JOptionPane.PLAIN_MESSAGE);
 						}
 					}	
-					catch(IOException exception) {
+					catch(IOException IOexception) {
+						// no file with this name is found
 						JOptionPane.showMessageDialog(null,"No such file exists.","Invalid File Name",JOptionPane.ERROR_MESSAGE);
 					}
 				}
-
 			}
 		});
-		btnNewButton.setBounds(220, 230, 143, 38);
-		frame.getContentPane().add(btnNewButton);
+		btnReadCourseFile.setBounds(220, 230, 143, 38);
+		frame.getContentPane().add(btnReadCourseFile);
 		
+		// back button - goes back to adminMenu once clicked
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -495,80 +505,83 @@ public class UI {
 		btnBack.setBounds(220, 273, 143, 38);
 		frame.getContentPane().add(btnBack);
 		
-		JLabel lblNewLabel_1 = new JLabel("                                         Read Course Files");
-		lblNewLabel_1.setOpaque(true);
-		lblNewLabel_1.setBackground(SystemColor.textHighlight);
-		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(6, 6, 588, 45);
-		frame.getContentPane().add(lblNewLabel_1);
+		// header label with text "Read Course Files"
+		JLabel lblHeader = new JLabel("                                         Read Course Files");
+		lblHeader.setOpaque(true);
+		lblHeader.setBackground(SystemColor.textHighlight);
+		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblHeader.setBounds(6, 6, 588, 45);
+		frame.getContentPane().add(lblHeader);
+		// set this frame to be visible
 		frame.setVisible(true);
 	}
 	
+	/* Provides an interface for students to see the operations they are allowed to perform */
 	/* ================================================================= */
 	private void studentMenu(Student student) {
 	/* ================================================================= */
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(350, 150, 600, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
-		JLabel lblHeader = new JLabel("");
+		JLabel lblHeader = new JLabel("                                             Student Menu");
 		lblHeader.setOpaque(true);
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		lblHeader.setForeground(SystemColor.activeCaptionText);
 		lblHeader.setBackground(SystemColor.textHighlight);
 		lblHeader.setBounds(6, 6, 588, 50);
 		frame.getContentPane().add(lblHeader);
-		frame.setVisible(true);
-		lblHeader.setText("                                             Student Menu");
 		
-		JButton btnNewButton = new JButton("Enroll in a course");
-		btnNewButton.addActionListener(new ActionListener() {
+		// first operation student is allowed to perform : enroll in a course
+		JButton btnEnrollInCourse = new JButton("Enroll in a course");
+		btnEnrollInCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
+				// shows the enrollCourse interface
 				enrollCourse(student);
 			}
 		});
-		btnNewButton.setBounds(189, 94, 198, 42);
-		frame.getContentPane().add(btnNewButton);
+		btnEnrollInCourse.setBounds(189, 94, 198, 42);
+		frame.getContentPane().add(btnEnrollInCourse);
 		
+		// second operation student is allowed to perform : select notification status
 		JButton btnSelectNotificationStatus = new JButton("Select notification status");
 		btnSelectNotificationStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
-				chooseNotificationStatus(student);
-				
+				// shows the chooseNotificationStatus interface
+				chooseNotificationStatus(student);	
 			}
 		});
 		btnSelectNotificationStatus.setBounds(189, 145, 198, 42);
 		frame.getContentPane().add(btnSelectNotificationStatus);
 		
+		// third operation student is allowed to perform : print course record
 		JButton btnPrintCourseRecord = new JButton("Print course record");
 		btnPrintCourseRecord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
+				// shows the printCourseRecord interface
 				printCourseRecord(student);
 			}
 		});
 		btnPrintCourseRecord.setBounds(189, 197, 198, 42);
 		frame.getContentPane().add(btnPrintCourseRecord);
 		
-
+		// 4th operation student is allowed to perform : change password
 		JButton btnChangePass = new JButton("Change my password");
 		 btnChangePass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
+				// shows the changeMyPass interface with student's ID and "s" which indicates the user is a student
 				changeMyPassword(student.getID(),"s");	
 			}
 		});
 		btnChangePass.setBounds(189, 246, 198, 42);
 		frame.getContentPane().add( btnChangePass);
 		
+		// logout button
 		JButton btnLogOut = new JButton("Log Out");
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -582,56 +595,63 @@ public class UI {
 		});
 		btnLogOut.setBounds(189, 297, 198, 42);
 		frame.getContentPane().add(btnLogOut);
-		
+		frame.setVisible(true);
 	}
 	
+	/* Provides an interface for student to print the record of a course he/she is enrolled in */
 	/* ================================================================= */
 	private void printCourseRecord(Student student) {
 	/* ================================================================= */
-
+		// create an object of StudentOperations
 		StudentOperation operations = new StudentOperation(student);
 		
-		JTextField textField = new JTextField();
-		textField.setBounds(269, 58, 151, 31);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		// TextField that gets targetCourse's ID
+		JTextField txtCourseID = new JTextField();
+		txtCourseID.setBounds(269, 58, 151, 31);
+		frame.getContentPane().add(txtCourseID);
+		txtCourseID.setColumns(10);
 		
-		JLabel lblCourseId = new JLabel("Course ID:");
-		lblCourseId.setBounds(190, 71, 93, 16);
-		frame.getContentPane().add(lblCourseId);
+		JLabel lblCourseID = new JLabel("Course ID:");
+		lblCourseID.setBounds(190, 71, 93, 16);
+		frame.getContentPane().add(lblCourseID);
 		
+		// scrollBar for textArea that represent course info
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(88, 171, 440, 171);
 		frame.getContentPane().add(scrollPane);
-
 		
+		// textArea that shows course info
 		JTextArea txtCourseInfo = new JTextArea();
 		scrollPane.setViewportView(txtCourseInfo);
 		txtCourseInfo.setEditable(false);
 		
-		
-		JButton btnNewButton = new JButton("Print Record");
-		frame.getRootPane().setDefaultButton(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			
+		// print record button
+		JButton btnPrintRecord = new JButton("Print Record");
+		frame.getRootPane().setDefaultButton(btnPrintRecord);
+		btnPrintRecord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Course targetCourse = Register.getInstance().getRegisteredCourse(textField.getText().toUpperCase());
+				
+				// gets the course with this ID from Register
+				Course targetCourse = Register.getInstance().getRegisteredCourse(txtCourseID.getText().toUpperCase());
+				// if no such course exits, shows a message indicating the situation.
 				if (targetCourse == null) {
 					JOptionPane.showMessageDialog(null,"Course ID is not valid.","Enter a valid course ID.",JOptionPane.ERROR_MESSAGE);
 				}
+				// if student is not enrolled in this course, they can not see the course record
 				else if (!student.isEnrolledIn(targetCourse.getCourseID())) {
 					JOptionPane.showMessageDialog(null,"You are not enrolled in this course.","Not able to print.",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-				String toBePrinted = operations.printCourseRecord(targetCourse);
-				txtCourseInfo.setText(toBePrinted);
+					// calls printCourseRecord from StudentOperations and sets textField to the info
+					String toBePrinted = operations.printCourseRecord(targetCourse);
+					txtCourseInfo.setText(toBePrinted);
 				}
 			}
 		});
-		btnNewButton.setBounds(188, 93, 110, 38);
-		frame.getContentPane().add(btnNewButton);
+		btnPrintRecord.setBounds(188, 93, 110, 38);
+		frame.getContentPane().add(btnPrintRecord);
 
-		frame.setVisible(true);
+		// go back button - goes back to studentMenu
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -643,57 +663,62 @@ public class UI {
 		btnGoBack.setBounds(309, 90, 111, 40);
 		frame.getContentPane().add(btnGoBack);
 		
-		JLabel lblNewLabel_1 = new JLabel("                                          Print Course Record");
-		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		lblNewLabel_1.setBackground(SystemColor.textHighlight);
-		lblNewLabel_1.setOpaque(true);
-		lblNewLabel_1.setBounds(6, 6, 588, 40);
-		frame.getContentPane().add(lblNewLabel_1);
+		// header label with the following text
+		JLabel lblHeader = new JLabel("                                          Print Course Record");
+		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblHeader.setBackground(SystemColor.textHighlight);
+		lblHeader.setOpaque(true);
+		lblHeader.setBounds(6, 6, 588, 40);
+		frame.getContentPane().add(lblHeader);
 		frame.setVisible(true);
-
 	}
 	
+	/* Provides an interface for student to choose her/his Notification preference */
 	/* ================================================================= */
 	private void chooseNotificationStatus(Student student) {
 	/* ================================================================= */
+		// create an object of StudentOperation by passing student as input
 		StudentOperation operations = new StudentOperation(student);
+		
 		JLabel lblChoose = new JLabel("Choose your Notification Preference:");
 		lblChoose.setBounds(180, 78, 243, 16);
 		frame.getContentPane().add(lblChoose);
 		
-		JButton btn1 = new JButton("");
-		btn1.setText(NotificationTypes.EMAIL.toString());
-		btn1.addActionListener(new ActionListener() {
+		JButton btnEmail = new JButton(NotificationTypes.EMAIL.toString());
+		// sets student notification preference to email.
+		btnEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operations.chooseNotificationPreference(NotificationTypes.EMAIL);
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
-		btn1.setBounds(190, 113, 220, 36);
-		frame.getContentPane().add(btn1);
+		btnEmail.setBounds(190, 113, 220, 36);
+		frame.getContentPane().add(btnEmail);
 
-		JButton btn2 = new JButton("");
-		btn2.addActionListener(new ActionListener() {
+		JButton btnCellphone = new JButton(NotificationTypes.CELLPHONE.toString());
+		// sets student notification preference to cellphone.
+		btnCellphone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operations.chooseNotificationPreference(NotificationTypes.CELLPHONE);
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
-		btn2.setBounds(190, 161, 220, 36);
-		frame.getContentPane().add(btn2);
-		btn2.setText(NotificationTypes.CELLPHONE.toString());
+		btnCellphone.setBounds(190, 161, 220, 36);
+		frame.getContentPane().add(btnCellphone);
 		
-		JButton btn3 = new JButton("");
-		btn3.addActionListener(new ActionListener() {
+		
+		JButton btnPost = new JButton(NotificationTypes.PIGEON_POST.toString());
+		// sets student notification preference to pigeon post.
+		btnPost.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operations.chooseNotificationPreference(NotificationTypes.PIGEON_POST);
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
-		btn3.setBounds(190, 209, 220, 36);
-		frame.getContentPane().add(btn3);
-		btn3.setText(NotificationTypes.PIGEON_POST.toString());
+		btnPost.setBounds(190, 209, 220, 36);
+		frame.getContentPane().add(btnPost);
 		
+		// go back button
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -705,16 +730,18 @@ public class UI {
 		btnGoBack.setBounds(190, 257, 220, 36);
 		frame.getContentPane().add(btnGoBack);
 		
-		JLabel lblNewLabel = new JLabel("                                           Notification Status");
-		lblNewLabel.setBackground(SystemColor.textHighlight);
-		lblNewLabel.setOpaque(true);
-		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		lblNewLabel.setBounds(6, 6, 588, 41);
-		frame.getContentPane().add(lblNewLabel);
+		// header label with text "Notification Status"
+		JLabel lblHeader = new JLabel("                                           Notification Status");
+		lblHeader.setBackground(SystemColor.textHighlight);
+		lblHeader.setOpaque(true);
+		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblHeader.setBounds(6, 6, 588, 41);
+		frame.getContentPane().add(lblHeader);
+		
 		frame.setVisible(true);
 	}
 	
-	
+	/* Provides an interface for student to enroll in a course */
 	/* ================================================================= */
 	private void enrollCourse(Student student) {
 	/* ================================================================= */
