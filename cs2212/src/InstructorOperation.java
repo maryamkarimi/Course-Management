@@ -42,4 +42,44 @@ public class InstructorOperation {
 		}
 	}
 	
+	
+	public String printCourseRecord(Course targetCourse) {
+		String result = "";
+		result+="Course ID: "+targetCourse.getCourseID()+"\n\nCourse name: "+targetCourse.getCourseName()+
+				"\n\nSemester: "+targetCourse.getSemester()+"\n\nInstrcutors:\n";
+		int counter =1;
+		for (Instructor instructor: targetCourse.getInstructorList()) {
+			result+=counter+"-"+instructor.getName()+" "+instructor.getSurname()+"\n";
+			counter++;
+		}
+		
+		result+= "\n\nStudents enrolled: ( Total :"+targetCourse.getStudentsEnrolledList().size()+" )\n";
+		for(Student student : targetCourse.getStudentsEnrolledList()){
+			result+="Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() + 
+					"\nStudent ID : " + student.getID() + "\nStudent EvaluationType : " + 
+					student.getEvaluationEntities().get(targetCourse)+"\nGrades:\n";
+					Weights weights = targetCourse.getEvaluationStrategies().get(student.getEvaluationEntities().get(targetCourse));
+					weights.initializeIterator();
+					while (weights.hasNext()) {
+						weights.next();
+						result+=weights.getCurrentKey()+": ";
+						if (student.getPerCourseMarks().get(targetCourse).getValueWithKey(weights.getCurrentKey()) == null) {
+							result+="N/A";
+						}
+						else {
+							result+=student.getPerCourseMarks().get(targetCourse).getValueWithKey(weights.getCurrentKey());
+						}
+						result+="\n";
+					}
+					result+="\n";
+		}
+		result+= "Students Allowed: ( Total :"+targetCourse.getStudentsAllowedList().size()+" )\n";
+		for(Student student : targetCourse.getStudentsAllowedList()){
+			result+="Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() + 
+					"\nStudent ID : " + student.getID() + "\nStudent EvaluationType : " + 
+					student.getEvaluationEntities().get(targetCourse) + "\n\n";
+		}
+		return result;
+	}
+	
 }

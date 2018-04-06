@@ -1,3 +1,5 @@
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 public class StudentOperation {
 
@@ -26,7 +28,39 @@ public class StudentOperation {
 		}
 	}
 	
-	//public String printCourseRecord(Course course) {
+	// prints the grades of a course
+	public String printCourseMarks(Course targetCourse) {
+		String results = "";
+		Marks marks = this.student.getPerCourseMarks().get(targetCourse);
+		marks.initializeIterator();
+		Iterator<Entry<String, Double>> iterator = marks.getIterator();
+		while (iterator.hasNext()) {
+			Entry<String, Double> current = iterator.next();
+			results+=current.getKey()+": "+current.getValue()+"\n";
+		}
+		return results;
+	}
+	
+	public String printCourseRecord(Course course) {
+		String result = "";
+		result+="Course ID: "+course.getCourseID()+"\n\nCourse name: "+course.getCourseName()+
+				"\n\nSemester: "+course.getSemester()+"\n\nInstructors:\n";
+		int counter =1;
+		for (Instructor instructor: course.getInstructorList()) {
+			result+=counter+"-"+instructor.getName()+" "+instructor.getSurname()+"\n";
+			counter++;
+		}
 		
-	//}
+		String grades = "\n\nGrades:\n";
+		try {
+		grades = printCourseMarks(course);
+		}
+		catch(NullPointerException exception) {
+			grades = "\n\nGrades: No Grades have been added to your record yet.";
+		}
+		
+		result+=grades;
+		
+		return result;
+	}
 }

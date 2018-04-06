@@ -17,7 +17,7 @@ public class Student implements SystemUser{
 	private Map<Course, EvaluationTypes> evaluationEntities;
 	private Map<Course, Marks> perCourseMarks;
 	private NotificationTypes notificationType;
-	
+
 	public Student() {
 		coursesAllowed = new ArrayList<Course>();
 		coursesEnrolled = new ArrayList<Course>();
@@ -113,18 +113,6 @@ public class Student implements SystemUser{
 	public void setNotificationType(NotificationTypes notificationType) {
 		this.notificationType = notificationType;
 	}
-	
-	public String printCourseMarks(Course targetCourse) {
-		String results = "";
-		Marks marks = this.getPerCourseMarks().get(targetCourse);
-		marks.initializeIterator();
-		Iterator<Entry<String, Double>> iterator = marks.getIterator();
-		while (iterator.hasNext()) {
-			Entry<String, Double> current = iterator.next();
-			results+=current.getKey()+": "+current.getValue()+"<br/>";
-		}
-		return results;
-	}
 
 	public String getBirthday() {
 		return this.birthday;
@@ -132,23 +120,6 @@ public class Student implements SystemUser{
 	
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
-	}
-	
-	
-	public void printCourseInfo(Course targetCourse) {
-		System.out.print("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
-				"\tSemester: "+targetCourse.getSemester()+"\nEvaluation Entity: "+this.getEvaluationEntities().get(targetCourse)+"\nInstructor(s): ");
-			int counter = 1;
-			for (Instructor instructor: targetCourse.getInstructorList()) {
-				System.out.print(counter + "-" +instructor.getName() + " " + instructor.getSurname()+"  ");
-				counter++;
-			}
-			try {
-				this.printCourseMarks(targetCourse);
-			}
-			catch(NullPointerException e) {
-				System.out.println("No grades have been added to your record yet.");
-			}
 	}
 	
 	public boolean isAllowedToEnrollIn(Course course) {

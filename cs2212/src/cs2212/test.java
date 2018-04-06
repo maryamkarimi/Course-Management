@@ -10,6 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
+import java.awt.Color;
+import java.awt.ComponentOrientation;
+import javax.swing.JScrollPane;
 
 public class test {
 
@@ -51,77 +57,42 @@ public class test {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Start the System");
+		JTextField textField = new JTextField();
+		textField.setBounds(267, 87, 151, 31);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblCourseId = new JLabel("Course ID:");
+		lblCourseId.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		lblCourseId.setBounds(188, 93, 93, 16);
+		frame.getContentPane().add(lblCourseId);
+		
+		JButton btnNewButton = new JButton("Print Record");
+
+		frame.getRootPane().setDefaultButton(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null,"System is started now.","Successful",JOptionPane.PLAIN_MESSAGE);
+				
 			}
 		});
-		btnNewButton.setBounds(195, 76, 187, 44);
+		btnNewButton.setBounds(188, 93, 110, 38);
 		frame.getContentPane().add(btnNewButton);
-		
-		JButton btnStopTheSystem = new JButton("Stop the System");
-		btnStopTheSystem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null,"System is stopped now.","Successful",JOptionPane.PLAIN_MESSAGE);
-			}
-		});
-		btnStopTheSystem.setBounds(195, 123, 187, 44);
-		frame.getContentPane().add(btnStopTheSystem);
-		
-		JButton btnReadCourseFile = new JButton("Read Course File");
-		btnReadCourseFile.addActionListener(new ActionListener() {
+
+		frame.setVisible(true);
+		JButton btnGoBack = new JButton("Go Back");
+		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
+				//studentMenu(student);
 			}
 		});
-		btnReadCourseFile.setBounds(195, 170, 187, 44);
-		frame.getContentPane().add(btnReadCourseFile);
+		btnGoBack.setBounds(309, 90, 111, 40);
+		frame.getContentPane().add(btnGoBack);
+
 		
-		JButton btnLogOut = new JButton("Log Out");
-		btnLogOut.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame frmLoginSystem = new JFrame("Exit");
-				if (JOptionPane.showConfirmDialog(frmLoginSystem, "Confirm if you want to exit","Do you want to log out",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
-					frame.setVisible(false);
-					frame.getContentPane().removeAll();
-				}
-			}
-		});
-		btnLogOut.setBounds(195, 310, 187, 44);
-		frame.getContentPane().add(btnLogOut);
-		
-		JLabel lblNewLabel = new JLabel("                                         Administrator Menu");
-		lblNewLabel.setBackground(SystemColor.textHighlight);
-		lblNewLabel.setOpaque(true);
-		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lblNewLabel.setBounds(6, 6, 588, 62);
-		frame.getContentPane().add(lblNewLabel);
-		frame.setVisible(true);
-		
-		
-		JButton btnChangeMyPassword = new JButton("Change My Password");
-		btnChangeMyPassword.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				frame.getContentPane().removeAll();	
-			}
-		});
-		btnChangeMyPassword.setBounds(195, 217, 187, 44);
-		frame.getContentPane().add(btnChangeMyPassword);
-		
-		JButton btnChangePersonalInfo = new JButton("Change personal info\n");
-		btnChangePersonalInfo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnChangePersonalInfo.setBounds(195, 264, 187, 44);
-		frame.getContentPane().add(btnChangePersonalInfo);
-		
-		JLabel lblDBirth = new JLabel("Date of birth (YYYYMMDD):");
-		lblDBirth.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		lblDBirth.setBounds(150, 134, 216, 16);
-		frame.getContentPane().add(lblDBirth);
+	
+
 	}
 }

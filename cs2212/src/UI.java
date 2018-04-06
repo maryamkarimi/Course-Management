@@ -13,7 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -483,6 +485,8 @@ public class UI {
 	
 	private void printCourseRecord(Student student) {
 
+		StudentOperation operations = new StudentOperation(student);
+		
 		JTextField textField = new JTextField();
 		textField.setBounds(269, 58, 151, 31);
 		frame.getContentPane().add(textField);
@@ -492,81 +496,37 @@ public class UI {
 		lblCourseId.setBounds(190, 71, 93, 16);
 		frame.getContentPane().add(lblCourseId);
 		
-		JLabel lblCourseName = new JLabel("Course Name:");
-		lblCourseName.setVisible(false);
-		lblCourseName.setBounds(93, 142, 388, 21);
-		frame.getContentPane().add(lblCourseName);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(88, 171, 440, 171);
+		frame.getContentPane().add(scrollPane);
+
 		
-		JLabel lblSemester = new JLabel("Semester:");
-		lblSemester.setVisible(false);
-		lblSemester.setBounds(93, 166, 388, 21);
-		frame.getContentPane().add(lblSemester);
+		JTextArea txtCourseInfo = new JTextArea();
+		scrollPane.setViewportView(txtCourseInfo);
+		txtCourseInfo.setEditable(false);
 		
-		JLabel lblInstructors = new JLabel("Instructors:");
-		lblInstructors.setHorizontalAlignment(SwingConstants.LEFT);
-		lblInstructors.setVisible(false);
-		lblInstructors.setBounds(93, 190, 388, 21);
-		frame.getContentPane().add(lblInstructors);
-		
-		JLabel lblEvalEntity = new JLabel("Evaluation Entity: ");
-		lblEvalEntity.setBounds(93, 214, 375, 16);
-		frame.getContentPane().add(lblEvalEntity);
-		lblEvalEntity.setVisible(false);
-		
-		JLabel lblNewLabel = new JLabel("Grades:");
-		lblNewLabel.setBounds(93, 235, 61, 16);
-		frame.getContentPane().add(lblNewLabel);
-		lblNewLabel.setVisible(false);
-		
-		JLabel gradeslbl = new JLabel("");
-		gradeslbl.setVerticalAlignment(SwingConstants.TOP);
-		gradeslbl.setBounds(93, 254, 364, 89);
-		frame.getContentPane().add(gradeslbl);
-		gradeslbl.setVisible(false);
 		
 		JButton btnNewButton = new JButton("Print Record");
 		frame.getRootPane().setDefaultButton(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				String courseID = textField.getText().toUpperCase();
-				if (Register.getInstance().getRegisteredCourse(courseID)==null) {
-					JOptionPane.showMessageDialog(null,"Invalid Course ID ","Error",JOptionPane.ERROR_MESSAGE);
+				Course targetCourse = Register.getInstance().getRegisteredCourse(textField.getText().toUpperCase());
+				if (targetCourse == null) {
+					JOptionPane.showMessageDialog(null,"Course ID is not valid.","Enter a valid course ID.",JOptionPane.ERROR_MESSAGE);
 				}
-				
-				else if (!student.isEnrolledIn(courseID)) {
-					JOptionPane.showMessageDialog(null,"You are not enrolled in this course","Error",JOptionPane.ERROR_MESSAGE);
+				else if (!student.isEnrolledIn(targetCourse.getCourseID())) {
+					JOptionPane.showMessageDialog(null,"You are not enrolled in this course.","Not able to print.",JOptionPane.ERROR_MESSAGE);
 				}
-				
 				else {
-					Course targetCourse = Register.getInstance().getRegisteredCourse(courseID);
-					lblCourseName.setText(lblCourseName.getText()+" "+targetCourse.getCourseName());
-					lblSemester.setText(lblSemester.getText()+" "+targetCourse.getSemester());
-					String instructors ="";
-					for (Instructor instructor: targetCourse.getInstructorList()) {
-						instructors+=instructor.getName()+" "+instructor.getSurname()+" - ";
-					}
-					lblInstructors.setText(lblInstructors.getText()+" "+instructors);
-					lblEvalEntity.setText(lblEvalEntity.getText()+student.getEvaluationEntities().get(targetCourse));
-					String grades;
-					try {
-					grades = "<html>" +student.printCourseMarks(targetCourse)+"</html>";
-					}
-					catch(NullPointerException exception) {
-						grades = "No Grades have been added to your record yet.";
-					}
-					gradeslbl.setText(grades);
-					lblCourseName.setVisible(true);
-					lblSemester.setVisible(true);
-					lblInstructors.setVisible(true);
-					lblEvalEntity.setVisible(true);
-					gradeslbl.setVisible(true);
-					lblNewLabel.setVisible(true);
+				String toBePrinted = operations.printCourseRecord(targetCourse);
+				txtCourseInfo.setText(toBePrinted);
 				}
 			}
 		});
-		btnNewButton.setBounds(190, 92, 110, 38);
+		btnNewButton.setBounds(188, 93, 110, 38);
 		frame.getContentPane().add(btnNewButton);
+
 		frame.setVisible(true);
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -590,7 +550,7 @@ public class UI {
 	}
 	
 	private void chooseNotificationStatus(Student student) {
-
+		StudentOperation operations = new StudentOperation(student);
 		JLabel lblChoose = new JLabel("Choose your Notification Preference:");
 		lblChoose.setBounds(180, 78, 243, 16);
 		frame.getContentPane().add(lblChoose);
@@ -599,7 +559,6 @@ public class UI {
 		btn1.setText(NotificationTypes.EMAIL.toString());
 		btn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				StudentOperation operations = new StudentOperation(student);
 				operations.chooseNotificationPreference(NotificationTypes.EMAIL);
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
@@ -610,7 +569,6 @@ public class UI {
 		JButton btn2 = new JButton("");
 		btn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				StudentOperation operations = new StudentOperation(student);
 				operations.chooseNotificationPreference(NotificationTypes.CELLPHONE);
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
@@ -622,7 +580,6 @@ public class UI {
 		JButton btn3 = new JButton("");
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				StudentOperation operations = new StudentOperation(student);
 				operations.chooseNotificationPreference(NotificationTypes.PIGEON_POST);
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
@@ -653,7 +610,8 @@ public class UI {
 	
 	
 	private void enrollCourse(Student student) {
-
+		StudentOperation operations = new StudentOperation(student);
+		
 		JLabel lblEnterTheCourse = new JLabel("Enter the course ID:");
 		lblEnterTheCourse.setBounds(154, 82, 192, 25);
 		frame.getContentPane().add(lblEnterTheCourse);
@@ -677,8 +635,7 @@ public class UI {
 					JOptionPane.showMessageDialog(null,"Course ID is not valid.","Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					StudentOperation operation = new StudentOperation(student);
-					String result = operation.enroll(targetCourse);
+					String result = operations.enroll(targetCourse);
 					if (result.equals("notAllowed")) {
 						JOptionPane.showMessageDialog(null,"You are not allowed to enroll in "+targetCourse.getCourseName(),"Error",JOptionPane.ERROR_MESSAGE);
 					}
@@ -803,6 +760,68 @@ public class UI {
 
 	
 	private void printClassRecord(Instructor instructor) {
+		
+		InstructorOperation operations = new InstructorOperation(instructor);
+		
+		JTextField textField = new JTextField();
+		textField.setBounds(267, 87, 151, 31);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblCourseId = new JLabel("Course ID:");
+		lblCourseId.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		lblCourseId.setBounds(188, 93, 93, 16);
+		frame.getContentPane().add(lblCourseId);
+		
+		
+		JLabel lblNewLabel = new JLabel("                                         Print Class Record");
+		lblNewLabel.setBackground(SystemColor.textHighlight);
+		lblNewLabel.setOpaque(true);
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+		lblNewLabel.setBounds(6, 6, 588, 62);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(88, 171, 440, 171);
+		frame.getContentPane().add(scrollPane);
+
+		
+		JTextArea txtCourseInfo = new JTextArea();
+		scrollPane.setViewportView(txtCourseInfo);
+		txtCourseInfo.setEditable(false);
+		
+		
+		JButton btnNewButton = new JButton("Print Record");
+		frame.getRootPane().setDefaultButton(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Course targetCourse = Register.getInstance().getRegisteredCourse(textField.getText().toUpperCase());
+				if (targetCourse == null) {
+					JOptionPane.showMessageDialog(null,"Course ID is not valid.","Enter a valid course ID.",JOptionPane.ERROR_MESSAGE);
+				}
+				else if (!instructor.isTutorOf(targetCourse.getCourseID())) {
+					JOptionPane.showMessageDialog(null,"You are not listed as a tutor for this course.","Not able to print.",JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+				String toBePrinted = operations.printCourseRecord(targetCourse);
+				txtCourseInfo.setText(toBePrinted);
+				}
+			}
+		});
+		btnNewButton.setBounds(188, 121, 110, 38);
+		frame.getContentPane().add(btnNewButton);
+		frame.setVisible(true);
+		JButton btnGoBack = new JButton("Go Back");
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				frame.getContentPane().removeAll();
+				instructorMenu(instructor);
+			}
+		});
+		btnGoBack.setBounds(307, 120, 111, 40);
+		frame.getContentPane().add(btnGoBack);
 
 		
 	}
@@ -892,6 +911,9 @@ public class UI {
 					else if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
 						JOptionPane.showMessageDialog(null,"This student is not enrolled in this course.","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
 					}
+					else if (!instructor.isTutorOf(targetCourse.getCourseID())) {
+						JOptionPane.showMessageDialog(null,"You are not listed as an instructor of the course.","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
+					}
 					else if (Double.parseDouble(txtGrade.getText())<0 || Double.parseDouble(txtGrade.getText())>100) {
 						JOptionPane.showMessageDialog(null,"Grades have to between between 0 and 100.","Grade not valid.",JOptionPane.ERROR_MESSAGE);
 					}
@@ -976,6 +998,9 @@ public class UI {
 						}
 						else if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
 							JOptionPane.showMessageDialog(null,"This student is not enrolled in this course.","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
+						}
+						else if (!instructor.isTutorOf(targetCourse.getCourseID())) {
+							JOptionPane.showMessageDialog(null,"You are not listed as an instructor of the course.","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
 						}
 						else {
 							try{
