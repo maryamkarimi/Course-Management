@@ -56,7 +56,7 @@ public class StudentOperation {
 		grades = printCourseMarks(course);
 		}
 		catch(NullPointerException exception) {
-			grades = "\n\nGrades: No Grades have been added to your record yet.";
+			grades = "\nGrades: No Grades have been added to your record yet.";
 		}
 		
 		result+=grades;

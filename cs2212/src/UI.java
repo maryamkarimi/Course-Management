@@ -784,7 +784,7 @@ public class UI {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(88, 171, 440, 171);
 		frame.getContentPane().add(scrollPane);
-
+		//scrollPane.
 		
 		JTextArea txtCourseInfo = new JTextArea();
 		scrollPane.setViewportView(txtCourseInfo);
