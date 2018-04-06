@@ -516,7 +516,8 @@ public class UI {
 		btn1.setText(NotificationTypes.EMAIL.toString());
 		btn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				student.setNotificationType(NotificationTypes.EMAIL);
+				StudentOperation operations = new StudentOperation(student);
+				operations.chooseNotificationPreference(NotificationTypes.EMAIL);
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
@@ -526,7 +527,8 @@ public class UI {
 		JButton btn2 = new JButton("");
 		btn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				student.setNotificationType(NotificationTypes.CELLPHONE);
+				StudentOperation operations = new StudentOperation(student);
+				operations.chooseNotificationPreference(NotificationTypes.CELLPHONE);
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
@@ -537,7 +539,8 @@ public class UI {
 		JButton btn3 = new JButton("");
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				student.setNotificationType(NotificationTypes.PIGEON_POST);
+				StudentOperation operations = new StudentOperation(student);
+				operations.chooseNotificationPreference(NotificationTypes.PIGEON_POST);
 				JOptionPane.showMessageDialog(null,"Your notification preference is set to "+student.getNotificationType().toString(),"Successful",JOptionPane.PLAIN_MESSAGE);
 			}
 		});
@@ -586,23 +589,23 @@ public class UI {
 		btnEnroll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if (!Register.getInstance().checkIfCourseHasAlreadyBeenCreated(textField.getText().toUpperCase())) {
+				Course targetCourse = Register.getInstance().getRegisteredCourse(textField.getText().toUpperCase());
+				if (targetCourse == null) {
 					JOptionPane.showMessageDialog(null,"Course ID is not valid.","Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					Course targetCourse = Register.getInstance().getRegisteredCourse(textField.getText().toUpperCase());
-					if (!student.isAllowedToEnrollIn(targetCourse)) {
+					StudentOperation operation = new StudentOperation(student);
+					String result = operation.enroll(targetCourse);
+					if (result.equals("notAllowed")) {
 						JOptionPane.showMessageDialog(null,"You are not allowed to enroll in "+targetCourse.getCourseName(),"Error",JOptionPane.ERROR_MESSAGE);
 					}
 
 					
-					else if (student.isEnrolledIn(targetCourse.getCourseID())){
+					else if (result.equals("alreadyEnrolled")){
 						JOptionPane.showMessageDialog(null,"You are already enrolled in "+targetCourse.getCourseName(),"Error",JOptionPane.ERROR_MESSAGE);
 					}
 					
 					else {
-						student.getCoursesEnrolled().add(targetCourse);
-						targetCourse.getStudentsEnrolledList().add(student);
 						JOptionPane.showMessageDialog(null,"You are now enrolled in "+targetCourse.getCourseName(),"Successful",JOptionPane.PLAIN_MESSAGE);
 					}
 				}
@@ -789,44 +792,50 @@ public class UI {
 		frame.getRootPane().setDefaultButton(btnAddGrade);
 		btnAddGrade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Course targetCourse = Register.getInstance().getRegisteredCourse(txtCourseID.getText().toUpperCase());
-				Student targetStudent = (Student) Register.getInstance().getRegisteredUser(txtStudentID.getText().toUpperCase());
-				
-				if (txtGrade.getText().equals(null) || txtEntity.getText().equals(null) || txtStudentID.getText().equals(null) || txtCourseID.getText().equals(null)) {
-					JOptionPane.showMessageDialog(null,"Please fill out the box(es).","Error",JOptionPane.ERROR_MESSAGE);
-				}
-				else if (targetCourse == null) {
-					JOptionPane.showMessageDialog(null,"Course ID is not valid","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
-				}
-				else if (targetStudent == null) {
-					JOptionPane.showMessageDialog(null,"Student ID is not valid","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
-				}
-				else if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
-					JOptionPane.showMessageDialog(null,"This student is not enrolled in this course.","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
-				}
-				else if (Double.parseDouble(txtGrade.getText())<0 || Double.parseDouble(txtGrade.getText())>100) {
-					JOptionPane.showMessageDialog(null,"Grades have to between between 0 and 100.","Grade not valid.",JOptionPane.ERROR_MESSAGE);
-				}
-				else {
+				try {
+					Course targetCourse = Register.getInstance().getRegisteredCourse(txtCourseID.getText().toUpperCase());
+					Student targetStudent = (Student) Register.getInstance().getRegisteredUser(txtStudentID.getText().toUpperCase());
 					
-					ArrayList<String> entities = new ArrayList<String>();
-					Weights weights = targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse));
-					weights.initializeIterator();
-					while(weights.hasNext()) {
-						weights.next();
-						entities.add(weights.getCurrentKey().toLowerCase());
+					if (txtGrade.getText().equals(null) || txtEntity.getText().equals(null) || txtStudentID.getText().equals(null) || txtCourseID.getText().equals(null)) {
+						JOptionPane.showMessageDialog(null,"Please fill out the box(es).","Error",JOptionPane.ERROR_MESSAGE);
 					}
-					
-					if (!entities.contains(txtEntity.getText().toLowerCase())) {
-						JOptionPane.showMessageDialog(null,"Entity is not valid.","Enter valid Entity name.",JOptionPane.ERROR_MESSAGE);
+					else if (targetCourse == null) {
+						JOptionPane.showMessageDialog(null,"Course ID is not valid","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
+					}
+					else if (targetStudent == null) {
+						JOptionPane.showMessageDialog(null,"Student ID is not valid","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
+					}
+					else if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
+						JOptionPane.showMessageDialog(null,"This student is not enrolled in this course.","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
+					}
+					else if (Double.parseDouble(txtGrade.getText())<0 || Double.parseDouble(txtGrade.getText())>100) {
+						JOptionPane.showMessageDialog(null,"Grades have to between between 0 and 100.","Grade not valid.",JOptionPane.ERROR_MESSAGE);
 					}
 					else {
-						targetStudent.addMark(targetCourse, txtEntity.getText().toUpperCase(), Double.parseDouble(txtGrade.getText()));
-						JOptionPane.showMessageDialog(null,"Grade has been added successfully.","Successful",JOptionPane.PLAIN_MESSAGE);
+						
+						ArrayList<String> entities = new ArrayList<String>();
+						Weights weights = targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse));
+						weights.initializeIterator();
+						while(weights.hasNext()) {
+							weights.next();
+							entities.add(weights.getCurrentKey().toLowerCase());
+						}
+						
+						if (!entities.contains(txtEntity.getText().toLowerCase())) {
+							JOptionPane.showMessageDialog(null,"Entity is not valid.","Enter valid Entity name.",JOptionPane.ERROR_MESSAGE);
+						}
+						else {
+							targetStudent.addMark(targetCourse, txtEntity.getText().toUpperCase(), Double.parseDouble(txtGrade.getText()));
+							JOptionPane.showMessageDialog(null,"Grade has been added successfully.","Successful",JOptionPane.PLAIN_MESSAGE);
+						}
+						
 					}
-					
+				}
+				catch(ClassCastException exception) {
+					JOptionPane.showMessageDialog(null,"Something went wrong! try again.","Enter valid IDs.",JOptionPane.ERROR_MESSAGE);
 				}
 			}
+				
 		});
 		btnAddGrade.setBounds(227, 260, 128, 36);
 		frame.getContentPane().add(btnAddGrade);
@@ -877,27 +886,35 @@ public class UI {
 					JOptionPane.showMessageDialog(null,"Please fill out the textbox(es)","Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					Course targetCourse = Register.getInstance().getRegisteredCourse(textField.getText().toUpperCase());
-					Student targetStudent =(Student) Register.getInstance().getRegisteredUser(textField_1.getText().toUpperCase());
+					try {
+						Course targetCourse = Register.getInstance().getRegisteredCourse(textField.getText().toUpperCase());
+						Student targetStudent =(Student) Register.getInstance().getRegisteredUser(textField_1.getText().toUpperCase());
+
 					
-					if (targetCourse == null) {
-						JOptionPane.showMessageDialog(null,"Course ID is not valid","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
-					}
-					else if (targetStudent == null) {
-						JOptionPane.showMessageDialog(null,"Student ID is not valid","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
-					}
-					else {
-						try{
-							double grade = targetCourse.calculateFinalGrade(targetStudent);
-							targetStudent.addMark(targetCourse, "Final Grade", grade);
-							JOptionPane.showMessageDialog(null,"Successful : Final Grade for " +targetStudent.getName()+" "+targetStudent.getSurname()+" = "+grade,"Final Grade calculated",JOptionPane.PLAIN_MESSAGE);
+						if (targetCourse == null) {
+							JOptionPane.showMessageDialog(null,"Course ID is not valid","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
 						}
-						catch(NullPointerException ex) {
-							JOptionPane.showMessageDialog(null,"Some grades are not available yet to calculate the final course grade.","Error Calculating Final Grade",JOptionPane.ERROR_MESSAGE);
+						else if (targetStudent == null) {
+							JOptionPane.showMessageDialog(null,"Student ID is not valid","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
 						}
+						else if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
+							JOptionPane.showMessageDialog(null,"This student is not enrolled in this course.","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
+						}
+						else {
+							try{
+								double grade = targetCourse.calculateFinalGrade(targetStudent);
+								targetStudent.addMark(targetCourse, "Final Grade", grade);
+								JOptionPane.showMessageDialog(null,"Successful : Final Grade for " +targetStudent.getName()+" "+targetStudent.getSurname()+" = "+grade,"Final Grade calculated",JOptionPane.PLAIN_MESSAGE);
+							}
+							catch(NullPointerException ex) {
+								JOptionPane.showMessageDialog(null,"Some grades are not available yet to calculate the final course grade.","Error Calculating Final Grade",JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					}
+					catch(ClassCastException exception) {
+						JOptionPane.showMessageDialog(null,"Something went wrong! try again.","Enter valid IDs.",JOptionPane.ERROR_MESSAGE);
 					}
 				}
-
 			}
 		});
 		btnNewButton.setBounds(220, 230, 143, 38);
