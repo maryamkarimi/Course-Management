@@ -17,7 +17,6 @@ public class LoginServer {
 	private static String fileName = "userpass.txt";
 	
 	private LoginServer(){
-		
 		IDTypeHashtable = new Hashtable<String,String>();
 		IDPasswordHashtable = new Hashtable<String,String>();
 		
