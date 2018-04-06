@@ -1,4 +1,3 @@
-package cs2212;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +8,6 @@ public class OfferingFactory {
 
 //	Instantiate 
 	public Course createCourseOffering(BufferedReader br) {
-		// TODO Auto-generated method stub
 		try{
 		String line = br.readLine();
 		Course course = new Course();
@@ -43,14 +41,13 @@ public class OfferingFactory {
 //				the actual create instance method call
 				course.getStudentsAllowedList().add((Student)theFactory.createSystemUserModel(br, course));
 			}
-//			consuming EVALUATION ENTITIES tag (you'll notice there are other standalone br.readLine() calls 
-//			that consume and generally advance the input to the desirable line
+
 			line = br.readLine();
 			for(int i=0;i<4;i++) {
 				line = br.readLine();
-//				Check how this works || we select he appropriate enum value
+
 				EvaluationTypes evaluationTypes = EvaluationTypes.fromString(line);
-//				weights is an object we created for encapsulating the bare minimum of Map functionality that you'll probably need
+				
 				Weights weights = new Weights();
 				line = br.readLine();
 				int numberOfEvaluationWeights = Integer.parseInt(line.split("\t")[2]);

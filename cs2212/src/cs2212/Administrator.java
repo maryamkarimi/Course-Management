@@ -1,4 +1,3 @@
-package cs2212;
 
 public class Administrator implements SystemUser {
 	
@@ -8,6 +7,7 @@ public class Administrator implements SystemUser {
 	private String name;
 	private String surname;
 	private String email;
+	private String birthday;
 	
 	public Administrator(String name,String surname, String ID,String password, String email, String username) {
 	
@@ -56,6 +56,13 @@ public class Administrator implements SystemUser {
 		this.email = email;
 	}
 	
+	public String getBirthday() {
+		return this.birthday;
+	}
+	
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
 
 }
 

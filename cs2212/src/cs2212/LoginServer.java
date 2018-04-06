@@ -1,30 +1,39 @@
-package cs2212;
+
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class LoginServer {
 
-	private Hashtable<String,String> userPassHashtable; // username - password
-	private Hashtable<String,String> userTypeHashtable; // username - type (i-s-m)
-	private Hashtable<String,String> userIDHashtable; // username - Unique ID
+	private Hashtable<String,String> IDTypeHashtable; // ID - type (i-s-m)
+	private Hashtable<String,String> IDPasswordHashtable; // Unique ID - password
+	private static LoginServer instance;
+	private static String fileName = "userpass.txt";
 	
-	public LoginServer(String fileName){
+	private LoginServer(){
 		
-		userPassHashtable = new Hashtable<String,String>();
-		userTypeHashtable = new Hashtable<String,String>();
-		userIDHashtable = new Hashtable<String,String>();
+		IDTypeHashtable = new Hashtable<String,String>();
+		IDPasswordHashtable = new Hashtable<String,String>();
 		
 		try {
 			Scanner scanner = new Scanner (new FileReader(fileName));
+			String line = "";
+			// skip the first line
+			if (scanner.hasNext()) {
+				line = scanner.next();
+			}
 			
 			while (scanner.hasNext()) {
-				String line = scanner.next();
+				line = scanner.next();
 				String token[] = line.split(",");
-				userTypeHashtable.put(token[1].toLowerCase(),token[0]);
-				userPassHashtable.put(token[1].toLowerCase(), token[2].toLowerCase());
-				userIDHashtable.put(token[1].toLowerCase(), token[3]);
+				IDTypeHashtable.put(token[1], token[0]);
+				IDPasswordHashtable.put(token[1], token[2]);
 			}
 		
 			scanner.close();
@@ -34,23 +43,88 @@ public class LoginServer {
 		}
 	}
 	
-	public String isValid(String username, String password) {
-		if (!userPassHashtable.keySet().contains(username.toLowerCase())) {
-			System.out.println("This username is not recongnized, try again!");
-			return "n";
+	public String isValid(String id, String password) throws NoSuchAlgorithmException{
+		try {
+			// no such ID
+			if (!IDPasswordHashtable.keySet().contains(id)) {
+				return "n1";
+			}
+			
+			// ID and password don't match
+			else if (!IDPasswordHashtable.get(id).equals(encrypt(password))) {
+				return "n2";
+			}
+			
+			// ID and password match
+			else {
+				return IDTypeHashtable.get(id);
+			}
 		}
-		
-		else if (!userPassHashtable.get(username.toLowerCase()).equals(password)) {
-			System.out.println("Username and Password do not match.");
-			return "n";
+		catch(NoSuchAlgorithmException e) {
+			e.getStackTrace();
 		}
-		
-		else {
-			return userTypeHashtable.get(username.toLowerCase());
-		}
+		return "n1";
 	}
 	
-	public String getID (String username) {
-		return userIDHashtable.get(username.toLowerCase());
+	public static LoginServer getInstance(){
+		if(instance == null)
+			instance = new LoginServer();
+		return instance;
 	}
+	
+	public void addUser(String userType,String ID, String password) {
+		
+		try {
+			// add it to hashtables.
+			IDTypeHashtable.put(ID, userType);
+			IDPasswordHashtable.put(ID, encrypt(password));
+
+			// add it to userpass file
+			try {
+				FileWriter fileWriter = new FileWriter(fileName);
+				BufferedWriter bufferedWriter =  new BufferedWriter(fileWriter);
+				
+				Iterator<String> iterator = IDTypeHashtable.keySet().iterator();
+				bufferedWriter.write("UserType,UniqueID,Password");
+				bufferedWriter.newLine();
+				while (iterator.hasNext()) {
+					String UserID = iterator.next();
+					bufferedWriter.write(IDTypeHashtable.get(UserID)+","+UserID+","+ IDPasswordHashtable.get(UserID));
+					bufferedWriter.newLine();
+				}
+				bufferedWriter.close();
+			}
+			catch(IOException e) {
+				System.out.println(e.getMessage());
+			}
+		
+		}
+		catch(NoSuchAlgorithmException e) {
+			e.getStackTrace();
+		}
+		
+	}
+	
+	private String encrypt(String password) throws NoSuchAlgorithmException {
+		String generatedPassword = "";
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(password.getBytes());
+			byte[] bytes = md.digest();
+			
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+		}
+		catch(NoSuchAlgorithmException e) {
+			
+		}
+		return generatedPassword;
+	}
+	
 }

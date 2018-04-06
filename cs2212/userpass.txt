@@ -1,11 +1,2 @@
-s,mkarimif,123456,2509
-s,jsmith,123456,1264
-s,mbrown,123456,3456
-s,ajohnson,23456,5678
-s,JZou,zjouj,8908
-s,mgrigoriou,ddssdm,8901
-s,sghanathey,sg,6821
-s,tamodeo,surexdirect,6528
-i,kkontogiannis,mypass,1234
-i,rweber,rweber,5674
-a,sarahm,98765,5433 
+UserType,UniqueID,Password
+a,5433,c37bf859faf392800d739a41fe5af151

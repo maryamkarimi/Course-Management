@@ -1,4 +1,3 @@
-package cs2212;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -56,6 +55,10 @@ public class Weights {
 	
 	public Double getCurrentValue(){
 		return currentEntry.getValue();
+	}
+	
+	public Iterator<Entry<String, Double>> getIterator(){
+		return entrySet;
 	}
 	
 }

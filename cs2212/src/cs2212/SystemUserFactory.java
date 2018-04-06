@@ -1,4 +1,3 @@
-package cs2212;
 
 import java.io.BufferedReader;
 

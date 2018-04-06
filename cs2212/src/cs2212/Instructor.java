@@ -1,4 +1,3 @@
-package cs2212;
 
 import java.util.ArrayList;
 
@@ -7,8 +6,9 @@ public class Instructor implements SystemUser{
 	private String instructorID;
 	private String name;
 	private String surname;
+	private String birthday; 
 	private ArrayList<Course> isTutorOf;
-	
+
 	public Instructor() {
 		isTutorOf = new ArrayList<Course>();
 	}
@@ -50,6 +50,14 @@ public class Instructor implements SystemUser{
 		this.isTutorOf = isTutorOf;
 	}
 
+	public String getBirthday() {
+		return this.birthday;
+	}
+	
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+	
 	public void printCourseRecord(Course targetCourse) {
 		System.out.println("Course ID: "+targetCourse.getCourseID()+"\tCourse name: "+targetCourse.getCourseName()+
 				"\tSemester: "+targetCourse.getSemester());

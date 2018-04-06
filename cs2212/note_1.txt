@@ -1,13 +1,13 @@
 Intro-to-Software-Engineering	CS2212B	1
 TUTOR	LIST	1
-Kostas	Kontogiannis	1234
+Kostas	Kontogiannis	1234	19650101
 ELLIGIBLE	STUDENTS	6
-John	Smith	1264	FC
-Mary	Brown	3456	FA
-Andy	Johnson	5678	PC
-Tyler	Amodeo	6528	FA
-Jenny	Zou	8908	FC
-Marios	Grigoriou	8901	PA
+John	Smith	1264	FC	19970101
+Mary	Brown	3456	FA	19980216
+Andy	Johnson	5678	PC	19960714
+Tyler	Amodeo	6528	FA	19890911
+Jenny	Zou	8908	FC	19880811
+Marios	Grigoriou	8901	PA	19970715
 EVALUATION	ENTITIES
 FC
 TOTAL	ENTITIES:	3

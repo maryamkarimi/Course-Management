@@ -1,4 +1,3 @@
-package cs2212;
 
 public enum EvaluationTypes {
 	FULL_CREDIT("FC"),

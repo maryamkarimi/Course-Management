@@ -1,4 +1,3 @@
-package cs2212;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +10,6 @@ public class Register {
 //	Map maintaining copies of existing CourseOffering objects mapped using their Unique IDs
 	private Map<String, Course> courseRegister = new HashMap<String, Course>();
 	
-//	this is a classic implementation of the singleton design pattern
 	private static Register instance;
 	private Register(){
 	}
@@ -21,7 +19,7 @@ public class Register {
 			instance = new Register();
 		return instance;
 	}
-//	the method names should be selfExplanatory
+
 	public boolean checkIfUserHasAlreadyBeenCreated(String ID){
 		return modelRegister.containsKey(ID);
 	}

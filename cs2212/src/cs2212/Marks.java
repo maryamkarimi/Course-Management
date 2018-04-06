@@ -1,4 +1,3 @@
-package cs2212;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +14,7 @@ public class Marks {
 	private Map<String, Double> evalStrategy;
 	private Iterator<Entry<String, Double>> entrySet;
 	private Entry<String, Double> currentEntry;
+	
 	
 	public Marks(){
 		evalStrategy = new HashMap<String, Double>();

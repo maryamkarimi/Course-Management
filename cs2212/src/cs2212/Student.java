@@ -1,4 +1,3 @@
-package cs2212;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +11,7 @@ public class Student implements SystemUser{
 	private String surname;
 	private String email;
 	private String phoneNumber;
+	private String birthday;
 	private ArrayList<Course> coursesAllowed;
 	private ArrayList<Course> coursesEnrolled;
 	private Map<Course, EvaluationTypes> evaluationEntities;
@@ -114,17 +114,26 @@ public class Student implements SystemUser{
 		this.notificationType = notificationType;
 	}
 	
-	public void printCourseMarks(Course targetCourse) {
-		System.out.print("\nGrades:\n");
+	public String printCourseMarks(Course targetCourse) {
+		String results = "";
 		Marks marks = this.getPerCourseMarks().get(targetCourse);
 		marks.initializeIterator();
 		Iterator<Entry<String, Double>> iterator = marks.getIterator();
 		while (iterator.hasNext()) {
 			Entry<String, Double> current = iterator.next();
-			System.out.println(current.getKey()+": "+current.getValue());
+			results+=current.getKey()+": "+current.getValue()+"<br/>";
 		}
+		return results;
 	}
 
+	public String getBirthday() {
+		return this.birthday;
+	}
+	
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+	
 	public void addMark(Course targetCourse, String eval, double mark) {
 		Marks marks  = this.getPerCourseMarks().get(targetCourse);
 		if (marks == null) {
@@ -149,5 +158,14 @@ public class Student implements SystemUser{
 			catch(NullPointerException e) {
 				System.out.println("No grades have been added to your record yet.");
 			}
+	}
+	
+	public boolean isAllowedToEnrollIn(Course course) {
+		for (Course curcourse: this.getCoursesAllowed()) {
+			if (curcourse.getCourseID().equals(course.getCourseID())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
