@@ -53,7 +53,7 @@ public class InstructorOperation {
 			counter++;
 		}
 		
-		result+= "\n\nStudents enrolled: ( Total :"+targetCourse.getStudentsEnrolledList().size()+" )\n";
+		result+= "\nStudents enrolled: ( Total :"+targetCourse.getStudentsEnrolledList().size()+" )\n";
 		for(Student student : targetCourse.getStudentsEnrolledList()){
 			result+="Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() + 
 					"\nStudent ID : " + student.getID() + "\nStudent EvaluationType : " + 
