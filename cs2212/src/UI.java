@@ -2,11 +2,8 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,8 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
 
 public class UI {
 
@@ -39,88 +34,115 @@ public class UI {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame and show the login interface.
 	 */
 	private void login() {
+		
+		// create the frame of fixed size
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(350, 150, 600, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		// the label on top of the login page
 		JLabel lblCourseManagementSystem = new JLabel("Course Management System");
 		lblCourseManagementSystem.setForeground(SystemColor.activeCaptionText);
 		lblCourseManagementSystem.setFont(new Font("Lucida Grande", Font.BOLD, 17));
 		lblCourseManagementSystem.setBounds(168, 58, 267, 37);
 		frame.getContentPane().add(lblCourseManagementSystem);
 		
-		JPasswordField txtPassword = new JPasswordField();
-		txtPassword.setBounds(267, 157, 130, 31);
-		frame.getContentPane().add(txtPassword);
+		// label for ID
+		JLabel lblUsername = new JLabel("User ID:");
+		lblUsername.setBounds(194, 125, 71, 24);
+		frame.getContentPane().add(lblUsername);
 		
+		// the textField that gets the Unique ID from user
 		JTextField txtUserName = new JTextField();
 		txtUserName.setBounds(267, 122, 130, 31);
 		frame.getContentPane().add(txtUserName);
 		txtUserName.setColumns(10);
 		
-		JLabel lblUsername = new JLabel("User ID:");
-		lblUsername.setBounds(194, 125, 71, 24);
-		frame.getContentPane().add(lblUsername);
-		
+		// label for Password
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setBounds(194, 164, 71, 16);
 		frame.getContentPane().add(lblPassword);
 		
+		// the textField that gets the password from user
+		JPasswordField txtPassword = new JPasswordField();
+		txtPassword.setBounds(267, 157, 130, 31);
+		frame.getContentPane().add(txtPassword);
+		
+		// sign in button
 		JButton btnLogin = new JButton("Sign In");
+		// set sign in button as the default button of this page so user can press enter to login.
 		frame.getRootPane().setDefaultButton(btnLogin);
+		
+		// when user click on sign in button
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// set ID, password based on text boxes.
 				String ID = txtUserName.getText();
-				String password = txtPassword.getText();
-				LoginServer server = LoginServer.getInstance();
-				try {
-					String result = server.isValid(ID, password);
-					if (result.equals("n1")) {
-						txtUserName.setText(null);
-						txtPassword.setText(null);
-						JOptionPane.showMessageDialog(null,"This username is not recongnized, try again!","Login Error",JOptionPane.ERROR_MESSAGE);
-					}
-					else if(result.equals("n2")) {
-						txtPassword.setText(null);
-						JOptionPane.showMessageDialog(null,"Username and Password do not match.","Login Error",JOptionPane.ERROR_MESSAGE);
-					}
-					// if the user is a student
-					else if (result.equals("s")) {
-						if (SystemStatus.getInstance().isStarted()) {
-							frame.setVisible(false);
-							frame.getContentPane().removeAll();
-							studentMenu((Student)Register.getInstance().getRegisteredUser(ID));
-						}
-						else {
-							JOptionPane.showMessageDialog(null,"You are not allowed to use the system at the moment, for more info call the administrator.","System Status Error",JOptionPane.PLAIN_MESSAGE);
-						}
-					}
-					// if the user is an instructor
-					else if (result.equals("i")) {
-						if (SystemStatus.getInstance().isStarted()) {
-							frame.setVisible(false);
-							frame.getContentPane().removeAll();
-							instructorMenu((Instructor)Register.getInstance().getRegisteredUser(ID));
-						}
-						else {
-							JOptionPane.showMessageDialog(null,"You are not allowed to use the system at the moment, for  more info call the administrator.","System Status Error",JOptionPane.PLAIN_MESSAGE);
-						}
-						
-					}
-					// if the user is an administrator
-					else {
-						frame.setVisible(false);
-						frame.getContentPane().removeAll();
-						adminMenu(new Administrator(ID));
-					}
+				String password = String.valueOf(txtPassword.getPassword());
+				
+				// if any of the text boxes is empty, shows an error message.
+				if (ID.equals(null) || password.equals(null)) {
+					JOptionPane.showMessageDialog(null,"Fill out the boxes to sign in.","Login Error",JOptionPane.ERROR_MESSAGE);
 				}
-				catch(NoSuchAlgorithmException exception) {
-					exception.getStackTrace();
+				
+				// if both of the text boxes are filled, requests validation from login server.
+				else {
+					
+					// get the LoginServer instance
+					LoginServer server = LoginServer.getInstance();
+					
+					try {
+						
+						// passes the ID and password to 
+						String result = server.isValid(ID, password);
+						if (result.equals("n1")) {
+							txtUserName.setText(null);
+							txtPassword.setText(null);
+							JOptionPane.showMessageDialog(null,"This username is not recongnized, try again!","Login Error",JOptionPane.ERROR_MESSAGE);
+						}
+						else if(result.equals("n2")) {
+							txtPassword.setText(null);
+							JOptionPane.showMessageDialog(null,"Username and Password do not match.","Login Error",JOptionPane.ERROR_MESSAGE);
+						}
+						// if the user is a student
+						else if (result.equals("s")) {
+							if (SystemStatus.getInstance().isStarted()) {
+								frame.setVisible(false);
+								frame.getContentPane().removeAll();
+								studentMenu((Student)Register.getInstance().getRegisteredUser(ID));
+							}
+							else {
+								JOptionPane.showMessageDialog(null,"You are not allowed to use the system at the moment, for more info call the administrator.","System Status Error",JOptionPane.PLAIN_MESSAGE);
+							}
+						}
+						// if the user is an instructor
+						else if (result.equals("i")) {
+							if (SystemStatus.getInstance().isStarted()) {
+								frame.setVisible(false);
+								frame.getContentPane().removeAll();
+								instructorMenu((Instructor)Register.getInstance().getRegisteredUser(ID));
+							}
+							else {
+								JOptionPane.showMessageDialog(null,"You are not allowed to use the system at the moment, for  more info call the administrator.","System Status Error",JOptionPane.PLAIN_MESSAGE);
+							}
+							
+						}
+						// if the user is an administrator
+						else {
+							frame.setVisible(false);
+							frame.getContentPane().removeAll();
+							adminMenu(new Administrator(ID));
+						}
+					}
+					catch(NoSuchAlgorithmException exception) {
+						exception.getStackTrace();
+					}
 				}
 			}
 		});
@@ -784,7 +806,6 @@ public class UI {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(88, 171, 440, 171);
 		frame.getContentPane().add(scrollPane);
-		//scrollPane.
 		
 		JTextArea txtCourseInfo = new JTextArea();
 		scrollPane.setViewportView(txtCourseInfo);
