@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 public class LoginServer {
 
-	private Hashtable<String,String> IDTypeHashtable; // ID - type (i-s-m)
-	private Hashtable<String,String> IDPasswordHashtable; // Unique ID - password
+	private Hashtable<String,String> IDTypeHashtable; // Maps ID to userType (i-s-m) e.g. 1234 >>> "i"
+	private Hashtable<String,String> IDPasswordHashtable; // Unique ID - password e.g. 5433 >>>> encrypted value of "98765"
 	private static LoginServer instance;
 	private static String fileName = "userpass.txt";
 	
@@ -74,7 +74,7 @@ public class LoginServer {
 	public void addUser(String userType,String ID, String password) {
 		
 		try {
-			// add it to hashtables.
+			// add it to hash tables.
 			IDTypeHashtable.put(ID, userType);
 			IDPasswordHashtable.put(ID, encrypt(password));
 
