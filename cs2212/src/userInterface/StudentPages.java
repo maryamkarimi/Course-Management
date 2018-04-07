@@ -35,12 +35,7 @@ public class StudentPages extends SystemUserPages {
 	/* ================================================================= */
 	private void studentMenu() {
 	/* ================================================================= */
-		// create the frame of fixed size
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(350, 150, 600, 400);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		super.initialize();
 		
 		JLabel lblHeader = new JLabel("                                             Student Menu");
 		lblHeader.setOpaque(true);

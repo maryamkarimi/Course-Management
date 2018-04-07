@@ -84,7 +84,7 @@ public class SystemUserPages {
 		 btnChangePass.setBounds(230, 143, 130, 37);
 		frame.getContentPane().add(btnChangePass);
 		
-		// go back button
+		// go back button - shows a menu based on userType
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
