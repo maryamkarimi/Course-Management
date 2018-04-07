@@ -1,4 +1,5 @@
 package userInterface;
+
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -30,15 +31,13 @@ public class LoginPage {
 	/* ================================================================= */
 		new LoginPage();
 	}
-
-
+	
 	/* Create the application.*/
 	/* ================================================================= */
 	public LoginPage() {
 	/* ================================================================= */
 		login();
 	}
-
 
 	/* Initialize the contents of the frame and show the login interface */
 	/* ================================================================= */
@@ -192,7 +191,6 @@ public class LoginPage {
 		btnReset.setBounds(174, 221, 117, 29);
 		frame.getContentPane().add(btnReset);
 		
-		
 		// Separator for login interface - separates the buttons on the bottom from labels/ text fields.
 		JSeparator separator = new JSeparator();
 		separator.setBounds(174, 200, 244, 12);
@@ -206,10 +204,7 @@ public class LoginPage {
 		frame.getContentPane().add(lblInfo);
 		// set this frame to be visible.
 		frame.setVisible(true);
-	}
-	
-	
-	
+	}	
 }
 
 
