@@ -1,5 +1,12 @@
+package systemUserOperations;
 import java.util.Iterator;
 import java.util.Map.Entry;
+
+import customDataTypes.Marks;
+import customDataTypes.NotificationTypes;
+import offerings.Course;
+import systemUsers.Instructor;
+import systemUsers.Student;
 
 public class StudentOperation {
 

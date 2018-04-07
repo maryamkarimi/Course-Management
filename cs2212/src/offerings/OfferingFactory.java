@@ -1,8 +1,18 @@
+package offerings;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import customDataTypes.EvaluationTypes;
+import customDataTypes.Weights;
+import registrar.Register;
+import systemUserFactories.InstructorFactory;
+import systemUserFactories.StudentFactory;
+import systemUserFactories.SystemUserFactory;
+import systemUsers.Instructor;
+import systemUsers.Student;
 
 public class OfferingFactory {
 

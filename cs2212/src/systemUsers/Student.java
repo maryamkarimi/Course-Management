@@ -1,7 +1,13 @@
+package systemUsers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import customDataTypes.EvaluationTypes;
+import customDataTypes.Marks;
+import customDataTypes.NotificationTypes;
+import offerings.Course;
 
 public class Student implements SystemUser{
 	private String studentID;

@@ -1,3 +1,4 @@
+package userInterface;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import customDataTypes.NotificationTypes;
+import offerings.Course;
+import registrar.Register;
+import systemServers.LoginServer;
+import systemStatus.SystemStatus;
+import systemUserOperations.AdministratorOperation;
+import systemUserOperations.InstructorOperation;
+import systemUserOperations.StudentOperation;
+import systemUsers.Administrator;
+import systemUsers.Instructor;
+import systemUsers.Student;
+import systemUsers.SystemUser;
 
 public class UI {
 

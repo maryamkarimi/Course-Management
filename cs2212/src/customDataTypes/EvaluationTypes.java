@@ -1,3 +1,4 @@
+package customDataTypes;
 
 public enum EvaluationTypes {
 	FULL_CREDIT("FC"),

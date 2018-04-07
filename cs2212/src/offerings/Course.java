@@ -1,7 +1,14 @@
+package offerings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import customDataTypes.EvaluationTypes;
+import customDataTypes.Marks;
+import customDataTypes.Weights;
+import systemUsers.Instructor;
+import systemUsers.Student;
 
 public class Course {
 

@@ -1,7 +1,13 @@
+package systemUserFactories;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import offerings.Course;
+import registrar.Register;
+import systemServers.LoginServer;
+import systemUsers.Instructor;
 
 public class InstructorFactory implements SystemUserFactory {
 

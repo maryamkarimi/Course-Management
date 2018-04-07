@@ -1,28 +1,27 @@
+package customDataTypes;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Marks {
-//	This class encapsulates the basic functionality for the perCourseGrades Maps
+public class Weights {
+//	This class encapsulates the basic functionality for the EvaluationStrategies Maps
 	
-//	For each assignment or quiz or exam or whatever means a faculty member can come up with to evaluate the students, we have the respective 
-//	mark that the student received for that particular evaluation.
-//	for example <"Final", "98.5"> 
+//	For each assignment or quiz or exam or whatever means a faculty member can come up with to evaluate the students, we have the respective weight towards calculating the final mark.
+//	for example <"Final", "100"> 
 //	this can be used to calculate the final grade of each student (check CourseOffering.calculateFinalGrades() for further details)
 	private Map<String, Double> evalStrategy;
 	private Iterator<Entry<String, Double>> entrySet;
 	private Entry<String, Double> currentEntry;
 	
-	
-	public Marks(){
-		evalStrategy = new HashMap<String, Double>();
+	public Weights() {
+		evalStrategy = new HashMap<String, Double> ();
 	}
-	public void addToEvalStrategy(String examOrAssignement, Double mark){
+	public void addToEvalStrategy(String examOrAssignement, Double weight){
 		if(evalStrategy == null)
 			evalStrategy = new HashMap<String, Double>();
-			evalStrategy.put(examOrAssignement, mark);
+			evalStrategy.put(examOrAssignement, weight);
 	}
 
 	public void initializeIterator(){
@@ -40,7 +39,7 @@ public class Marks {
 		else
 			return null;
 	}
-	
+
 	public Double getValueWithKey(String key){
 		return evalStrategy.get(key);
 	}

@@ -1,5 +1,12 @@
+package systemUserOperations;
 import java.util.ArrayList;
 import java.util.Map;
+
+import customDataTypes.Marks;
+import customDataTypes.Weights;
+import offerings.Course;
+import systemUsers.Instructor;
+import systemUsers.Student;
 
 public class InstructorOperation {
 	

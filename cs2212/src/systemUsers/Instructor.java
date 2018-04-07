@@ -1,5 +1,8 @@
+package systemUsers;
 
 import java.util.ArrayList;
+
+import offerings.Course;
 
 public class Instructor implements SystemUser{
 	

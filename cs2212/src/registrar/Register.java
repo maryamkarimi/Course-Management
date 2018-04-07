@@ -1,8 +1,12 @@
+package registrar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import offerings.Course;
+import systemUsers.SystemUser;
 
 public class Register {
 //	Map maintaining copies of existing SystemUserModel objects mapped using their Unique IDs
