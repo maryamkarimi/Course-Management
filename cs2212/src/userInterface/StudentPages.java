@@ -36,13 +36,12 @@ public class StudentPages extends SystemUserPages {
 	private void studentMenu() {
 	/* ================================================================= */
 		super.initialize();
-		
 		JLabel lblHeader = new JLabel("                                             Student Menu");
 		lblHeader.setOpaque(true);
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		lblHeader.setForeground(SystemColor.activeCaptionText);
 		lblHeader.setBackground(SystemColor.textHighlight);
-		lblHeader.setBounds(6, 6, 588, 50);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		
 		// first operation student is allowed to perform : enroll in a course
@@ -120,12 +119,12 @@ public class StudentPages extends SystemUserPages {
 	/* ================================================================= */
 		// TextField that gets targetCourse's ID
 		JTextField txtCourseID = new JTextField();
-		txtCourseID.setBounds(269, 58, 151, 31);
+		txtCourseID.setBounds(290, 76, 146, 37);
 		frame.getContentPane().add(txtCourseID);
 		txtCourseID.setColumns(10);
 		
 		JLabel lblCourseID = new JLabel("Course ID:");
-		lblCourseID.setBounds(190, 71, 93, 16);
+		lblCourseID.setBounds(154, 82, 192, 25);
 		frame.getContentPane().add(lblCourseID);
 		
 		// scrollBar for textArea that represent course info
@@ -161,7 +160,7 @@ public class StudentPages extends SystemUserPages {
 				}
 			}
 		});
-		btnPrintRecord.setBounds(188, 93, 110, 38);
+		btnPrintRecord.setBounds(188, 120, 100, 38);
 		frame.getContentPane().add(btnPrintRecord);
 
 		// go back button - goes back to studentMenu
@@ -171,7 +170,7 @@ public class StudentPages extends SystemUserPages {
 				returnToMenu();
 			}
 		});
-		btnGoBack.setBounds(309, 90, 111, 40);
+		btnGoBack.setBounds(300, 120, 110, 40);
 		frame.getContentPane().add(btnGoBack);
 		
 		// header label with the following text
@@ -179,7 +178,7 @@ public class StudentPages extends SystemUserPages {
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		lblHeader.setBackground(SystemColor.textHighlight);
 		lblHeader.setOpaque(true);
-		lblHeader.setBounds(6, 6, 588, 40);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		frame.setVisible(true);
 	}
@@ -244,7 +243,7 @@ public class StudentPages extends SystemUserPages {
 		lblHeader.setBackground(SystemColor.textHighlight);
 		lblHeader.setOpaque(true);
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		lblHeader.setBounds(6, 6, 588, 41);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		
 		frame.setVisible(true);
@@ -318,7 +317,7 @@ public class StudentPages extends SystemUserPages {
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		lblHeader.setBackground(SystemColor.textHighlight);
 		lblHeader.setOpaque(true);
-		lblHeader.setBounds(6, 6, 588, 43);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		frame.setVisible(true);
 	}

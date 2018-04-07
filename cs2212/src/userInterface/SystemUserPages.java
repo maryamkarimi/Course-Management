@@ -21,7 +21,8 @@ import systemUsers.Student;
 public class SystemUserPages {
 
 	protected JFrame frame;
-
+	protected JLabel lblHeader;
+	
 	protected SystemUserPages() {
 		initialize();
 	}
@@ -47,7 +48,7 @@ public class SystemUserPages {
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		lblHeader.setBackground(SystemColor.textHighlight);
 		lblHeader.setOpaque(true);
-		lblHeader.setBounds(6, 6, 588, 43);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		
 		// textField that will contain the new password entered by the user
@@ -75,8 +76,16 @@ public class SystemUserPages {
 					JOptionPane.showMessageDialog(null,"Please enter your new password.","Error",JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					// add new user (this is the same changing user's password)
-					LoginServer.getInstance().addUser("a", user.getID(), txtNewPassword.getText());
+					// add new user (this is the same as changing user's password)
+					if (userType.equals("a")) {
+						LoginServer.getInstance().addUser("a", user.getID(), txtNewPassword.getText());
+					}
+					else if (userType.equals("i")) {
+						LoginServer.getInstance().addUser("i", user.getID(), txtNewPassword.getText());
+					}
+					else {
+						LoginServer.getInstance().addUser("s", user.getID(), txtNewPassword.getText());
+					}
 					JOptionPane.showMessageDialog(null,"Password changed successfully. ","Successful.",JOptionPane.INFORMATION_MESSAGE);
 				}
 			}

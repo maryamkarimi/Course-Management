@@ -104,7 +104,7 @@ public class AdministratorPages extends SystemUserPages{
 		lblAdminMenu.setBackground(SystemColor.textHighlight);
 		lblAdminMenu.setOpaque(true);
 		lblAdminMenu.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lblAdminMenu.setBounds(6, 6, 588, 62);
+		lblAdminMenu.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblAdminMenu);
 		
 		// change password button
@@ -114,7 +114,7 @@ public class AdministratorPages extends SystemUserPages{
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
 				// calls changeMyPassword with admin's ID and "a" which indicates user is an administrator
-				changeMyPassword(admin,"a");	
+				changeMyPassword(admin,"a");
 			}
 		});
 		btnChangeMyPassword.setBounds(195, 217, 187, 44);
@@ -144,7 +144,7 @@ public class AdministratorPages extends SystemUserPages{
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		lblHeader.setOpaque(true);
 		lblHeader.setBackground(SystemColor.textHighlight);
-		lblHeader.setBounds(6, 6, 588, 44);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		
 		// label for name
@@ -317,7 +317,7 @@ public class AdministratorPages extends SystemUserPages{
 		lblHeader.setOpaque(true);
 		lblHeader.setBackground(SystemColor.textHighlight);
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		lblHeader.setBounds(6, 6, 588, 45);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		// set this frame to be visible
 		frame.setVisible(true);

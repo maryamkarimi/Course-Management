@@ -38,6 +38,7 @@ public class InstructorPages extends SystemUserPages{
 	/* ================================================================= */
 	private void instructorMenu() {
 	/* ================================================================= */
+		// initialize the frame by calling the parent class
 		super.initialize();
 		
 		// header label with text "Instructor Menu"
@@ -45,7 +46,7 @@ public class InstructorPages extends SystemUserPages{
 		lblHeader.setBackground(SystemColor.textHighlight);
 		lblHeader.setOpaque(true);
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		lblHeader.setBounds(6, 6, 588, 53);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		
 		// first operation instructor is allowed to perform : add mark for a student
@@ -146,7 +147,7 @@ public class InstructorPages extends SystemUserPages{
 		lblHeader.setBackground(SystemColor.textHighlight);
 		lblHeader.setOpaque(true);
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lblHeader.setBounds(6, 6, 588, 62);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		
 		// scrollBar for txtArea 
@@ -205,7 +206,7 @@ public class InstructorPages extends SystemUserPages{
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		lblHeader.setOpaque(true);
 		lblHeader.setBackground(SystemColor.textHighlight);
-		lblHeader.setBounds(6, 6, 588, 44);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		
 		// label for txtEntity
@@ -451,7 +452,7 @@ public class InstructorPages extends SystemUserPages{
 		lblHeader.setOpaque(true);
 		lblHeader.setBackground(SystemColor.textHighlight);
 		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		lblHeader.setBounds(6, 6, 588, 45);
+		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		
 		frame.setVisible(true);
