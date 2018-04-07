@@ -30,7 +30,7 @@ public class StudentOperation {
 		}
 		else {
 			student.getCoursesEnrolled().add(course);
-			course.getStudentsEnrolledList().add(student);
+			course.getStudentsEnrolled().add(student);
 			return "successful";
 		}
 	}
@@ -53,7 +53,7 @@ public class StudentOperation {
 		result+="Course ID: "+course.getCourseID()+"\n\nCourse name: "+course.getCourseName()+
 				"\n\nSemester: "+course.getSemester()+"\n\nInstructors:\n";
 		int counter =1;
-		for (Instructor instructor: course.getInstructorList()) {
+		for (Instructor instructor: course.getInstructor()) {
 			result+=counter+"-"+instructor.getName()+" "+instructor.getSurname()+"\n";
 			counter++;
 		}

@@ -1,6 +1,6 @@
 package systemUsers;
 
-public class Administrator implements SystemUser {
+public class Administrator implements ISystemUser {
 	
 	private String adminID;
 	private String name;

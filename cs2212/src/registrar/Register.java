@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import offerings.Course;
-import systemUsers.SystemUser;
+import systemUsers.ISystemUser;
 
 public class Register {
 //	Map maintaining copies of existing SystemUserModel objects mapped using their Unique IDs
-	private Map<String, SystemUser> modelRegister = new HashMap<String, SystemUser>();
+	private Map<String, ISystemUser> modelRegister = new HashMap<String, ISystemUser>();
 //	Map maintaining copies of existing CourseOffering objects mapped using their Unique IDs
 	private Map<String, Course> courseRegister = new HashMap<String, Course>();
 	
@@ -28,11 +28,11 @@ public class Register {
 		return modelRegister.containsKey(ID);
 	}
 	
-	public void registerUser(String ID, SystemUser user){
+	public void registerUser(String ID, ISystemUser user){
 		modelRegister.put(ID, user);
 	}
 	
-	public SystemUser getRegisteredUser(String ID){
+	public ISystemUser getRegisteredUser(String ID){
 		return modelRegister.get(ID);
 	}
 	

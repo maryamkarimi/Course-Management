@@ -2,6 +2,7 @@ package offerings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import customDataTypes.EvaluationTypes;
@@ -10,14 +11,14 @@ import customDataTypes.Weights;
 import systemUsers.Instructor;
 import systemUsers.Student;
 
-public class Course {
+public class Course implements ICourse{
 
 	private String courseName;
 	private String courseID;
-	private int semester;
-	private ArrayList<Student> studentsAllowedToEnroll; // the list of students that are allowed to enroll in this course
-	private ArrayList<Student> studentsEnrolled; // the list of students that are enrolled in this course
-	private ArrayList<Instructor> instructorList; // the list of instructors that teach this course
+	private Integer semester;
+	private List<Student> studentsAllowedToEnroll; // the list of students that are allowed to enroll in this course
+	private List<Student> studentsEnrolled; // the list of students that are enrolled in this course
+	private List<Instructor> instructorList; // the list of instructors that teach this course
 	private Map<EvaluationTypes, Weights> evaluationStrategies; // every evaluationType is mapped to weights 
 
 	// the constructor of this class, all the lists and maps are initialized here.
@@ -49,37 +50,37 @@ public class Course {
 	}
 
 	// returns the semester of the course : can be 1 or 2
-	public int getSemester() {
+	public Integer getSemester() {
 		return semester;
 	}
 
 	// sets the semester for this course to the specified value : can be 1 or 2
-	public void setSemester(int semester) {
+	public void setSemester(Integer semester) {
 		this.semester = semester;
 	}
 
 	// returns the list of students that are allowed to enroll in this course
-	public ArrayList<Student> getStudentsAllowedList() {
+	public List<Student> getStudentsAllowedToEnroll() {
 		return studentsAllowedToEnroll;
 	}
 
 	// sets studentsAllowedToEnroll list to the specified studentList
-	public void setStudentsAllowedList(ArrayList<Student> studentList) {
-		this.studentsAllowedToEnroll = studentList;
+	public void setStudentsAllowedToEnroll(List<Student> studentsAllowedToEnroll) {
+		this.studentsAllowedToEnroll = studentsAllowedToEnroll;
 	}
 
 	// returns the list of student enrolled in this course
-	public ArrayList<Student> getStudentsEnrolledList() {
+	public List<Student> getStudentsEnrolled() {
 		return studentsEnrolled;
 	}
 	
 	// sets studentEnrolled list to the specified studentList
-	public void setStudentsEnrolledList(ArrayList<Student> studentList) {
-		this.studentsEnrolled = studentList;
+	public void setStudentsEnrolled(List<Student> studentsEnrolled) {
+		this.studentsEnrolled =  studentsEnrolled;
 	}
 	
 	// returns the list of instructors for this course
-	public ArrayList<Instructor> getInstructorList() {
+	public List<Instructor> getInstructor() {
 		return instructorList;
 	}
 	
@@ -94,8 +95,8 @@ public class Course {
 	}
 
 	// sets the list of instructors for this course to the specified list
-	public void setInstructorList(ArrayList<Instructor> instructorList) {
-		this.instructorList = instructorList;
+	public void setInstructor(List<Instructor> instructor) {
+		this.instructorList = instructor;
 	}
 	
 	// returns evaluationStrategies for this course
@@ -144,7 +145,6 @@ public class Course {
 			finalGrade += weights.getCurrentValue() * marks.getValueWithKey(weights.getCurrentKey())/100;
 		}
 		return finalGrade;
-	}
-	
+	}	
 }
 

@@ -2,30 +2,31 @@ package systemUsers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import customDataTypes.EvaluationTypes;
 import customDataTypes.Marks;
 import customDataTypes.NotificationTypes;
-import offerings.Course;
+import offerings.ICourse;
 
-public class Student implements SystemUser{
+public class Student implements IStudent{
 	private String studentID;
 	private String name;
 	private String surname;
 	private String birthday;
-	private ArrayList<Course> coursesAllowed; // list of courses that student is allowed to enroll in
-	private ArrayList<Course> coursesEnrolled; // list of courses that student is enrolled in
-	private Map<Course, EvaluationTypes> evaluationEntities; // Map every course to an evaluationType
-	private Map<Course, Marks> perCourseMarks; // Maps every course to its marks
+	private List<ICourse> coursesAllowed; // list of courses that student is allowed to enroll in
+	private List<ICourse> coursesEnrolled; // list of courses that student is enrolled in
+	private Map<ICourse, EvaluationTypes> evaluationEntities; // Map every course to an evaluationType
+	private Map<ICourse, Marks> perCourseMarks; // Maps every course to its marks
 	private NotificationTypes notificationType; // student notification type
 
 	// the constructor of this class, all the lists and maps are initialized here.
 	public Student() {
-		coursesAllowed = new ArrayList<Course>();
-		coursesEnrolled = new ArrayList<Course>();
-		evaluationEntities = new HashMap<Course, EvaluationTypes>();
-		perCourseMarks = new HashMap<Course, Marks>();
+		coursesAllowed = new ArrayList<ICourse>();
+		coursesEnrolled = new ArrayList<ICourse>();
+		evaluationEntities = new HashMap<ICourse, EvaluationTypes>();
+		perCourseMarks = new HashMap<ICourse, Marks>();
 	}
 
 	// returns student's ID
@@ -59,42 +60,42 @@ public class Student implements SystemUser{
 	}
 	
 	// returns the list of courses student is allowed to enroll in
-	public ArrayList<Course> getCoursesAllowed() {
+	public List<ICourse> getCoursesAllowed() {
 		return coursesAllowed;
 	}
 
 	// sets the list coursesAllowed to the specified list
-	public void setCoursesAllowed(ArrayList<Course> coursesAllowed) {
+	public void setCoursesAllowed(List<ICourse> coursesAllowed) {
 		this.coursesAllowed = coursesAllowed;
 	}
 
 	// returns the list of courses student is enrolled in
-	public ArrayList<Course> getCoursesEnrolled() {
+	public List<ICourse> getCoursesEnrolled() {
 		return coursesEnrolled;
 	}
 
 	// sets the list coursesEnrolled to the specified list
-	public void setCoursesEnrolled(ArrayList<Course> coursesEnrolled) {
+	public void setCoursesEnrolled(List<ICourse> coursesEnrolled) {
 		this.coursesEnrolled = coursesEnrolled;
 	}
 
 	// returns the course-EvaluationTypes map
-	public Map<Course, EvaluationTypes> getEvaluationEntities() {
+	public Map<ICourse, EvaluationTypes> getEvaluationEntities() {
 		return evaluationEntities;
 	}
 
 	// sets the Course-EvalutionType map to the specified map
-	public void setEvaluationEntities(Map<Course, EvaluationTypes> evaluationEntities) {
+	public void setEvaluationEntities(Map<ICourse, EvaluationTypes> evaluationEntities) {
 		this.evaluationEntities = evaluationEntities;
 	}
 
 	// returns the perCourseMarks map
-	public Map<Course, Marks> getPerCourseMarks() {
+	public Map<ICourse, Marks> getPerCourseMarks() {
 		return perCourseMarks;
 	}
 
 	// sets the perCourseMarks map to the specified map
-	public void setPerCourseMarks(Map<Course, Marks> perCourseMarks) {
+	public void setPerCourseMarks(Map<ICourse, Marks> perCourseMarks) {
 		this.perCourseMarks = perCourseMarks;
 	}
 
@@ -119,9 +120,9 @@ public class Student implements SystemUser{
 	}
 	
 	// this method gets a course as an input and returns true if student is allowed to enroll in it. it returns false otherwise.
-	public boolean isAllowedToEnrollIn(Course course) {
-		for (Course curcourse: this.getCoursesAllowed()) {
-			if (curcourse.getCourseID().equals(course.getCourseID())) {
+	public boolean isAllowedToEnrollIn(ICourse course) {
+		for (ICourse curCourse: this.getCoursesAllowed()) {
+			if (curCourse.getCourseID().equals(course.getCourseID())) {
 				return true;
 			}
 		}
@@ -130,7 +131,7 @@ public class Student implements SystemUser{
 	
 	// this method gets a course ID as an input and returns true if the student is enrolled in this course and false otherwise.
 	public boolean isEnrolledIn(String ID) {
-		for (Course course: coursesEnrolled) {
+		for (ICourse course: coursesEnrolled) {
 			if (course.getCourseID().equals(ID)) {
 				return true;
 			}

@@ -28,10 +28,10 @@ public class OfferingFactory {
 			course.setCourseName(line.split("\t")[0]);
 			course.setCourseID(line.split("\t")[1]);
 			course.setSemester(Integer.parseInt(line.split("\t")[2]));
-			course.setInstructorList(new ArrayList<Instructor>());
-			course.setStudentsAllowedList(new ArrayList<Student>());
+			course.setInstructor(new ArrayList<Instructor>());
+			course.setStudentsAllowedToEnroll(new ArrayList<Student>());
 			course.setEvaluationStrategies(new HashMap<EvaluationTypes, Weights>());
-			course.setStudentsEnrolledList(new ArrayList<Student>());
+			course.setStudentsEnrolled(new ArrayList<Student>());
 //			and add the new course to the register
 			Register.getInstance().registerCourse(course.getCourseID(), course);
 		}
@@ -42,14 +42,14 @@ public class OfferingFactory {
 			SystemUserFactory theFactory = new InstructorFactory();
 			for (int i=0;i<Integer.parseInt(line.split("\t")[2]);i++) {
 //				the actual create instance method call
-				course.getInstructorList().add((Instructor)theFactory.createSystemUserModel(br, course));
+				course.getInstructor().add((Instructor)theFactory.createSystemUserModel(br, course));
 			}
 			line = br.readLine();
 //			create an instance of StudentModelFactory and allocate it to the theFactory variable (same interface) to create StudentModel instances 
 			theFactory = new StudentFactory();
 			for (int i=0;i<Integer.parseInt(line.split("\t")[2]);i++) {
 //				the actual create instance method call
-				course.getStudentsAllowedList().add((Student)theFactory.createSystemUserModel(br, course));
+				course.getStudentsAllowedToEnroll().add((Student)theFactory.createSystemUserModel(br, course));
 			}
 
 			line = br.readLine();

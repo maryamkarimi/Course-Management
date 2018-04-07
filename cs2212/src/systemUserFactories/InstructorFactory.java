@@ -4,14 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import offerings.Course;
+import offerings.ICourse;
 import registrar.Register;
 import systemServers.LoginServer;
 import systemUsers.Instructor;
 
 public class InstructorFactory implements SystemUserFactory {
 
-	public Instructor createSystemUserModel(BufferedReader br, Course course) {
+	public Instructor createSystemUserModel(BufferedReader br, ICourse course) {
 
 		Instructor newInstructor = new Instructor();
 		try{
@@ -24,7 +24,7 @@ public class InstructorFactory implements SystemUserFactory {
 			newInstructor.setID(line.split("\t")[2]);
 			newInstructor.setBirthday(line.split("\t")[3]);
 			
-			newInstructor.setIsTutorOf(new ArrayList<Course>());
+			newInstructor.setIsTutorOf(new ArrayList<ICourse>());
 			Register.getInstance().registerUser(newInstructor.getID(), newInstructor);
 		} 
 		newInstructor = (Instructor) Register.getInstance().getRegisteredUser(line.split("\t")[2]);

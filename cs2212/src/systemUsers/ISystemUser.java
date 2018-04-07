@@ -1,6 +1,6 @@
 package systemUsers;
 
-public interface SystemUser{
+public interface ISystemUser{
 	
 	void setName(String name);
 	void setSurname(String surname);

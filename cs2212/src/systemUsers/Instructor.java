@@ -1,20 +1,21 @@
 package systemUsers;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import offerings.Course;
+import offerings.ICourse;
 
-public class Instructor implements SystemUser{
+public class Instructor implements IInstructor{
 	
 	private String instructorID;
 	private String name;
 	private String surname;
 	private String birthday; 
-	private ArrayList<Course> isTutorOf; // list of courses that instructor teaches
+	private List<ICourse> isTutorOf; // list of courses that instructor teaches
 
 	// the constructor of this class, the list of courses this instructor teaches is initialized here.
 	public Instructor() {
-		isTutorOf = new ArrayList<Course>();
+		isTutorOf = new ArrayList<ICourse>();
 	}
 
 	// returns instructor's ID
@@ -48,13 +49,13 @@ public class Instructor implements SystemUser{
 	}
 
 	// returns the list of courses this instructor teaches
-	public ArrayList<Course> getIsTutorOf() {
+	public List<ICourse> getIsTutorOf() {
 		return isTutorOf;
 	}
 	
 	// this method gets a course ID as an input and returns true if the instructor is a tutor of this course, it returns false otherwise.
 	public boolean isTutorOf(String ID) {
-		for (Course course: getIsTutorOf()) {
+		for (ICourse course: getIsTutorOf()) {
 			if (course.getCourseID().equals(ID)) {
 				return true;
 			}
@@ -63,7 +64,7 @@ public class Instructor implements SystemUser{
 	}
 
 	// sets the list of courses that this instructor teaches to the specified list
-	public void setIsTutorOf(ArrayList<Course> isTutorOf) {
+	public void setIsTutorOf(List<ICourse> isTutorOf) {
 		this.isTutorOf = isTutorOf;
 	}
 

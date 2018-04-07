@@ -5,6 +5,7 @@ import java.util.Map;
 import customDataTypes.Marks;
 import customDataTypes.Weights;
 import offerings.Course;
+import offerings.ICourse;
 import systemUsers.Instructor;
 import systemUsers.Student;
 
@@ -48,7 +49,7 @@ public class InstructorOperation {
 					marks = new Marks();
 				}
 				marks.addToEvalStrategy(eval, mark);
-				Map<Course,Marks> map = targetStudent.getPerCourseMarks();
+				Map<ICourse,Marks> map = targetStudent.getPerCourseMarks();
 				map.put(targetCourse, marks);
 				return "successful";
 			}
@@ -61,13 +62,13 @@ public class InstructorOperation {
 		result+="Course ID: "+targetCourse.getCourseID()+"\n\nCourse name: "+targetCourse.getCourseName()+
 				"\n\nSemester: "+targetCourse.getSemester()+"\n\nInstrcutors:\n";
 		int counter =1;
-		for (Instructor instructor: targetCourse.getInstructorList()) {
+		for (Instructor instructor: targetCourse.getInstructor()) {
 			result+=counter+"-"+instructor.getName()+" "+instructor.getSurname()+"\n";
 			counter++;
 		}
 		
-		result+= "\nStudents Enrolled: ( Total :"+targetCourse.getStudentsEnrolledList().size()+" )\n";
-		for(Student student : targetCourse.getStudentsEnrolledList()){
+		result+= "\nStudents Enrolled: ( Total :"+targetCourse.getStudentsEnrolled().size()+" )\n";
+		for(Student student : targetCourse.getStudentsEnrolled()){
 			result+="Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() + 
 					"\nStudent ID : " + student.getID() + "\nStudent EvaluationType : " + 
 					student.getEvaluationEntities().get(targetCourse)+"\nGrades:\n";
@@ -93,8 +94,8 @@ public class InstructorOperation {
 			result+="\n";			
 		}
 		
-		result+= "Students Allowed: ( Total :"+targetCourse.getStudentsAllowedList().size()+" )\n";
-		for(Student student : targetCourse.getStudentsAllowedList()){
+		result+= "Students Allowed: ( Total :"+targetCourse.getStudentsAllowedToEnroll().size()+" )\n";
+		for(Student student : targetCourse.getStudentsAllowedToEnroll()){
 			result+="Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() + 
 					"\nStudent ID : " + student.getID() + "\nStudent EvaluationType : " + 
 					student.getEvaluationEntities().get(targetCourse) + "\n\n";

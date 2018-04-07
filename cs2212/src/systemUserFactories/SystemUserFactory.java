@@ -2,9 +2,9 @@ package systemUserFactories;
 
 import java.io.BufferedReader;
 
-import offerings.Course;
-import systemUsers.SystemUser;
+import offerings.ICourse;
+import systemUsers.ISystemUser;
 
 public interface SystemUserFactory {
-	SystemUser createSystemUserModel(BufferedReader br, Course course);
+	ISystemUser createSystemUserModel(BufferedReader br, ICourse course);
 }

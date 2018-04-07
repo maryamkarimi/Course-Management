@@ -27,7 +27,7 @@ import systemUserOperations.StudentOperation;
 import systemUsers.Administrator;
 import systemUsers.Instructor;
 import systemUsers.Student;
-import systemUsers.SystemUser;
+import systemUsers.ISystemUser;
 
 public class UI {
 
@@ -1092,7 +1092,7 @@ public class UI {
 							JOptionPane.showMessageDialog(null,"You are not listed as an instructor of the course.","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
 						}
 						// entity is not valid
-						if (result.equals("EntityNotValid")) {
+						else if (result.equals("EntityNotValid")) {
 							JOptionPane.showMessageDialog(null,"Entity is not valid.","Enter valid Entity name.",JOptionPane.ERROR_MESSAGE);
 						}
 						else {
@@ -1323,7 +1323,7 @@ public class UI {
 		frame.setVisible(true);
 	}
 	
-	private void returnToMenu(SystemUser user, String userType) {
+	private void returnToMenu(ISystemUser user, String userType) {
 		frame.setVisible(false);
 		frame.getContentPane().removeAll();
 		if (userType.equals("i")) {
