@@ -1065,11 +1065,6 @@ public class UI {
 						JOptionPane.showMessageDialog(null,"This student is not enrolled in this course.","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
 					}
 					
-					// if instructor is not tutor of this course, the following message will be shown.
-					else if (!instructor.isTutorOf(targetCourse.getCourseID())) {
-						JOptionPane.showMessageDialog(null,"You are not listed as an instructor of the course.","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
-					}
-					
 					// if the grade is greater than 100 or less than zero, the following message will be shown.
 					else if (Double.parseDouble(txtGrade.getText())<0 || Double.parseDouble(txtGrade.getText())>100) {
 						JOptionPane.showMessageDialog(null,"Grades have to between between 0 and 100.","Grade not valid.",JOptionPane.ERROR_MESSAGE);
@@ -1077,9 +1072,13 @@ public class UI {
 		
 					else {
 						// calls addGrade from InstructorOperation class - result will be true if grade has been added successfully, it will be false if entity entered is not valid.
-						Boolean result = operations.addGrade(targetCourse,targetStudent, txtEntity.getText().toUpperCase(), Double.parseDouble(txtGrade.getText()));
+						String result = operations.addGrade(targetCourse,targetStudent, txtEntity.getText().toUpperCase(), Double.parseDouble(txtGrade.getText()));
+						
+						if (result.equals("InstructorNotAllowed")) {
+							JOptionPane.showMessageDialog(null,"You are not listed as an instructor of the course.","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
+						}
 						// entity is not valid
-						if (result == false) {
+						if (result.equals("EntityNotValid")) {
 							JOptionPane.showMessageDialog(null,"Entity is not valid.","Enter valid Entity name.",JOptionPane.ERROR_MESSAGE);
 						}
 						else {

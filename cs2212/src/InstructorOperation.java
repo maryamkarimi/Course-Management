@@ -17,28 +17,34 @@ public class InstructorOperation {
 	}
 	
 	// returns true if successful, returns false if entity is not valid.
-	public boolean addGrade(Course targetCourse,Student targetStudent, String eval, double mark) {
+	public String addGrade(Course targetCourse,Student targetStudent, String eval, double mark) {
 		
-		ArrayList<String> entities = new ArrayList<String>();
-		Weights weights = targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse));
-		weights.initializeIterator();
-		while(weights.hasNext()) {
-			weights.next();
-			entities.add(weights.getCurrentKey().toLowerCase());
-		}
-		
-		if (!entities.contains(eval.toLowerCase())) {
-			return false;
+		// if instructor is not tutor of this course, the following message will be shown.
+		if (!instructor.isTutorOf(targetCourse.getCourseID())) {
+			return "InstructorNotAllowed";
 		}
 		else {
-			Marks marks  = targetStudent.getPerCourseMarks().get(targetCourse);
-			if (marks == null) {
-				marks = new Marks();
+			ArrayList<String> entities = new ArrayList<String>();
+			Weights weights = targetCourse.getEvaluationStrategies().get(targetStudent.getEvaluationEntities().get(targetCourse));
+			weights.initializeIterator();
+			while(weights.hasNext()) {
+				weights.next();
+				entities.add(weights.getCurrentKey().toLowerCase());
 			}
-			marks.addToEvalStrategy(eval, mark);
-			Map<Course,Marks> map = targetStudent.getPerCourseMarks();
-			map.put(targetCourse, marks);
-			return true;
+			
+			if (!entities.contains(eval.toLowerCase())) {
+				return "EntityNotValid";
+			}
+			else {
+				Marks marks  = targetStudent.getPerCourseMarks().get(targetCourse);
+				if (marks == null) {
+					marks = new Marks();
+				}
+				marks.addToEvalStrategy(eval, mark);
+				Map<Course,Marks> map = targetStudent.getPerCourseMarks();
+				map.put(targetCourse, marks);
+				return "successful";
+			}
 		}
 	}
 	
