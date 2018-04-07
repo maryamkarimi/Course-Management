@@ -65,7 +65,12 @@ public class InstructorOperation {
 							try {
 								weights.next();
 								result+=weights.getCurrentKey()+": ";
-								result+=student.getPerCourseMarks().get(targetCourse).getValueWithKey(weights.getCurrentKey());
+								if (student.getPerCourseMarks().get(targetCourse).getValueWithKey(weights.getCurrentKey()) != null) {
+									result+=student.getPerCourseMarks().get(targetCourse).getValueWithKey(weights.getCurrentKey());
+								}
+								else {
+									result+="N/A";
+								}
 							}
 							catch(NullPointerException e) {
 								result+="N/A";
