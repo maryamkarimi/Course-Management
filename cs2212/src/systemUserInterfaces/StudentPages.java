@@ -1,4 +1,4 @@
-package userInterface;
+package systemUserInterfaces;
 
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,6 +17,7 @@ import javax.swing.JTextField;
 
 import customDataTypes.NotificationTypes;
 import offerings.Course;
+import offerings.ICourse;
 import registrar.Register;
 import systemUserOperations.StudentOperations;
 import systemUsers.Student;
@@ -51,7 +53,7 @@ public class StudentPages extends SystemUserPages {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
 				// shows the enrollCourse interface
-				enrollCourse(student);
+				enrollCourse();
 			}
 		});
 		btnEnrollInCourse.setBounds(189, 94, 198, 42);
@@ -64,7 +66,7 @@ public class StudentPages extends SystemUserPages {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
 				// shows the chooseNotificationStatus interface
-				chooseNotificationStatus(student);	
+				chooseNotificationStatus();	
 			}
 		});
 		btnSelectNotificationStatus.setBounds(189, 145, 198, 42);
@@ -77,7 +79,7 @@ public class StudentPages extends SystemUserPages {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
 				// shows the printCourseRecord interface
-				printCourseRecord(student);
+				printCourseRecord();
 			}
 		});
 		btnPrintCourseRecord.setBounds(189, 197, 198, 42);
@@ -115,53 +117,38 @@ public class StudentPages extends SystemUserPages {
 	
 	/* Provides an interface for student to print the record of a course he/she is enrolled in */
 	/* ================================================================= */
-	private void printCourseRecord(Student student) {
+	private void printCourseRecord() {
 	/* ================================================================= */
-		// TextField that gets targetCourse's ID
-		JTextField txtCourseID = new JTextField();
-		txtCourseID.setBounds(290, 76, 146, 37);
-		frame.getContentPane().add(txtCourseID);
-		txtCourseID.setColumns(10);
+		// comboBox that contains list of courses student is enrolled in
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setBounds(195, 66, 277, 40);
+		for (ICourse course: student.getCoursesEnrolled()) {
+			comboBox.addItem(course.getCourseID()+":"+course.getCourseName());
+		}
+		comboBox.setEditable(false);
+		comboBox.setPrototypeDisplayValue("Choose a course here");
+		frame.getContentPane().add(comboBox);
 		
 		JLabel lblCourseID = new JLabel("Course ID:");
-		lblCourseID.setBounds(154, 82, 192, 25);
+		lblCourseID.setBounds(111, 73, 72, 25);
 		frame.getContentPane().add(lblCourseID);
 		
 		// scrollBar for textArea that represent course info
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(88, 171, 440, 171);
+		scrollPane.setBounds(83, 108, 440, 171);
 		frame.getContentPane().add(scrollPane);
 		
 		// textArea that shows course info
 		JTextArea txtCourseInfo = new JTextArea();
 		scrollPane.setViewportView(txtCourseInfo);
 		txtCourseInfo.setEditable(false);
-		
-		// print record button
-		JButton btnPrintRecord = new JButton("Print Record");
-		frame.getRootPane().setDefaultButton(btnPrintRecord);
-		btnPrintRecord.addActionListener(new ActionListener() {
+		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				// gets the course with this ID from Register
-				Course targetCourse = Register.getInstance().getRegisteredCourse(txtCourseID.getText().toUpperCase());
-				// if no such course exits, shows a message indicating the situation.
-				if (targetCourse == null) {
-					JOptionPane.showMessageDialog(null,"Course ID is not valid.","Enter a valid course ID.",JOptionPane.ERROR_MESSAGE);
-				}
-				// if student is not enrolled in this course, they can not see the course record
-				else if (!student.isEnrolledIn(targetCourse.getCourseID())) {
-					JOptionPane.showMessageDialog(null,"You are not enrolled in this course.","Not able to print.",JOptionPane.ERROR_MESSAGE);
-				}
-				else {
-					// calls printCourseRecord from StudentOperations and sets textField to the info
-					String toBePrinted = operations.printCourseRecord(targetCourse);
-					txtCourseInfo.setText(toBePrinted);
-				}
+				Course targetCourse = Register.getInstance().getRegisteredCourse(student.getCoursesEnrolled().get(comboBox.getSelectedIndex()).getCourseID());
+				String toBePrinted = operations.printCourseRecord(targetCourse);
+				txtCourseInfo.setText(toBePrinted);
 			}
 		});
-		btnPrintRecord.setBounds(188, 120, 100, 38);
-		frame.getContentPane().add(btnPrintRecord);
 
 		// go back button - goes back to studentMenu
 		JButton btnGoBack = new JButton("Go Back");
@@ -170,7 +157,7 @@ public class StudentPages extends SystemUserPages {
 				returnToMenu();
 			}
 		});
-		btnGoBack.setBounds(300, 120, 110, 40);
+		btnGoBack.setBounds(242, 291, 110, 39);
 		frame.getContentPane().add(btnGoBack);
 		
 		// header label with the following text
@@ -185,7 +172,7 @@ public class StudentPages extends SystemUserPages {
 	
 	/* Provides an interface for student to choose her/his Notification preference */
 	/* ================================================================= */
-	private void chooseNotificationStatus(Student student) {
+	private void chooseNotificationStatus() {
 	/* ================================================================= */
 		// create an object of StudentOperation by passing student as input
 		StudentOperations operations = new StudentOperations(student);
@@ -206,7 +193,7 @@ public class StudentPages extends SystemUserPages {
 		frame.getContentPane().add(btnEmail);
 
 		JButton btnCellphone = new JButton(NotificationTypes.CELLPHONE.toString());
-		// sets student notification preference to cellphone.
+		// sets student notification preference to cell phone.
 		btnCellphone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operations.chooseNotificationPreference(NotificationTypes.CELLPHONE);
@@ -251,7 +238,7 @@ public class StudentPages extends SystemUserPages {
 	
 	/* Provides an interface for student to enroll in a course */
 	/* ================================================================= */
-	private void enrollCourse(Student student) {
+	private void enrollCourse() {
 	/* ================================================================= */
 		// create an object of StudentOperations by passing student to it.
 		StudentOperations operations = new StudentOperations(student);

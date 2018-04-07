@@ -1,4 +1,4 @@
-package userInterface;
+package systemUserInterfaces;
 
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import offerings.Course;
+import offerings.ICourse;
 import registrar.Register;
 import systemUserOperations.InstructorOperations;
 import systemUsers.Instructor;
@@ -55,7 +57,7 @@ public class InstructorPages extends SystemUserPages{
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
-				addGrade(instructor);
+				addGrade();
 			}
 		});
 		btnAddMarkFor.setBounds(175, 71, 224, 45);
@@ -67,7 +69,7 @@ public class InstructorPages extends SystemUserPages{
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
-				addGrade(instructor);
+				addGrade();
 			}
 		});
 		btnModifyMarkFor.setBounds(175, 118, 224, 45);
@@ -80,7 +82,7 @@ public class InstructorPages extends SystemUserPages{
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
-				calculateStudentFinalGrade(instructor);
+				calculateStudentFinalGrade();
 			}
 		});
 		frame.getContentPane().add(btnCalculateFinalGrade);
@@ -103,7 +105,7 @@ public class InstructorPages extends SystemUserPages{
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
-				printClassRecord(instructor);
+				printClassRecord();
 			}
 		});
 		btnPrintClassRecord.setBounds(175, 212, 224, 45);
@@ -128,20 +130,8 @@ public class InstructorPages extends SystemUserPages{
 
 	/* Provides an interface for instructor to print a class record */
 	/* ================================================================= */
-	private void printClassRecord(Instructor instructor) {
+	private void printClassRecord() {
 	/* ================================================================= */	
-		// textField that will contain the ID of the targetCourse
-		JTextField txtCourseID = new JTextField();
-		txtCourseID.setBounds(267, 87, 151, 31);
-		frame.getContentPane().add(txtCourseID);
-		txtCourseID.setColumns(10);
-		
-		// label for txtCourseID
-		JLabel lblCourseID = new JLabel("Course ID:");
-		lblCourseID.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		lblCourseID.setBounds(188, 93, 93, 16);
-		frame.getContentPane().add(lblCourseID);
-		
 		// header label with the following text
 		JLabel lblHeader = new JLabel("                                         Print Class Record");
 		lblHeader.setBackground(SystemColor.textHighlight);
@@ -150,9 +140,22 @@ public class InstructorPages extends SystemUserPages{
 		lblHeader.setBounds(6, 6, 588, 55);
 		frame.getContentPane().add(lblHeader);
 		
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setBounds(195, 66, 277, 40);
+		for (ICourse course: instructor.getIsTutorOf()) {
+			comboBox.addItem(course.getCourseID()+":"+course.getCourseName());
+		}
+		comboBox.setEditable(false);
+		comboBox.setPrototypeDisplayValue("Choose a course here:");
+		frame.getContentPane().add(comboBox);
+		
+		JLabel lblCourseID = new JLabel("Course ID:");
+		lblCourseID.setBounds(111, 73, 72, 25);
+		frame.getContentPane().add(lblCourseID);
+		
 		// scrollBar for txtArea 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(88, 171, 440, 171);
+		scrollPane.setBounds(83, 108, 440, 171);
 		frame.getContentPane().add(scrollPane);
 		
 		// txtArea that will contain the record of a course
@@ -160,31 +163,14 @@ public class InstructorPages extends SystemUserPages{
 		scrollPane.setViewportView(txtCourseInfo);
 		txtCourseInfo.setEditable(false);
 		
-		// print record button - when the user clicks on this button, the record will be shown in the text area.
-		JButton btnPrintRecord = new JButton("Print Record");
-		frame.getRootPane().setDefaultButton(btnPrintRecord);
-		btnPrintRecord.addActionListener(new ActionListener() {
+		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// get the course with this ID from Register
-				Course targetCourse = Register.getInstance().getRegisteredCourse(txtCourseID.getText().toUpperCase());
-				// if no course with this ID exists, the following message will be shown.
-				if (targetCourse == null) {
-					JOptionPane.showMessageDialog(null,"Course ID is not valid.","Enter a valid course ID.",JOptionPane.ERROR_MESSAGE);
-				}
-				// if instructor is not tutor of this course, the following message will be shown.
-				else if (!instructor.isTutorOf(targetCourse.getCourseID())) {
-					JOptionPane.showMessageDialog(null,"You are not listed as a tutor for this course.","Not able to print.",JOptionPane.ERROR_MESSAGE);
-				}
-				else {
-					// gets the info by calling printCourseRecord from InstructorOperations class
-					String toBePrinted = operations.printCourseRecord(targetCourse);
-					txtCourseInfo.setText(toBePrinted);
-				}
+				Course targetCourse = Register.getInstance().getRegisteredCourse(instructor.getIsTutorOf().get(comboBox.getSelectedIndex()).getCourseID());
+				String toBePrinted = operations.printCourseRecord(targetCourse);
+				txtCourseInfo.setText(toBePrinted);
 			}
 		});
-		btnPrintRecord.setBounds(188, 121, 110, 38);
-		frame.getContentPane().add(btnPrintRecord);
-
+		
 		// go back button
 		JButton btnGoBack = new JButton("Go Back");
 		btnGoBack.addActionListener(new ActionListener() {
@@ -192,14 +178,14 @@ public class InstructorPages extends SystemUserPages{
 				returnToMenu();
 			}
 		});
-		btnGoBack.setBounds(307, 120, 111, 40);
+		btnGoBack.setBounds(242, 291, 110, 39);
 		frame.getContentPane().add(btnGoBack);
 		frame.setVisible(true);
 	}
 	
 	/* Provides an interface for instructor to add grade for a student */
 	/* ================================================================= */
-	private void addGrade (Instructor instructor) {
+	private void addGrade () {
 	/* ================================================================= */
 		// header label with the following text
 		JLabel lblHeader = new JLabel("                                                 Add Grade");
@@ -343,7 +329,7 @@ public class InstructorPages extends SystemUserPages{
 	}
 	
 	/* ================================================================= */
-	private void calculateStudentFinalGrade(Instructor instructor) {
+	private void calculateStudentFinalGrade() {
 	/* ================================================================= */	
 		// create an object of InstructorOperation by passing instructor object to it.
 		InstructorOperations operations = new InstructorOperations(instructor);
