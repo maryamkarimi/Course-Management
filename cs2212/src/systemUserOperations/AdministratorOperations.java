@@ -7,11 +7,11 @@ import offerings.OfferingFactory;
 import systemStatus.SystemStatus;
 import systemUsers.Administrator;
 
-public class AdministratorOperation {
+public class AdministratorOperations {
 
 	private Administrator admin;
 	
-	public AdministratorOperation(Administrator admin) {
+	public AdministratorOperations(Administrator admin) {
 		this.admin = admin;
 	}
 	

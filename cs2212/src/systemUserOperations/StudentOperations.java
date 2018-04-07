@@ -8,11 +8,11 @@ import offerings.Course;
 import systemUsers.Instructor;
 import systemUsers.Student;
 
-public class StudentOperation {
+public class StudentOperations {
 
 	private Student student;
 	
-	public StudentOperation(Student student) {
+	public StudentOperations(Student student) {
 		this.student = student;
 	}
 	
@@ -58,9 +58,9 @@ public class StudentOperation {
 			counter++;
 		}
 		
-		String grades = "\n\nGrades:\n";
+		String grades = "\nGrades:\n";
 		try {
-		grades = printCourseMarks(course);
+		grades+= printCourseMarks(course);
 		}
 		catch(NullPointerException exception) {
 			grades = "\nGrades: No Grades have been added to your record yet.";

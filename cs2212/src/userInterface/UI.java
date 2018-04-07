@@ -21,9 +21,9 @@ import offerings.Course;
 import registrar.Register;
 import systemServers.LoginServer;
 import systemStatus.SystemStatus;
-import systemUserOperations.AdministratorOperation;
-import systemUserOperations.InstructorOperation;
-import systemUserOperations.StudentOperation;
+import systemUserOperations.AdministratorOperations;
+import systemUserOperations.InstructorOperations;
+import systemUserOperations.StudentOperations;
 import systemUsers.Administrator;
 import systemUsers.Instructor;
 import systemUsers.Student;
@@ -231,7 +231,7 @@ public class UI {
 	private void adminMenu(Administrator admin) {
 	/* ================================================================= */
 		// creating an object of administrator operation.
-		AdministratorOperation operations = new AdministratorOperation(admin);
+		AdministratorOperations operations = new AdministratorOperations(admin);
 
 		// start the system button
 		JButton btnStart = new JButton("Start the System");
@@ -338,7 +338,7 @@ public class UI {
 	private void changePersonalInfo(Administrator admin) {
 	/* ================================================================= */
 		// creates an object of administratorOperations
-		AdministratorOperation operations = new AdministratorOperation(admin);
+		AdministratorOperations operations = new AdministratorOperations(admin);
 		
 		// label used as a header with text "change personal info"
 		JLabel lblHeader = new JLabel("                                          Change Personal Info");
@@ -422,7 +422,7 @@ public class UI {
 	/* ================================================================= */
 	private void readCourseFile(Administrator admin) {
 	/* ================================================================= */
-		AdministratorOperation operations = new AdministratorOperation(admin);
+		AdministratorOperations operations = new AdministratorOperations(admin);
 		
 		JLabel lblEnterTheNames = new JLabel("Enter the names of the file(s) and press add.");
 		lblEnterTheNames.setBounds(151, 85, 335, 22);
@@ -612,7 +612,7 @@ public class UI {
 	private void printCourseRecord(Student student) {
 	/* ================================================================= */
 		// create an object of StudentOperations
-		StudentOperation operations = new StudentOperation(student);
+		StudentOperations operations = new StudentOperations(student);
 		
 		// TextField that gets targetCourse's ID
 		JTextField txtCourseID = new JTextField();
@@ -685,7 +685,7 @@ public class UI {
 	private void chooseNotificationStatus(Student student) {
 	/* ================================================================= */
 		// create an object of StudentOperation by passing student as input
-		StudentOperation operations = new StudentOperation(student);
+		StudentOperations operations = new StudentOperations(student);
 		
 		JLabel lblChoose = new JLabel("Choose your Notification Preference:");
 		lblChoose.setBounds(180, 78, 243, 16);
@@ -751,7 +751,7 @@ public class UI {
 	private void enrollCourse(Student student) {
 	/* ================================================================= */
 		// create an object of StudentOperations by passing student to it.
-		StudentOperation operations = new StudentOperation(student);
+		StudentOperations operations = new StudentOperations(student);
 		
 		JLabel lblEnterTheCourse = new JLabel("Enter the course ID:");
 		lblEnterTheCourse.setBounds(154, 82, 192, 25);
@@ -914,7 +914,7 @@ public class UI {
 	private void printClassRecord(Instructor instructor) {
 	/* ================================================================= */	
 		// create an object of InstructorOperation by passing instructor object to it.
-		InstructorOperation operations = new InstructorOperation(instructor);
+		InstructorOperations operations = new InstructorOperations(instructor);
 		
 		// textField that will contain the ID of the targetCourse
 		JTextField txtCourseID = new JTextField();
@@ -988,7 +988,7 @@ public class UI {
 	private void addGrade (Instructor instructor) {
 	/* ================================================================= */
 		// create an object of InstructorOperation by passing instructor object to it.
-		InstructorOperation operations = new InstructorOperation(instructor);
+		InstructorOperations operations = new InstructorOperations(instructor);
 		
 		// header label with the following text
 		JLabel lblHeader = new JLabel("                                                 Add Grade");
@@ -1135,7 +1135,7 @@ public class UI {
 	private void calculateStudentFinalGrade(Instructor instructor) {
 	/* ================================================================= */	
 		// create an object of InstructorOperation by passing instructor object to it.
-		InstructorOperation operations = new InstructorOperation(instructor);
+		InstructorOperations operations = new InstructorOperations(instructor);
 		
 		JLabel lblEnterTheNames = new JLabel("Enter the course ID and student ID.");
 		lblEnterTheNames.setBounds(147, 85, 335, 22);

@@ -9,11 +9,11 @@ import offerings.ICourse;
 import systemUsers.Instructor;
 import systemUsers.Student;
 
-public class InstructorOperation {
+public class InstructorOperations {
 	
 	private Instructor instructor;
 	
-	public InstructorOperation(Instructor instructor) {
+	public InstructorOperations(Instructor instructor) {
 		this.instructor = instructor;
 	}
 	
