@@ -454,8 +454,12 @@
   </association>  
   <association id="90">    
     <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="91" name="coursesEnrolled"/>      
-      <multiplicity id="92" minimum="0" maximum="2147483647"/>    
+      <attribute id="91" name="coursesEnrolled">        
+        <position height="19" width="97" x="4010" y="1792"/>      
+      </attribute>      
+      <multiplicity id="92" minimum="0" maximum="2147483647">        
+        <position height="17" width="23" x="4043" y="1808"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
@@ -503,8 +507,12 @@
   </realization>  
   <association id="106">    
     <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="107" name="instructor"/>      
-      <multiplicity id="108" minimum="0" maximum="1"/>    
+      <attribute id="107" name="instructor">        
+        <position height="19" width="58" x="3496" y="1229"/>      
+      </attribute>      
+      <multiplicity id="108" minimum="0" maximum="1">        
+        <position height="17" width="25" x="3528" y="1244"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="38" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
@@ -543,8 +551,12 @@
   </association>  
   <association id="120">    
     <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="121" name="coursesAllowed"/>      
-      <multiplicity id="122" minimum="0" maximum="2147483647"/>    
+      <attribute id="121" name="coursesAllowed">        
+        <position height="19" width="95" x="3912" y="1793"/>      
+      </attribute>      
+      <multiplicity id="122" minimum="0" maximum="2147483647">        
+        <position height="17" width="23" x="3962" y="1806"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
