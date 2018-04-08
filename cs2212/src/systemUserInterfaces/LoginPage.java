@@ -105,11 +105,11 @@ public class LoginPage {
 					
 					try {
 						
-						//passes the ID and password to server and gets either "n1","n2","i","s",or "a" as an output.
+						//passes the ID and password to server and gets either "dontExist","dontMatch","i","s",or "a" as an output.
 						String result = server.isValid(ID, password);
 						
-						// "n1" represents the case that no user with such ID exists.
-						if (result.equals("n1")) {
+						// "dontExist" represents the case that no user with such ID exists.
+						if (result.equals("dontExist")) {
 							
 							// reset both of the text fields and shows a message to user indicating the situation.
 							txtUserName.setText(null);
@@ -117,8 +117,8 @@ public class LoginPage {
 							JOptionPane.showMessageDialog(null,"This username is not recongnized, try again!","Login Error",JOptionPane.ERROR_MESSAGE);
 						}
 						
-						// "n2" represents the case that the ID and password do not match.
-						else if(result.equals("n2")) {
+						// "dontMatch" represents the case that the ID and password do not match.
+						else if(result.equals("dontMatch")) {
 							
 							// reset the password text field and shows a message to user indicating the situation.
 							txtPassword.setText(null);

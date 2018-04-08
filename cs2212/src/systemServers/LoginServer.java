@@ -15,7 +15,7 @@ public class LoginServer {
 	private Hashtable<String,String> IDTypeHashtable; // Maps ID to userType (i-s-m) e.g. 1234 >>> "i"
 	private Hashtable<String,String> IDPasswordHashtable; // Unique ID - password e.g. 5433 >>>> encrypted value of "98765"
 	private static LoginServer instance;
-	private static String fileName = "userpass.txt";
+	private static String fileName = "userpass.txt"; // the name of the file that contains IDs, encrypted passwords, and their user type.
 	
 	private LoginServer(){
 		IDTypeHashtable = new Hashtable<String,String>();
@@ -29,10 +29,14 @@ public class LoginServer {
 				line = scanner.next();
 			}
 			
+			// reads every line
 			while (scanner.hasNext()) {
 				line = scanner.next();
+				// splits the line with delimiter ","
 				String token[] = line.split(",");
+				// adds ID and userType to IDTypeHashtable
 				IDTypeHashtable.put(token[1], token[0]);
+				// adds ID and password to IDPasswordHashtable
 				IDPasswordHashtable.put(token[1], token[2]);
 			}
 		
@@ -43,50 +47,56 @@ public class LoginServer {
 		}
 	}
 	
+	// this method gets an ID and password and checks whether they match or not.
 	public String isValid(String id, String password) throws NoSuchAlgorithmException{
 		try {
-			// no such ID
+			// no such ID exists
 			if (!IDPasswordHashtable.keySet().contains(id)) {
-				return "n1";
+				return "dontExist";
 			}
 			
 			// ID and password don't match
 			else if (!IDPasswordHashtable.get(id).equals(encrypt(password))) {
-				return "n2";
+				return "dontMatch";
 			}
 			
 			// ID and password match
 			else {
+				// return the userType of this ID
 				return IDTypeHashtable.get(id);
 			}
 		}
 		catch(NoSuchAlgorithmException e) {
 			e.getStackTrace();
 		}
-		return "n1";
+		return "dontExist";
 	}
 	
+	// this method returns an instance of this class, creates a new one the first time it is called
 	public static LoginServer getInstance(){
 		if(instance == null)
 			instance = new LoginServer();
 		return instance;
 	}
 	
+	// this method gets a user ID, password, and userType ("i" representing instructor, "a" representing administrator, and "s" representing student)
 	public void addUser(String userType,String ID, String password) {
 		
 		try {
-			// add it to hash tables.
+			// add the user to hash tables
 			IDTypeHashtable.put(ID, userType);
 			IDPasswordHashtable.put(ID, encrypt(password));
 
-			// add it to userpass file
+			// add it to userpass.txt file
 			try {
 				FileWriter fileWriter = new FileWriter(fileName);
 				BufferedWriter bufferedWriter =  new BufferedWriter(fileWriter);
 				
 				Iterator<String> iterator = IDTypeHashtable.keySet().iterator();
+				// writes the following text first and goes to the next line
 				bufferedWriter.write("UserType,UniqueID,Password");
 				bufferedWriter.newLine();
+				// writes the info of every user in hash table in each line of file
 				while (iterator.hasNext()) {
 					String UserID = iterator.next();
 					bufferedWriter.write(IDTypeHashtable.get(UserID)+","+UserID+","+ IDPasswordHashtable.get(UserID));
@@ -105,6 +115,7 @@ public class LoginServer {
 		
 	}
 	
+	// this method gets a password and encrypts it using MD5
 	private String encrypt(String password) throws NoSuchAlgorithmException {
 		String generatedPassword = "";
 		try {
@@ -122,8 +133,9 @@ public class LoginServer {
             generatedPassword = sb.toString();
 		}
 		catch(NoSuchAlgorithmException e) {
-			
+			System.out.println(e.getMessage());
 		}
+		// return the encrypted password
 		return generatedPassword;
 	}
 	

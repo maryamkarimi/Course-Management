@@ -17,7 +17,7 @@
   </class>  
   <class id="3" language="java" name="customDataTypes.Marks" project="cs2212" 
     file="/cs2212/src/customDataTypes/Marks.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="299" width="261" x="4106" y="1846"/>    
+    <position height="-1" width="-1" x="5632" y="1693"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -31,7 +31,7 @@
   </package>  
   <class id="5" language="java" name="systemUsers.Administrator" project="cs2212" 
     file="/cs2212/src/systemUsers/Administrator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="299" width="158" x="3136" y="772"/>    
+    <position height="-1" width="-1" x="3142" y="1219"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -49,7 +49,7 @@
   </class>  
   <class id="7" language="java" name="systemUserOperations.StudentOperations" project="cs2212" 
     file="/cs2212/src/systemUserOperations/StudentOperations.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="155" width="315" x="4106" y="772"/>    
+    <position height="-1" width="-1" x="5213" y="895"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -58,7 +58,7 @@
   </class>  
   <interface id="8" language="java" name="offerings.ICourse" project="cs2212" file="/cs2212/src/offerings/ICourse.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="353" width="365" x="3701" y="1846"/>    
+    <position height="-1" width="-1" x="5205" y="1844"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -83,13 +83,15 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <package id="11" language="java" name="" project="cs2212" file="/cs2212/src" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="11" language="java" name="" project="cs2212" 
+    file="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/resources.jar" binary="true" 
+    corner="BOTTOM_RIGHT">    
     <position height="52" width="115" x="2181" y="41"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <interface id="12" language="java" name="systemUsers.IStudent" project="cs2212" 
     file="/cs2212/src/systemUsers/IStudent.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="245" width="349" x="3312" y="1846"/>    
+    <position height="-1" width="-1" x="4768" y="2183"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -120,7 +122,7 @@
   </component>  
   <enumeration id="16" language="java" name="customDataTypes.EvaluationTypes" project="cs2212" 
     file="/cs2212/src/customDataTypes/EvaluationTypes.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="209" width="216" x="4407" y="1846"/>    
+    <position height="-1" width="-1" x="5639" y="1360"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -129,7 +131,7 @@
   </enumeration>  
   <class id="17" language="java" name="systemUserInterfaces.StudentPages" project="cs2212" 
     file="/cs2212/src/systemUserInterfaces/StudentPages.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="173" width="195" x="4106" y="495"/>    
+    <position height="-1" width="-1" x="5213" y="534"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -138,7 +140,7 @@
   </class>  
   <interface id="18" language="java" name="systemUsers.ISystemUser" project="cs2212" 
     file="/cs2212/src/systemUsers/ISystemUser.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="209" width="158" x="3281" y="1291"/>    
+    <position height="-1" width="-1" x="4332" y="1937"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -152,7 +154,7 @@
   </package>  
   <class id="20" language="java" name="systemUserOperations.AdministratorOperations" project="cs2212" 
     file="/cs2212/src/systemUserOperations/AdministratorOperations.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="155" width="272" x="3136" y="495"/>    
+    <position height="-1" width="-1" x="3137" y="931"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -161,7 +163,7 @@
   </class>  
   <class id="21" language="java" name="systemUserOperations.InstructorOperations" project="cs2212" 
     file="/cs2212/src/systemUserOperations/InstructorOperations.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="137" width="285" x="3355" y="772"/>    
+    <position height="-1" width="-1" x="4144" y="896"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -175,7 +177,7 @@
   </package>  
   <class id="23" language="java" name="offerings.Course" project="cs2212" file="/cs2212/src/offerings/Course.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="479" width="365" x="3701" y="772"/>    
+    <position height="-1" width="-1" x="4690" y="1064"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -189,7 +191,7 @@
   </package>  
   <class id="25" language="java" name="systemUserInterfaces.AdministratorPages" project="cs2212" 
     file="/cs2212/src/systemUserInterfaces/AdministratorPages.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="155" width="213" x="3429" y="300"/>    
+    <position height="-1" width="-1" x="3130" y="506"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -198,7 +200,7 @@
   </class>  
   <enumeration id="26" language="java" name="customDataTypes.NotificationTypes" project="cs2212" 
     file="/cs2212/src/customDataTypes/NotificationTypes.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="137" width="211" x="4663" y="1846"/>    
+    <position height="-1" width="-1" x="5638" y="1132"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -217,7 +219,7 @@
   </package>  
   <class id="29" language="java" name="customDataTypes.Weights" project="cs2212" 
     file="/cs2212/src/customDataTypes/Weights.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="299" width="261" x="3741" y="1291"/>    
+    <position height="-1" width="-1" x="4727" y="1799"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -238,48 +240,39 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="test" project="cs2212" file="/cs2212/src/test.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="137" width="125" x="3786" y="41"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="33" language="java" name="registrar.Register" project="cs2212" file="/cs2212/src/registrar/Register.java" 
+  <class id="32" language="java" name="registrar.Register" project="cs2212" file="/cs2212/src/registrar/Register.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="227" width="329" x="3727" y="495"/>    
+    <position height="-1" width="-1" x="4325" y="1630"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <package id="34" language="java" name="systemUsers" project="cs2212" file="/cs2212/src/systemUsers" binary="false" 
+  <package id="33" language="java" name="systemUsers" project="cs2212" file="/cs2212/src/systemUsers" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="52" width="115" x="3951" y="41"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <interface id="35" language="java" name="systemUsers.IInstructor" project="cs2212" 
+  <interface id="34" language="java" name="systemUsers.IInstructor" project="cs2212" 
     file="/cs2212/src/systemUsers/IInstructor.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="201" x="3071" y="1846"/>    
+    <position height="-1" width="-1" x="3946" y="1931"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="36" language="java" name="systemUserInterfaces.InstructorPages" project="cs2212" 
+  <class id="35" language="java" name="systemUserInterfaces.InstructorPages" project="cs2212" 
     file="/cs2212/src/systemUserInterfaces/InstructorPages.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="173" width="212" x="3475" y="495"/>    
+    <position height="-1" width="-1" x="3937" y="531"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="37" language="java" name="systemUserInterfaces.SystemUserPages" project="cs2212" 
+  <class id="36" language="java" name="systemUserInterfaces.SystemUserPages" project="cs2212" 
     file="/cs2212/src/systemUserInterfaces/SystemUserPages.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="155" width="275" x="4106" y="41"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -288,277 +281,354 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="38" language="java" name="systemUsers.Instructor" project="cs2212" 
+  <class id="37" language="java" name="systemUsers.Instructor" project="cs2212" 
     file="/cs2212/src/systemUsers/Instructor.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="353" width="201" x="3479" y="1291"/>    
+    <position height="-1" width="-1" x="3930" y="1239"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="39" language="java" name="systemUsers.Student" project="cs2212" file="/cs2212/src/systemUsers/Student.java" 
+  <class id="38" language="java" name="systemUsers.Student" project="cs2212" file="/cs2212/src/systemUsers/Student.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="515" width="349" x="4106" y="1291"/>    
+    <position height="-1" width="-1" x="5203" y="1325"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <realization id="40">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="13"/>  
-  </realization>  
-  <association id="41">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="42" name="operations"/>      
-      <multiplicity id="43" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="44">    
-    <bendpoint x="3800" y="300"/>    
-    <end type="SOURCE" refId="36"/>    
-    <end type="TARGET" refId="37"/>  
-  </generalization>  
-  <association id="45">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="46" name="notificationType"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="26" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="48">    
-    <bendpoint x="4451" y="772"/>    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="49" name="student"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="39" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="51">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="52" name="instance"/>      
-      <multiplicity id="53" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="54">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="55" name="instance"/>      
-      <multiplicity id="56" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="57">    
-    <bendpoint x="4115" y="300"/>    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="37"/>  
-  </generalization>  
-  <association id="58">    
-    <end type="SOURCE" refId="36" navigable="false">      
-      <attribute id="59" name="operations"/>      
-      <multiplicity id="60" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="61">    
+  <association id="39">    
     <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="62" name="instructorList"/>      
-      <multiplicity id="63" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="38" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="64">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="65" name="instance"/>      
-      <multiplicity id="66" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="67">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="68" name="studentsAllowedToEnroll"/>      
-      <multiplicity id="69" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="39" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="70">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="71" name="operations"/>      
-      <multiplicity id="72" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="73">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="13"/>  
-  </realization>  
-  <association id="74">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="75" name="courseRegister"/>      
-      <multiplicity id="76" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="77">    
-    <bendpoint x="3710" y="1291"/>    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="8"/>  
-  </realization>  
-  <association id="78">    
-    <bendpoint x="3438" y="495"/>    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="79" name="admin"/>      
-      <multiplicity id="80" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="81">    
-    <bendpoint x="3670" y="772"/>    
-    <end type="SOURCE" refId="36" navigable="false">      
-      <attribute id="82" name="instructor"/>      
-      <multiplicity id="83" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="38" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="84">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="85" name="evaluationEntities"/>      
-      <multiplicity id="86" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="87">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="88" name="evaluationStrategies"/>      
-      <multiplicity id="89" minimum="0" maximum="2147483647"/>    
+      <attribute id="40" name="evaluationStrategies">        
+        <position height="0" width="0" x="856" y="359"/>      
+      </attribute>      
+      <multiplicity id="41" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="856" y="359"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="29" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="90">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="91" name="coursesEnrolled">        
-        <position height="19" width="97" x="4010" y="1792"/>      
+  <realization id="42">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="34"/>  
+  </realization>  
+  <association id="43">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="44" name="coursesEnrolled">        
+        <position height="19" width="97" x="5332" y="1614"/>      
       </attribute>      
-      <multiplicity id="92" minimum="0" maximum="2147483647">        
-        <position height="17" width="23" x="4043" y="1808"/>      
+      <multiplicity id="45" minimum="0" maximum="2147483647">        
+        <position height="17" width="23" x="5365" y="1630"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="93">    
-    <end type="SOURCE" refId="38"/>    
-    <end type="TARGET" refId="35"/>  
-  </realization>  
-  <association id="94">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="95" name="admin"/>      
-      <multiplicity id="96" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="97">    
-    <bendpoint x="3324" y="772"/>    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="98" name="modelRegister"/>      
-      <multiplicity id="99" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="100">    
-    <end type="SOURCE" refId="38" navigable="false">      
-      <attribute id="101" name="isTutorOf"/>      
-      <multiplicity id="102" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="103">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="18"/>  
-  </generalization>  
-  <generalization id="104">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="37"/>  
-  </generalization>  
-  <realization id="105">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="18"/>  
-  </realization>  
-  <association id="106">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="107" name="instructor">        
-        <position height="19" width="58" x="3496" y="1229"/>      
+  <association id="46">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="47" name="student">        
+        <position height="0" width="0" x="923" y="-223"/>      
       </attribute>      
-      <multiplicity id="108" minimum="0" maximum="1">        
-        <position height="17" width="25" x="3528" y="1244"/>      
+      <multiplicity id="48" minimum="0" maximum="1">        
+        <position height="0" width="0" x="923" y="-223"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="38" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="109">    
-    <end type="SOURCE" refId="39"/>    
-    <end type="TARGET" refId="12"/>  
-  </realization>  
-  <association id="110">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="111" name="studentsEnrolled"/>      
-      <multiplicity id="112" minimum="0" maximum="2147483647"/>    
+  <association id="49">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="50" name="coursesAllowed">        
+        <position height="19" width="95" x="5234" y="1615"/>      
+      </attribute>      
+      <multiplicity id="51" minimum="0" maximum="2147483647">        
+        <position height="17" width="23" x="5284" y="1628"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="39" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="113">    
+  <association id="52">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="53" name="studentsAllowedToEnroll">        
+        <position height="0" width="0" x="923" y="-223"/>      
+      </attribute>      
+      <multiplicity id="54" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="923" y="-223"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="38" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="55">    
     <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <association id="56">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="57" name="instance">        
+        <position height="0" width="0" x="434" y="1022"/>      
+      </attribute>      
+      <multiplicity id="58" minimum="0" maximum="1">        
+        <position height="0" width="0" x="434" y="1022"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="59">    
+    <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="18"/>  
   </generalization>  
-  <association id="114">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="115" name="student"/>      
-      <multiplicity id="116" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="39" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="117">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="118" name="perCourseMarks"/>      
-      <multiplicity id="119" minimum="0" maximum="2147483647"/>    
+  <association id="60">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="61" name="perCourseMarks">        
+        <position height="0" width="0" x="1396" y="-302"/>      
+      </attribute>      
+      <multiplicity id="62" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="1396" y="-302"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="120">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="121" name="coursesAllowed">        
-        <position height="19" width="95" x="3912" y="1793"/>      
+  <association id="63">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="64" name="evaluationEntities">        
+        <position height="0" width="0" x="1124" y="-590"/>      
       </attribute>      
-      <multiplicity id="122" minimum="0" maximum="2147483647">        
-        <position height="17" width="23" x="3962" y="1806"/>      
+      <multiplicity id="65" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="1124" y="-590"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="66">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="67" name="notificationType">        
+        <position height="0" width="0" x="870" y="-782"/>      
+      </attribute>      
+      <multiplicity id="68" minimum="0" maximum="1">        
+        <position height="0" width="0" x="870" y="-782"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="69">    
+    <bendpoint x="2877" y="812"/>    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="70" name="admin">        
+        <position height="0" width="0" x="-73" y="298"/>      
+      </attribute>      
+      <multiplicity id="71" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-73" y="298"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="72">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="73" name="instructor">        
+        <position height="0" width="0" x="351" y="-228"/>      
+      </attribute>      
+      <multiplicity id="74" minimum="0" maximum="1">        
+        <position height="0" width="0" x="351" y="-228"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="75">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="76">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <realization id="77">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <association id="78">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="79" name="admin">        
+        <position height="0" width="0" x="-73" y="298"/>      
+      </attribute>      
+      <multiplicity id="80" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-73" y="298"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="81">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <association id="82">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="83" name="instructor">        
+        <position height="19" width="58" x="3847" y="1015"/>      
+      </attribute>      
+      <multiplicity id="84" minimum="0" maximum="1">        
+        <position height="17" width="26" x="3879" y="1026"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="85">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="86" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="87" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="88">    
+    <bendpoint x="5462" y="873"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="89" name="student">        
+        <position height="0" width="0" x="923" y="-223"/>      
+      </attribute>      
+      <multiplicity id="90" minimum="0" maximum="1">        
+        <position height="0" width="0" x="923" y="-223"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="38" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="92" name="operations">        
+        <position height="0" width="0" x="950" y="46"/>      
+      </attribute>      
+      <multiplicity id="93" minimum="0" maximum="1">        
+        <position height="0" width="0" x="950" y="46"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="95" name="operations">        
+        <position height="0" width="0" x="-135" y="359"/>      
+      </attribute>      
+      <multiplicity id="96" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-135" y="359"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="97">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="98">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <association id="99">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="100" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="101" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="102">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="103" name="studentsEnrolled">        
+        <position height="0" width="0" x="923" y="-223"/>      
+      </attribute>      
+      <multiplicity id="104" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="923" y="-223"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="38" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="105">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="106" name="operations">        
+        <position height="0" width="0" x="647" y="56"/>      
+      </attribute>      
+      <multiplicity id="107" minimum="0" maximum="1">        
+        <position height="0" width="0" x="647" y="56"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="108">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="109" name="courseRegister">        
+        <position height="0" width="0" x="807" y="88"/>      
+      </attribute>      
+      <multiplicity id="110" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="807" y="88"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="111">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="112" name="instructorList">        
+        <position height="0" width="0" x="351" y="-228"/>      
+      </attribute>      
+      <multiplicity id="113" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="351" y="-228"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="114">    
+    <bendpoint x="3576" y="2224"/>    
+    <bendpoint x="4984" y="2440"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="115" name="isTutorOf">        
+        <position height="0" width="0" x="1322" y="-178"/>      
+      </attribute>      
+      <multiplicity id="116" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="1322" y="-178"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="117">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="12"/>  
+  </realization>  
+  <association id="118">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="119" name="modelRegister">        
+        <position height="0" width="0" x="972" y="542"/>      
+      </attribute>      
+      <multiplicity id="120" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="972" y="542"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
