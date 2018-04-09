@@ -69,7 +69,7 @@ public class InstructorPages extends SystemUserPages{
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				frame.getContentPane().removeAll();
-				addGrade();
+				modifyGrade();
 			}
 		});
 		btnModifyMarkFor.setBounds(175, 118, 224, 45);
@@ -282,7 +282,7 @@ public class InstructorPages extends SystemUserPages{
 					}
 		
 					else {
-						// calls addGrade from InstructorOperation class - result will be true if grade has been added successfully, it will be false if entity entered is not valid.
+						// calls addGrade from InstructorOperation class
 						String result = operations.addGrade(targetCourse,targetStudent, txtEntity.getText().toUpperCase(), Double.parseDouble(txtGrade.getText()));
 						
 						if (result.equals("InstructorNotAllowed")) {
@@ -296,6 +296,155 @@ public class InstructorPages extends SystemUserPages{
 							JOptionPane.showMessageDialog(null,"Grade has been added successfully.","Successful",JOptionPane.PLAIN_MESSAGE);
 						}
 						
+					}
+				}
+				// this exception is thrown when instructor enters instructor/administrator ID's instead of student
+				catch(ClassCastException exception) {
+					JOptionPane.showMessageDialog(null,"Something went wrong! try again.","Enter valid IDs.",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+				
+		});
+		btnAddGrade.setBounds(227, 260, 128, 36);
+		frame.getContentPane().add(btnAddGrade);
+
+		// separates buttons from labels/ textFields
+		JSeparator separator = new JSeparator();
+		separator.setBounds(174, 241, 238, 12);
+		frame.getContentPane().add(separator);
+		
+		// go back button
+		JButton btnGoBack = new JButton("Back");
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				returnToMenu();
+			}
+		});
+		
+		btnGoBack.setBounds(227, 298, 128, 36);
+		frame.getContentPane().add(btnGoBack);
+
+		frame.setVisible(true);
+		
+	}
+	
+	/* Provides an interface for instructor to modify grade for a student */
+	/* ================================================================= */
+	private void modifyGrade() {
+	/* ================================================================= */
+		// header label with the following text
+		JLabel lblHeader = new JLabel("                                                 Modify Grade");
+		lblHeader.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblHeader.setOpaque(true);
+		lblHeader.setBackground(SystemColor.textHighlight);
+		lblHeader.setBounds(6, 6, 588, 55);
+		frame.getContentPane().add(lblHeader);
+		
+		// label for txtEntity
+		JLabel lblEntity = new JLabel("Entity:");
+		lblEntity.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		lblEntity.setBounds(174, 169, 93, 16);
+		frame.getContentPane().add(lblEntity);
+		
+		// textField that will contain the entity name
+		JTextField txtEntity = new JTextField();
+		txtEntity.setBounds(265, 160, 147, 36);
+		frame.getContentPane().add(txtEntity);
+		txtEntity.setColumns(10);
+		
+		// label for txtCourseID
+		JLabel label = new JLabel("Course ID:");
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		label.setBounds(174, 97, 93, 16);
+		frame.getContentPane().add(label);
+		
+		// textField that will contain the course ID
+		JTextField txtCourseID = new JTextField();
+		txtCourseID.setColumns(10);
+		txtCourseID.setBounds(265, 88, 147, 36);
+		frame.getContentPane().add(txtCourseID);
+		
+		// label for txtStudentID
+		JLabel lblStudentId = new JLabel("Student ID:");
+		lblStudentId.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		lblStudentId.setBounds(174, 134, 107, 16);
+		frame.getContentPane().add(lblStudentId);
+
+		// textField that will contain the student ID
+		JTextField txtStudentID = new JTextField();
+		txtStudentID.setColumns(10);
+		txtStudentID.setBounds(265, 124, 147, 36);
+		frame.getContentPane().add(txtStudentID);
+
+		// label for txtGrade
+		JLabel lblGrade = new JLabel("Grade:");
+		lblGrade.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		lblGrade.setBounds(174, 205, 93, 16);
+		frame.getContentPane().add(lblGrade);
+		
+		// textField that will contain the grade
+		JTextField txtGrade = new JTextField();
+		txtGrade.setSelectionEnd(100);
+		txtGrade.setBounds(300, 200, 42, 29);
+		frame.getContentPane().add(txtGrade);
+		txtGrade.setColumns(10);
+
+		// modify grade button
+		JButton btnAddGrade = new JButton("Modify Grade");
+		frame.getRootPane().setDefaultButton(btnAddGrade);
+		btnAddGrade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					// get the course with this ID from Register
+					Course targetCourse = Register.getInstance().getRegisteredCourse(txtCourseID.getText().toUpperCase());
+					
+					// get the student with this ID from Register
+					Student targetStudent = (Student) Register.getInstance().getRegisteredUser(txtStudentID.getText().toUpperCase());
+					
+					// if any of the text fields is empty, the following message is shown.
+					if (txtGrade.getText().equals(null) || txtEntity.getText().equals(null) || txtStudentID.getText().equals(null) || txtCourseID.getText().equals(null)) {
+						JOptionPane.showMessageDialog(null,"Please fill out the text fields.","Error",JOptionPane.ERROR_MESSAGE);
+					}
+					
+					// if no course with this ID exists, the following message will be shown.
+					else if (targetCourse == null) {
+						JOptionPane.showMessageDialog(null,"Course ID is not valid","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
+					}
+					
+					// if no user with this ID exists, the following message will be shown.
+					else if (targetStudent == null) {
+						JOptionPane.showMessageDialog(null,"Student ID is not valid","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
+					}
+					
+					// if student is not enrolled in this course, the following message will be shown.
+					else if (!targetStudent.isEnrolledIn(targetCourse.getCourseID())) {
+						JOptionPane.showMessageDialog(null,"This student is not enrolled in this course.","Enter valid Student ID.",JOptionPane.ERROR_MESSAGE);
+					}
+					
+					// if the grade is greater than 100 or less than zero, the following message will be shown.
+					else if (Double.parseDouble(txtGrade.getText())<0 || Double.parseDouble(txtGrade.getText())>100) {
+						JOptionPane.showMessageDialog(null,"Grades have to between between 0 and 100.","Grade not valid.",JOptionPane.ERROR_MESSAGE);
+					}
+		
+					else {
+						if (targetStudent.getPerCourseMarks().get(targetCourse).getValueWithKey(txtEntity.getText().toUpperCase()) == null) {
+							JOptionPane.showMessageDialog(null,"No grade has been added before, to add a grade for the first time go to Add Grade.","No grade found.",JOptionPane.ERROR_MESSAGE);
+						}
+						else {
+							// calls addGrade from InstructorOperation class
+							String result = operations.addGrade(targetCourse,targetStudent, txtEntity.getText().toUpperCase(), Double.parseDouble(txtGrade.getText()));
+							
+							if (result.equals("InstructorNotAllowed")) {
+								JOptionPane.showMessageDialog(null,"You are not listed as an instructor of the course.","Enter valid Course ID.",JOptionPane.ERROR_MESSAGE);
+							}
+							// entity is not valid
+							else if (result.equals("EntityNotValid")) {
+								JOptionPane.showMessageDialog(null,"Entity is not valid.","Enter valid Entity name.",JOptionPane.ERROR_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null,"Grade has been changed successfully.","Successful",JOptionPane.PLAIN_MESSAGE);
+							}
+						}
 					}
 				}
 				// this exception is thrown when instructor enters instructor/administrator ID's instead of student

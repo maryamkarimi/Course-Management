@@ -41,7 +41,7 @@ public class StudentOperations {
 	// this method returns a string of all the info for a specified course.
 	public String printCourseRecord(Course course) {
 		String result = "";
-		result+="Course ID: "+course.getCourseID()+"\n\nCourse name: "+course.getCourseName()+
+		result+="Course ID: "+course.getCourseID()+"\n\nCourse Name: "+course.getCourseName()+
 				"\n\nSemester: "+course.getSemester()+"\n\nInstructors:\n";
 		int counter =1;
 		for (Instructor instructor: course.getInstructor()) {
