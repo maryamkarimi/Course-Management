@@ -29,6 +29,8 @@ public class LoginPage {
 	/* ================================================================= */
 	public static void main(String[] args) {
 	/* ================================================================= */
+		// please note: you can sign in with ID:5433 and Password:98765 as an administrator
+		// all other IDs can be found in note_1.txt and note_2.txt / passwords are set to user's date of birth initially
 		new LoginPage();
 	}
 	

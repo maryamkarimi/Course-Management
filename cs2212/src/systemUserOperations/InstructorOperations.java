@@ -9,6 +9,7 @@ import offerings.ICourse;
 import systemUsers.Instructor;
 import systemUsers.Student;
 
+// This class represents the operations that instructors perform - these operations are only allowed when system is started by administrator
 public class InstructorOperations {
 	
 	private Instructor instructor;
@@ -17,6 +18,7 @@ public class InstructorOperations {
 		this.instructor = instructor;
 	}
 	
+	// This method calculates final grade for a specific student in a specific course
 	// throws NullPointerException if some grades are not available to calculate the final grade, returns the final grade otherwise.
 	public double calculateFinalGrade(Course targetCourse, Student targetStudent) throws NullPointerException {
 		double grade = targetCourse.calculateFinalGrade(targetStudent);
@@ -56,7 +58,7 @@ public class InstructorOperations {
 		}
 	}
 	
-	
+	// this method returns an string with all of the info for a specified course
 	public String printCourseRecord(Course targetCourse) {
 		String result = "";
 		result+="Course ID: "+targetCourse.getCourseID()+"\n\nCourse name: "+targetCourse.getCourseName()+
@@ -66,7 +68,6 @@ public class InstructorOperations {
 			result+=counter+"-"+instructor.getName()+" "+instructor.getSurname()+"\n";
 			counter++;
 		}
-		
 		result+= "\nStudents Enrolled: ( Total :"+targetCourse.getStudentsEnrolled().size()+" )\n";
 		for(Student student : targetCourse.getStudentsEnrolled()){
 			result+="Student name : " + student.getName() + "\nStudent surname : " + student.getSurname() + 
@@ -102,5 +103,4 @@ public class InstructorOperations {
 		}
 		return result;
 	}
-	
 }
