@@ -21,7 +21,6 @@ import systemUsers.Student;
 public class SystemUserPages {
 
 	protected JFrame frame;
-	protected JLabel lblHeader;
 	
 	protected SystemUserPages() {
 		initialize();
